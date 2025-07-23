@@ -1,0 +1,219 @@
+Project Structure Setup
+Task 1: Initial Project Setup
+	•	Create a new Android project with two modules:
+	◦	gp-core-ui (Android Library module)
+	◦	sample-app (Android Application module)
+	•	Set up Gradle dependencies for both modules (avoid Material Design)
+	•	Configure sample-app to depend on gp-core-ui
+	•	Set minimum SDK version to API 21 (Android 5.0)
+	•	Add necessary dependencies: AppCompat only for basic compatibility
+	•	Prefix of all class should be GP
+Task 2: Base Architecture Setup
+	•	Create base package structure in gp-core-ui:com.terminal3.gamepayui/├── theme/├── components/├── utils/├── models/└── enums/
+	•	
+Design System & Theming
+Task 3: Create Theme System
+	•	Define color palette in colors.xml:
+	◦	Primary colors for branding (#007AFF, #34C759, etc.)
+	◦	State colors: error (#FF3B30), success (#34C759), warning (#FF9500)
+	◦	Neutral colors: backgrounds (#FFFFFF, #F2F2F7), borders (#D1D1D6), text (#000000, #8E8E93)
+	◦	Card brand colors (Visa blue #1A1F71, Mastercard red #EB001B, etc.)
+	•	Create custom typography in styles.xml:
+	◦	Custom font sizes and weights
+	◦	Input field text styles
+	◦	Label and helper text styles
+	•	Define dimensions in dimens.xml:
+	◦	Spacing scale (4dp, 8dp, 12dp, 16dp, 24dp, 32dp)
+	◦	Corner radius values (4dp, 8dp, 12dp)
+	◦	Input field heights (48dp, 56dp) and padding
+Task 4: Create Custom Drawable Resources
+	•	Create state-based drawable selectors:
+	◦	input_background_selector.xml for different input states
+	◦	border_selector.xml for border states
+	◦	Custom shape drawables for rounded corners
+	•	Create custom icons:
+	◦	Card brand icons (Visa, Mastercard, Amex, Discover)
+	◦	CVV icon, error icon, success icon
+	◦	Eye icon for password visibility toggle
+Core UI Components
+Task 5: Base Input Component
+	•	Create BasePaymentEditText class extending EditText
+	•	Implement input states enum:public enum InputState { DEFAULT, ACTIVE, ERROR, FILLED, INACTIVE }
+	•	
+	•	Add methods for state management:
+	◦	setState(InputState state)
+	◦	setErrorMessage(String message)
+	◦	clearError()
+	◦	setHelperText(String text)
+	•	Implement custom drawing for borders and backgrounds
+	•	Handle focus change listeners and text watchers
+Task 6: Input Container Component
+	•	Create PaymentInputContainer class extending LinearLayout
+	•	Include components:
+	◦	Label TextView
+	◦	Custom EditText
+	◦	Error message TextView
+	◦	Helper text TextView
+	•	Implement layout management and spacing
+	•	Add animation methods for state transitions
+	•	Handle label floating animation
+Task 7: Card Number Input Component
+	•	Create CardNumberEditText extending BasePaymentEditText
+	•	Implement card number formatting:
+	◦	Add spaces every 4 digits
+	◦	Handle backspace properly
+	◦	Limit input length based on card type
+	•	Add card type detection logic:
+	◦	Visa (starts with 4)
+	◦	Mastercard (starts with 5 or 2221-2720)
+	◦	American Express (starts with 34 or 37)
+	◦	Discover (starts with 6)
+	•	Implement dynamic card brand icon display
+	•	Add custom TextWatcher for real-time formatting
+Task 8: CVV Input Component
+	•	Create CVVEditText extending BasePaymentEditText
+	•	Implement CVV-specific features:
+	◦	Input length limits (3 for most cards, 4 for Amex)
+	◦	Numeric input only
+	◦	Custom input masking after typing
+	•	Add CVV icon with tooltip functionality
+	•	Implement card type awareness for length validation
+Task 9: Generic Text Input Component
+	•	Create PaymentTextInput extending BasePaymentEditText
+	•	Support different input types:
+	◦	Name (text with capitalization)
+	◦	Email (with email validation)
+	◦	Phone (with formatting)
+	•	Implement validation patterns using regex
+	•	Add clear button functionality
+	•	Handle different keyboard types
+Advanced Components
+Task 10: Expiry Date Input Component
+	•	Create ExpiryDateEditText extending BasePaymentEditText
+	•	Implement MM/YY formatting:
+	◦	Auto-insert slash after month
+	◦	Validate month (01-12)
+	◦	Validate year (current year + 20 years)
+	•	Add real-time validation
+	•	Handle edge cases (February, leap years)
+Task 11: Complete Card Form Component
+	•	Create PaymentCardForm extending LinearLayout
+	•	Include all card input components:
+	◦	Card number input
+	◦	Expiry date input
+	◦	CVV input
+	◦	Cardholder name input
+	•	Implement form validation logic
+	•	Add form completion progress indicator
+	•	Handle tab navigation between fields
+	•	Implement auto-advance to next field
+Task 12: Custom Button Component
+	•	Create PaymentButton extending Button
+	•	Implement custom states:
+	◦	Normal, pressed, disabled, loading
+	•	Add loading spinner functionality
+	•	Custom background and text color management
+	•	Ripple effect implementation without Material Design
+Utility Classes
+Task 13: Validation Utilities
+	•	Create CardValidator class:public class CardValidator {    public static boolean isValidCardNumber(String cardNumber)    public static boolean isValidCVV(String cvv, CardType cardType)    public static boolean isValidExpiryDate(String expiry)    public static CardType getCardType(String cardNumber)}
+	•	
+	•	Implement Luhn algorithm for card validation
+	•	Create validation patterns for different input types
+Task 14: Formatting Utilities
+	•	Create InputFormatter class:public class InputFormatter {    public static String formatCardNumber(String input)    public static String formatExpiryDate(String input)    public static String formatPhoneNumber(String input)}
+	•	
+	•	Handle formatting and unformatting of inputs
+Task 15: Animation Utilities
+	•	Create AnimationHelper class:public class AnimationHelper {    public static void animateError(View view)    public static void animateSuccess(View view)    public static void animateStateChange(View view, InputState newState)}
+	•	
+	•	Implement custom animations without Material Design dependencies
+	•	Create smooth transition animations
+Task 16: Theme Manager
+	•	Create PaymentTheme class:public class PaymentTheme {    public static void applyTheme(Context context, View view)    public static int getColorForState(InputState state)    public static Drawable getBackgroundForState(InputState state)}
+	•	
+	•	Centralized theme management
+	•	Support for theme switching
+Sample Application
+Task 17: Main Sample Activity
+	•	Create MainActivity with navigation menu:
+	◦	Individual component showcase
+	◦	Complete payment form demo
+	◦	State testing playground
+	◦	Theme variations
+	•	Use simple ListView or custom navigation
+Task 18: Component Showcase Activities
+	•	Create BasicInputShowcaseActivity:
+	◦	Display all input components in different states
+	◦	Buttons to manually trigger state changes
+	◦	Real-time state information display
+	•	Create CardInputShowcaseActivity:
+	◦	Card number input with different test card numbers
+	◦	CVV input behavior demonstration
+	◦	Card brand detection showcase
+Task 19: Complete Form Demo
+	•	Create PaymentFormDemoActivity:
+	◦	Full payment form implementation
+	◦	Real-time validation feedback
+	◦	Form submission simulation with loading states
+	◦	Success/error flow demonstration
+	◦	Form reset functionality
+Task 20: Testing Playground
+	•	Create TestingPlaygroundActivity:
+	◦	Manual state control for all components
+	◦	Custom error message input
+	◦	Test different card numbers
+	◦	Performance testing tools
+	◦	Debug information display
+Model Classes
+Task 21: Data Models
+	•	Create model classes:public class CardInfo {    private String cardNumber;    private String expiryDate;    private String cvv;    private String cardholderName;    private CardType cardType;}public enum CardType {    VISA, MASTERCARD, AMEX, DISCOVER, UNKNOWN}public class ValidationResult {    private boolean isValid;    private String errorMessage;}
+	•	
+Documentation & Testing
+Task 22: Component Documentation
+	•	Create comprehensive README.md:
+	◦	Installation and setup instructions
+	◦	Usage examples for each component
+	◦	Customization guidelines
+	◦	Java-specific implementation notes
+	◦	Integration examples
+Task 23: Unit Tests
+	•	Create JUnit tests for:
+	◦	Validation utilities (Luhn algorithm, date validation)
+	◦	Formatting utilities
+	◦	Card type detection
+	◦	Input state management
+	•	Use Robolectric for Android-specific tests
+Task 24: Integration Testing
+	•	Create Espresso tests for:
+	◦	Component interactions
+	◦	Form completion flows
+	◦	State transitions
+	◦	User input scenarios
+Accessibility & Polish
+Task 25: Accessibility Implementation
+	•	Add accessibility features:
+	◦	Content descriptions for all components
+	◦	Proper focus management
+	◦	Screen reader announcements
+	◦	Keyboard navigation support
+	•	Test with TalkBack enabled
+Task 26: Performance Optimization
+	•	Optimize custom drawing operations
+	•	Implement proper view recycling
+	•	Memory leak prevention
+	•	Smooth animation performance
+	•	Handle configuration changes properly
+Final Integration
+Task 27: Library Publishing Setup
+	•	Configure library module for publishing
+	•	Create proper ProGuard rules
+	•	Set up versioning
+	•	Create release documentation
+Task 28: Edge Case Handling
+	•	Handle edge cases:
+	◦	Orientation changes
+	◦	Low memory situations
+	◦	Network connectivity issues
+	◦	Different screen densities
+	◦	Various Android versions
