@@ -25,8 +25,8 @@ com/terminal3/gamepayui/
    - Define colors, typography, and dimensions in XML resources.
    - Implement drawable selectors for input states and custom icons.
 2. **Core UI Components**
-   - Base input component (`BasePaymentEditText`) with `InputState` enum and state management.
-   - Input container (`PaymentInputContainer`) with label, error, helper text, and animations.
+   - Base input component (`BaseGPEditText`) with `InputState` enum and state management.
+   - Input container (`GPInputContainer`) with label, error, helper text, and animations.
    - Specialized inputs: card number, CVV, expiry date, generic text, etc.
    - Payment form and custom button components.
 3. **Utilities**
