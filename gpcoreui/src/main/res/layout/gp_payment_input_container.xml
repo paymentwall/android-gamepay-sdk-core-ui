@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/gp_label"
+        style="@style/GP.Typography.Label1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/gp_text_primary"
+        />
+
+    <com.terminal3.gpcoreui.components.GPDefaultEditText
+        android:id="@+id/gp_edit_text"
+        style="@style/GP.Typography.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:textColorHint="@color/gp_text_secondary"
+        android:layout_gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/gp_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone" >
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_warning_fill"/>
+        <TextView
+            android:id="@+id/gp_error_text"
+            style="@style/GP.Typography.Label2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textColor="@color/gp_ic_color_error"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/gp_helper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/gp_text_secondary" />
+</LinearLayout>

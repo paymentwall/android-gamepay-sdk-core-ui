@@ -1,0 +1,38 @@
+<resources>
+    <!-- Accent & Icon Colors -->
+    <color name="gp_color_accent">#1253E0</color>
+    <color name="gp_ic_color_info">#098DE5</color>
+    <color name="gp_ic_color_warning">#FF9900</color>
+    <color name="gp_ic_color_error">#FF3A3A</color>
+    <color name="gp_ic_color_success">#00B85F</color>
+
+    <!-- Background Colors -->
+    <color name="gp_bg_default_light">#FFFFFF</color>
+    <color name="gp_bg_default_dark">#060B14</color>
+    <color name="gp_bg_press_primary">#B5CAF5</color>
+    <color name="gp_bg_inactive">#D6E4FF</color>
+    <color name="gp_bg_info">#E0F3FF</color>
+    <color name="gp_bg_warning">#FFFFE5</color>
+    <color name="gp_bg_success">#DAF7E9</color>
+    <color name="gp_bg_error">#FFF5E5</color>
+    <color name="gp_bg_press_secondary">#000000</color>
+    <color name="gp_bg_payment_dark">#000000</color>
+
+    <!-- Border Colors -->
+    <color name="gp_border_payment">#D6E4FF</color>
+    <color name="gp_border_subtle">#D6E4FF</color>
+    <color name="gp_border_primary">#060B14</color>
+    <color name="gp_border_error">#FF3A3A</color>
+    <color name="gp_border_keyboard_primary">#098DE5</color>
+    <color name="gp_border_keyboard_secondary">#E0F3FF</color>
+    <color name="gp_border_mobile">#D6E4FF</color>
+
+    <!-- Text Colors -->
+    <color name="gp_text_primary">#060B14</color>
+    <color name="gp_text_secondary">#3E527A</color>
+    <color name="gp_text_button_light">#FFFFFF</color>
+    <color name="gp_text_button_dark">#060B14</color>
+    <color name="gp_text_button_inactive_primary">#D6E4FF</color>
+    <color name="gp_text_button_inactive_secondary">#3E527A</color>
+    <color name="gp_text_error">#FF3A3A</color>
+</resources>

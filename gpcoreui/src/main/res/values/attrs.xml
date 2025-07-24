@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <attr name="primaryTextColor" format="color" />
+        <attr name="primaryFontFamily" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="GPDefaultInputContainer">
+        <attr name="labelText" format="string"/>
+        <attr name="text" format="string"/>
+        <attr name="hintText" format="string"/>
+        <attr name="helperText" format="string"/>
+        <attr name="errorText" format="string"/>
+        <attr name="inputType" format="integer"/>
+    </declare-styleable>
+</resources>

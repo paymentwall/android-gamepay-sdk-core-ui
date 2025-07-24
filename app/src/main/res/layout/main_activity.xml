@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="16dp"
+    android:paddingHorizontal="@dimen/gp_form_inset_left"
+    android:paddingVertical="@dimen/gp_form_inset_top">
+
+    <Button
+        android:id="@+id/btnSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_54sdp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/cycle_states_current_default" />
+
+    <com.terminal3.gpcoreui.components.GPDefaultInputContainer
+        android:id="@+id/gp_input_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintText="Enter card number"
+        app:labelText="Card Number" />
+
+
+    <com.terminal3.gpcoreui.components.GPDefaultInputContainer
+        android:id="@+id/gp_input_container_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintText="Enter CVV"
+        app:labelText="CVV" />
+
+</LinearLayout>
