@@ -3,17 +3,16 @@
 These instructions define the development guidelines and tasks for the Android GamePay SDK Core UI project. The project is written entirely in Java and avoids any Material Design dependencies. All custom components, themes, and utilities must be implemented from scratch.
 
 ## Project Structure
-- Android library module: **gp-core-ui**
-- Sample application module: **sample-app**
+- Android library module: **gpcoreui**
+- Sample application module: **app**
 - Minimum SDK: API 21
 - Only use `AppCompat` for basic compatibility
 - All classes must be prefixed with `GP`
-- Base package for the library: `com.terminal3.gamepayui`
+- Base package for the library: `com.terminal3.gpcoreui`
 
 ## Directory Layout
 ```
 com/terminal3/gamepayui/
-    theme/
     components/
     utils/
     models/

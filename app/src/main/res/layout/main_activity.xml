@@ -30,4 +30,12 @@
         app:hintText="Enter CVV"
         app:labelText="CVV" />
 
+    <com.terminal3.gpcoreui.components.GPDropdown
+        android:id="@+id/countryDropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelText="Country"
+        app:hintText="Choose country"
+        />
+
 </LinearLayout>

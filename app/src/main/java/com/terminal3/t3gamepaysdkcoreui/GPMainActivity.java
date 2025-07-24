@@ -1,21 +1,24 @@
 package com.terminal3.t3gamepaysdkcoreui;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.terminal3.gpcoreui.components.GPDefaultInputContainer;
+import com.terminal3.gpcoreui.components.GPDropdown;
 import com.terminal3.gpcoreui.enums.GPInputState;
+import com.terminal3.gpcoreui.models.DropdownItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GPMainActivity extends AppCompatActivity {
 
     private GPDefaultInputContainer inputContainer;
+    private GPDropdown dropdown;
     private Button btnSwitch;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
@@ -37,7 +40,8 @@ public class GPMainActivity extends AppCompatActivity {
     private void initView(View rootView) {
         inputContainer = rootView.findViewById(R.id.gp_input_container);
         btnSwitch = rootView.findViewById(R.id.btnSwitch);
-
+        dropdown = rootView.findViewById(R.id.countryDropdown);
+        setupDropdown();
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +73,30 @@ public class GPMainActivity extends AppCompatActivity {
                 // Update button text
                 btnSwitch.setText("Cycle States (Current: " + currentState.name() + ")");
             }
+        });
+    }
+
+    private void setupDropdown() {
+        // Create country list
+        List<DropdownItem> countries = new ArrayList<>();
+        countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
+        countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
+        countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
+        countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
+        countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
+        countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
+        countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
+        countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
+        countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
+// Add more countries...
+
+// Setup dropdown
+        dropdown.setLabel("Country");
+        dropdown.setItems(countries);
+        dropdown.setOnItemSelectedListener(position -> {
+            // Handle selection
+            dropdown.setText(position.getText());
+            Log.d("GPDropdown", "Selected: " + position.getText());
         });
     }
 }

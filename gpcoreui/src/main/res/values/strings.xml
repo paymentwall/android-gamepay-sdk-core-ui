@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="gp_card_number">4111 1111 1111 1111</string>
+    <string name="choose_country">Choose country</string>
+    <string name="select_option">Select option</string>
 </resources>

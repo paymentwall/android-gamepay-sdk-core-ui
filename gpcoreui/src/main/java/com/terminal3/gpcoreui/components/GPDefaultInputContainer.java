@@ -145,6 +145,10 @@ public class GPDefaultInputContainer extends LinearLayout {
         editText.clearFocus();
     }
 
+    protected void setState(GPInputState state) {
+        editText.setState(state);
+    }
+
     public void setHelperText(CharSequence text) {
         helperView.setText(text);
     }

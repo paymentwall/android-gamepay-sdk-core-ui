@@ -13,4 +13,9 @@
         <attr name="errorText" format="string"/>
         <attr name="inputType" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="GPDropdown">
+        <attr name="items" format="reference" />
+        <attr name="hint" format="string" />
+    </declare-styleable>
 </resources>
