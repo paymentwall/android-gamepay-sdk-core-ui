@@ -129,6 +129,7 @@ public class GPMainActivity extends AppCompatActivity {
         countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
         countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
         countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
+        countries.add(new DropdownItem("th", "ThaiLand", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/banktransferthailand/logo_Bay.png"));
         countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
         countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
         countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
