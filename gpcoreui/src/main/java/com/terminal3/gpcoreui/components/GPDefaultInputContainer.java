@@ -2,7 +2,9 @@ package com.terminal3.gpcoreui.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,14 +16,21 @@ import androidx.annotation.Nullable;
 
 import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.enums.GPInputState;
+import com.terminal3.gpcoreui.utils.textwatchers.GPTextWatcher;
+import com.terminal3.gpcoreui.utils.validator.GPErrorDisplayable;
+import com.terminal3.gpcoreui.utils.validator.GPValidatable;
 
-public class GPDefaultInputContainer extends LinearLayout {
+public class GPDefaultInputContainer extends LinearLayout implements GPValidatable, GPErrorDisplayable {
 
     private TextView labelView;
     private GPDefaultEditText editText;
+
+//    protected LinearLayout llEditTextContainer, llRightViews;
+
     private View errorView;
     private TextView errorTextView;
     private TextView helperView;
+    protected GPTextWatcher _gpTextWatcher;
 
     public GPDefaultInputContainer(Context context) {
         super(context);
@@ -47,18 +56,17 @@ public class GPDefaultInputContainer extends LinearLayout {
         editText = findViewById(R.id.gp_edit_text);
         errorView = findViewById(R.id.gp_error);
         helperView = findViewById(R.id.gp_helper);
+        initCustomConfig();
     }
 
     private void init(Context context, AttributeSet attrs) {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.gp_payment_input_container, this, true);
-
         labelView = findViewById(R.id.gp_label);
         editText = findViewById(R.id.gp_edit_text);
         errorView = findViewById(R.id.gp_error);
         errorTextView = findViewById(R.id.gp_error_text);
         helperView = findViewById(R.id.gp_helper);
-
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GPDefaultInputContainer);
 
@@ -90,7 +98,7 @@ public class GPDefaultInputContainer extends LinearLayout {
                 // Set error text if provided (will show error state)
                 CharSequence errorText = a.getText(R.styleable.GPDefaultInputContainer_errorText);
                 if (errorText != null) {
-                    setError(errorText);
+                    setErrorMessage(errorText);
                 }
 
                 // Set input type if provided
@@ -102,9 +110,32 @@ public class GPDefaultInputContainer extends LinearLayout {
                 a.recycle();
             }
         }
+        initCustomConfig();
+    }
+
+    protected void initCustomConfig() {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (editText.getState() == GPInputState.ERROR) {
+                    editText.setState(GPInputState.DEFAULT);
+                }
+            }
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+            }
+        });
     }
 
     // end region
+
+    public void addTextWatcher(GPTextWatcher watcher) {
+        _gpTextWatcher = watcher;
+        editText.addTextChangedListener(watcher);
+    };
 
     public GPDefaultEditText getEditText() {
         return editText;
@@ -122,14 +153,15 @@ public class GPDefaultInputContainer extends LinearLayout {
         editText.setText(text);
     }
 
-    public void setError(CharSequence text) {
-        errorTextView.setText(text);
-        animateVisibility(errorView, true);
-        editText.setState(GPInputState.ERROR);
-    }
-
     public void setInactive() {
         editText.setState(GPInputState.FILLED_INACTIVE);
+    }
+
+    @Override
+    public void setErrorMessage(CharSequence errorMessage) {
+        errorTextView.setText(errorMessage);
+        animateVisibility(errorView, true);
+        editText.setState(GPInputState.ERROR);
     }
 
     public void clearError() {
@@ -147,6 +179,7 @@ public class GPDefaultInputContainer extends LinearLayout {
 
     protected void setState(GPInputState state) {
         editText.setState(state);
+//        setBackgroundState(state);
     }
 
     public void setHelperText(CharSequence text) {
@@ -159,5 +192,41 @@ public class GPDefaultInputContainer extends LinearLayout {
         anim.setFillAfter(true);
         view.startAnimation(anim);
         view.setVisibility(show ? VISIBLE : GONE);
+    }
+
+//    private void setBackgroundState(GPInputState state) {
+//        Drawable bg = null;
+//        switch (state) {
+//            case ACTIVE:
+//                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_active);
+//                break;
+//            case ERROR:
+//                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_error);
+//                break;
+//            case FILLED_INACTIVE:
+//                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_filled_inactive);
+//                break;
+////            case FILLED:
+////                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_active);
+////                break;
+//            default:
+//                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_default);
+//                break;
+//        }
+//        llEditTextContainer.setBackground(bg);
+//    }
+
+    @Override
+    public String getInput() {
+        if (null == _gpTextWatcher) {
+            if (null == getEditText().getText()) return "";
+            Log.d("GPDefaultInputContainer", "getInput: " + getEditText().getText().toString());
+            return getEditText().getText().toString();
+        }
+        else {
+            String input = _gpTextWatcher.getRealValue();
+            Log.d("GPDefaultInputContainer", "getInput: " + input);
+            return input;
+        }
     }
 }

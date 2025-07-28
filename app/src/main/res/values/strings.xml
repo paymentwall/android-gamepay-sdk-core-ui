@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">T3GamePaySDKCoreUI</string>
-    <string name="cycle_states_current_default">Cycle States (Current: DEFAULT)</string>
+    <string name="cycle_states_current_default">States: DEFAULT</string>
+    <string name="validate">Validate</string>
 </resources>

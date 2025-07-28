@@ -11,17 +11,25 @@ import com.terminal3.gpcoreui.components.GPDefaultInputContainer;
 import com.terminal3.gpcoreui.components.GPDropdown;
 import com.terminal3.gpcoreui.enums.GPInputState;
 import com.terminal3.gpcoreui.models.DropdownItem;
+import com.terminal3.gpcoreui.utils.textwatchers.GPCardNumberTextWatcher;
+import com.terminal3.gpcoreui.utils.validator.rules.GPExpiryDateRule;
+import com.terminal3.gpcoreui.utils.validator.GPValidator;
+import com.terminal3.gpcoreui.utils.validator.rules.GPCVVRule;
+import com.terminal3.gpcoreui.utils.validator.rules.GPCreditCardNumberRule;
+import com.terminal3.gpcoreui.utils.validator.rules.GPRequiredRule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GPMainActivity extends AppCompatActivity {
 
-    private GPDefaultInputContainer inputContainer;
+    private GPDefaultInputContainer ipCardNumber, ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
-    private Button btnSwitch;
+    private Button btnSwitch, btnValidate;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
+
+    GPValidator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +46,48 @@ public class GPMainActivity extends AppCompatActivity {
     }
 
     private void initView(View rootView) {
-        inputContainer = rootView.findViewById(R.id.gp_input_container);
+        ipCardNumber = rootView.findViewById(R.id.ip_card_number);
+        ipExpiryDate = rootView.findViewById(R.id.ip_expiry_date);
+        ipCVV = rootView.findViewById(R.id.ip_cvv);
         btnSwitch = rootView.findViewById(R.id.btnSwitch);
+        btnValidate = rootView.findViewById(R.id.btnValidate);
         dropdown = rootView.findViewById(R.id.countryDropdown);
         setupDropdown();
+        setupRules();
+        setupListener();
+
+    }
+
+    private void setupRules() {
+        validator = new GPValidator.Builder()
+                .setAutoDisplayError(true)
+                .build();
+
+        ipCardNumber.addTextWatcher(new GPCardNumberTextWatcher());
+        validator.addRules(ipCardNumber, List.of(
+                new GPRequiredRule("Card number is required"),
+                new GPCreditCardNumberRule("Invalid card number")
+        ));
+
+        validator.addRules(ipExpiryDate, List.of(
+                new GPRequiredRule("Expiry date is required"),
+                new GPExpiryDateRule("Invalid expiry date")
+        ));
+
+        validator.addRules(ipCVV, List.of(
+                new GPRequiredRule("CVV is required"),
+                new GPCVVRule("Invalid CVV")
+        ));
+    }
+
+    private void setupListener() {
+        btnValidate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validator.validate();
+            }
+        });
+
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,32 +95,33 @@ public class GPMainActivity extends AppCompatActivity {
                 switch (counter % 4) {
                     case 0:
                         currentState = GPInputState.DEFAULT;
-                        inputContainer.clearError();
-                        inputContainer.setText("");
-                        inputContainer.clearFocus();
+                        ipCardNumber.clearError();
+                        ipCardNumber.setText("");
+                        ipCardNumber.clearFocus();
                         break;
                     case 1:
                         currentState = GPInputState.ACTIVE;
-                        inputContainer.clearError();
-                        inputContainer.setText("4111 1111 1111 1111");
-                        inputContainer.setFocus();
+                        ipCardNumber.clearError();
+                        ipCardNumber.setText("4111 1111 1111 1111");
+                        ipCardNumber.setFocus();
                         break;
                     case 2:
                         currentState = GPInputState.ERROR;
-                        inputContainer.setText("1234 5678 9012 3456");
-                        inputContainer.setError("Invalid card number");
+                        ipCardNumber.setText("1234 5678 9012 3456");
+                        ipCardNumber.setErrorMessage("Invalid card number");
                         break;
                     case 3:
                         currentState = GPInputState.FILLED_INACTIVE;
-                        inputContainer.setInactive();
+                        ipCardNumber.setInactive();
                         break;
                 }
 
                 // Update button text
-                btnSwitch.setText("Cycle States (Current: " + currentState.name() + ")");
+                btnSwitch.setText("State : " + currentState.name());
             }
         });
     }
+
 
     private void setupDropdown() {
         // Create country list
@@ -88,6 +135,7 @@ public class GPMainActivity extends AppCompatActivity {
         countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
         countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
         countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
+        countries.add(new DropdownItem("ag", "Austria", 0));
 // Add more countries...
 
 // Setup dropdown

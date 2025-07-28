@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
@@ -14,15 +13,14 @@
         android:textColor="@color/gp_text_primary"
         />
 
-    <com.terminal3.gpcoreui.components.GPDefaultEditText
-        android:id="@+id/gp_edit_text"
-        style="@style/GP.Typography.Body1"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColorHint="@color/gp_text_secondary"
-        android:layout_gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        />
+        <com.terminal3.gpcoreui.components.GPDefaultEditText
+            android:id="@+id/gp_edit_text"
+            style="@style/GP.Typography.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:textColorHint="@color/gp_text_secondary" />
 
     <LinearLayout
         android:id="@+id/gp_error"

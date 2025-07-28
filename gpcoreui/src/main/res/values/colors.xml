@@ -5,6 +5,7 @@
     <color name="gp_ic_color_warning">#FF9900</color>
     <color name="gp_ic_color_error">#FF3A3A</color>
     <color name="gp_ic_color_success">#00B85F</color>
+    <color name="gp_transparent">#00000000</color>
 
     <!-- Background Colors -->
     <color name="gp_bg_default_light">#FFFFFF</color>

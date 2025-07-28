@@ -2,8 +2,6 @@ package com.terminal3.gpcoreui.components;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -42,19 +40,20 @@ public class GPDefaultEditText extends AppCompatEditText {
     private void init() {
         setBackgroundState(GPInputState.DEFAULT);
         super.setOnFocusChangeListener(this::onFocusChangedInternal);
-        addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+//        setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gp_transparent));
+//        addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        });
     }
 
     private void onFocusChangedInternal(View v, boolean hasFocus) {
@@ -84,7 +83,12 @@ public class GPDefaultEditText extends AppCompatEditText {
         Log.i("GPDefaultEditText", "setState: " + state);
     }
 
+    public GPInputState getState() {
+        return currentState;
+    }
+
     public void setErrorMessage(String message) {
+        Log.i("GPDefaultEditText", "setErrorMessage: " + message);
         errorMessage = message;
         setState(GPInputState.ERROR);
     }
@@ -97,17 +101,6 @@ public class GPDefaultEditText extends AppCompatEditText {
     public void setHelperText(String text) {
         helperText = text;
     }
-
-    private void setTextColorState(GPInputState state) {
-        switch (state) {
-            case FILLED_INACTIVE:
-                setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_secondary));
-                break;
-            default:
-                setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_primary));
-                break;
-        }
-    };
 
     private void setBackgroundState(GPInputState state) {
         Drawable bg = null;
@@ -130,4 +123,15 @@ public class GPDefaultEditText extends AppCompatEditText {
         }
         setBackground(bg);
     }
+
+    private void setTextColorState(GPInputState state) {
+        switch (state) {
+            case FILLED_INACTIVE:
+                setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_secondary));
+                break;
+            default:
+                setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_primary));
+                break;
+        }
+    };
 }

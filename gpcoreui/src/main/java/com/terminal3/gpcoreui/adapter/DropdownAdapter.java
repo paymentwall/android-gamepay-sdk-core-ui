@@ -54,7 +54,14 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
         }
 
         void bind(DropdownItem item, OnItemClickListener listener) {
-            icon.setImageResource(item.getIconResId());
+            if (item.getIconResId() <= 0) {
+                icon.setVisibility(View.GONE);
+            }
+            else {
+                icon.setVisibility(View.VISIBLE);
+                icon.setImageResource(item.getIconResId());
+            }
+
             text.setText(item.getText());
 
             itemView.setOnClickListener(v -> {
