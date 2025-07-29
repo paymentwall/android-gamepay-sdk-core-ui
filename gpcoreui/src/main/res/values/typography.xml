@@ -3,10 +3,10 @@
     <style name="GP.Typography" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="fontFamily">?attr/primaryFontFamily</item>
+<!--        <item name="fontFamily">?attr/primaryFontFamily</item>-->
         <item name="android:textColor">?attr/primaryTextColor</item>
         <item name="android:lineSpacingExtra">1sp</item>
-        <item name="android:autoSizeTextType">uniform</item>
+<!--        <item name="android:autoSizeTextType">uniform</item>-->
     </style>
 
     <style name="GP.Typography.Heading1" parent="GP.Typography">

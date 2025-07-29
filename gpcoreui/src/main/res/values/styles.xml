@@ -9,6 +9,11 @@
         <item name="android:maxHeight">@dimen/gp_bottomsheet_max_height</item>
     </style>
 
+    <style name="GPCheckboxStyle">
+        <item name="colorControlNormal">@color/gp_bg_default_light</item>
+        <item name="colorAccent">@color/gp_bg_default_dark</item>
+    </style>
+
 
     <style name="GPIconBackground">
         <item name="android:background">@drawable/ic_background_base</item>

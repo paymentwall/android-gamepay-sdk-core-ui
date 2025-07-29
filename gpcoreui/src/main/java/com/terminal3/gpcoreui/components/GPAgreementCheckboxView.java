@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
@@ -70,6 +71,8 @@ public class GPAgreementCheckboxView extends LinearLayout {
         checkBox = findViewById(R.id.gp_agreement_checkbox);
         textView = findViewById(R.id.gp_agreement_text);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        checkBox.setButtonTintList(getContext().getColorStateList(R.color.gp_text_primary));
     }
 
     /**
@@ -128,6 +131,12 @@ public class GPAgreementCheckboxView extends LinearLayout {
             @Override
             public void onClick(@NonNull View widget) {
                 onClick.run();
+            }
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(getContext().getColor(R.color.gp_text_primary)); // Set link color to black
+                ds.setUnderlineText(true); // Keep underline
             }
         }, start, start + length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),

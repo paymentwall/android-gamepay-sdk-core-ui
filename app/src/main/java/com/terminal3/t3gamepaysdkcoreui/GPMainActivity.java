@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.terminal3.gpcoreui.components.GPDefaultInputContainer;
 import com.terminal3.gpcoreui.components.GPDropdown;
 import com.terminal3.gpcoreui.enums.GPButtonState;
+import com.terminal3.gpcoreui.components.GPAgreementCheckboxView;
 import com.terminal3.gpcoreui.enums.GPInputState;
 import com.terminal3.gpcoreui.models.DropdownItem;
 import com.terminal3.gpcoreui.utils.textwatchers.GPCardNumberTextWatcher;
@@ -30,6 +31,7 @@ public class GPMainActivity extends AppCompatActivity {
     private GPDropdown dropdown;
     private GPOutlinedButton btnSwitch, btnOpenSavedCard;
     private GPPrimaryButton btnValidate, btnOpenForm;
+    private GPAgreementCheckboxView agreementView;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
 
@@ -58,6 +60,15 @@ public class GPMainActivity extends AppCompatActivity {
         btnValidate = rootView.findViewById(R.id.btnValidate);
         btnOpenForm = rootView.findViewById(R.id.btnOpenForm);
         dropdown = rootView.findViewById(R.id.countryDropdown);
+        agreementView = rootView.findViewById(R.id.agreementView);
+        agreementView.configure(
+                "Terms of Service",
+                "https://example.com/tos",
+                "Privacy Policy",
+                "https://example.com/privacy",
+                "support@paymentwall.com",
+                "Paymentwall"
+        );
         setupDropdown();
         setupRules();
         setupListener();

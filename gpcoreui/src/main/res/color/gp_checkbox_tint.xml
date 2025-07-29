@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-  
-</resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/gp_bg_default_light" android:state_checked="true" /> <!-- Checked state -->
+    <item android:color="@color/gp_bg_default_dark" android:state_checked="false" /> <!-- Unchecked state -->
+    <item android:color="#FF888888" android:state_enabled="false" /> <!-- Disabled state -->
+</selector>
