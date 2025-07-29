@@ -1,10 +1,9 @@
 package com.terminal3.t3gamepaysdkcoreui;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.terminal3.t3gamepaysdkcoreui.R;
 
 import java.util.Map;
 
@@ -37,6 +36,7 @@ public class GPFormActivity extends AppCompatActivity implements GPFormStepFragm
 
     @Override
     public void onStepComplete(Map<String, String> values) {
+        Log.d("GPFormActivity", "Step complete: " + values);
         if (currentStep + 1 < stepResources.length) {
             showStep(currentStep + 1);
         }

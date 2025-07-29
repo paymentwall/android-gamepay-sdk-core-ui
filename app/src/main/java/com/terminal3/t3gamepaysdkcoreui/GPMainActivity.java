@@ -80,52 +80,48 @@ public class GPMainActivity extends AppCompatActivity {
                 new GPRequiredRule("CVV is required"),
                 new GPCVVRule("Invalid CVV")
         ));
+
+        validator.addRules(dropdown, List.of(
+                new GPRequiredRule("Please select an option")
+        ));
     }
 
     private void setupListener() {
-        btnValidate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validator.validate();
-            }
-        });
+        btnValidate.setOnClickListener(v -> validator.validate());
 
         btnOpenForm.setOnClickListener(v -> {
             Intent intent = new Intent(GPMainActivity.this, GPFormActivity.class);
             startActivity(intent);
         });
 
-        btnSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                counter++;
-                switch (counter % 4) {
-                    case 0:
-                        currentState = GPInputState.DEFAULT;
-                        ipCardNumber.clearError();
-                        ipCardNumber.setText("");
-                        ipCardNumber.clearFocus();
-                        break;
-                    case 1:
-                        currentState = GPInputState.ACTIVE;
-                        ipCardNumber.clearError();
-                        ipCardNumber.setText("4111 1111 1111 1111");
-                        ipCardNumber.setFocus();
-                        break;
-                    case 2:
-                        currentState = GPInputState.ERROR;
-                        ipCardNumber.setText("1234 5678 9012 3456");
-                        ipCardNumber.setErrorMessage("Invalid card number");
-                        break;
-                    case 3:
-                        currentState = GPInputState.FILLED_INACTIVE;
-                        ipCardNumber.setInactive();
-                        break;
-                }
-
-                // Update button text
-                btnSwitch.setText("State : " + currentState.name());
+        btnSwitch.setOnClickListener(v -> {
+            counter++;
+            switch (counter % 4) {
+                case 0:
+                    currentState = GPInputState.DEFAULT;
+                    ipCardNumber.clearError();
+                    ipCardNumber.setText("");
+                    ipCardNumber.clearFocus();
+                    break;
+                case 1:
+                    currentState = GPInputState.ACTIVE;
+                    ipCardNumber.clearError();
+                    ipCardNumber.setText("4111 1111 1111 1111");
+                    ipCardNumber.setFocus();
+                    break;
+                case 2:
+                    currentState = GPInputState.ERROR;
+                    ipCardNumber.setText("1234 5678 9012 3456");
+                    ipCardNumber.setErrorMessage("Invalid card number");
+                    break;
+                case 3:
+                    currentState = GPInputState.FILLED_INACTIVE;
+                    ipCardNumber.setInactive();
+                    break;
             }
+
+            // Update button text
+            btnSwitch.setText(String.format("State : %s", currentState.name()));
         });
     }
 

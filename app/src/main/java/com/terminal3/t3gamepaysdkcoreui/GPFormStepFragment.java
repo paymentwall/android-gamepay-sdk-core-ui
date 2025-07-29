@@ -71,7 +71,7 @@ public class GPFormStepFragment extends Fragment {
         }
 
         btnNext.setOnClickListener(v -> {
-            if (validator.validate().getErrors().isEmpty()) {
+            if (validator.validate().getAllErrors().isEmpty()) {
                 if (stepListener != null) {
                     stepListener.onStepComplete(form.getValues());
                 }
