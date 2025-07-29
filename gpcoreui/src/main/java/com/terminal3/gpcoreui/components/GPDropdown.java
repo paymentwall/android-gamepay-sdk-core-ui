@@ -15,7 +15,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.adapter.DropdownAdapter;
 import com.terminal3.gpcoreui.enums.GPInputState;
+import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.DropdownItem;
+import com.terminal3.gpcoreui.models.GPOption;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class GPDropdown extends GPDefaultInputContainer {
     private BottomSheetDialog bottomSheetDialog;
     private OnItemSelectedListener itemSelectedListener;
     private DropdownItem selectedItem;
+    private GPOption option;
+    private OnOptionValueChangeListener valueChangeListener;
 
     public GPDropdown(Context context) {
         super(context);
@@ -76,14 +80,30 @@ public class GPDropdown extends GPDefaultInputContainer {
         this.items = items;
     }
 
+    private DropdownItem findItemById(String id) {
+        if (items == null) return null;
+        for (DropdownItem item : items) {
+            if (item.getId().equals(id)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public void setSelectedItem(DropdownItem item) {
         this.selectedItem = item;
         if (item != null) {
             getEditText().setText(item.getText());
             setState(GPInputState.FILLED_INACTIVE);
+            if (valueChangeListener != null && option != null) {
+                valueChangeListener.onOptionValueChanged(option.getId(), item.getId());
+            }
         } else {
             getEditText().setText("");
             setState(GPInputState.DEFAULT);
+            if (valueChangeListener != null && option != null) {
+                valueChangeListener.onOptionValueChanged(option.getId(), "");
+            }
         }
     }
 
@@ -151,4 +171,43 @@ public class GPDropdown extends GPDefaultInputContainer {
     public interface OnItemSelectedListener {
         void onItemSelected(DropdownItem item);
     }
+
+    // region GPOptionView overrides
+
+    @Override
+    public void bindOption(GPOption option) {
+        this.option = option;
+        if (option.getLabel() != null) {
+            setLabel(option.getLabel());
+        }
+        if (option.getHint() != null) {
+            setHintText(option.getHint());
+        }
+        if (option.getType() == GPOptionType.DROPDOWN && option.getDropdownItems() != null) {
+            setItems(option.getDropdownItems());
+        }
+        if (option.getValue() != null && !option.getValue().isEmpty()) {
+            DropdownItem item = findItemById(option.getValue());
+            if (item != null) {
+                setSelectedItem(item);
+            }
+        }
+    }
+
+    @Override
+    public String getOptionId() {
+        return option != null ? option.getId() : null;
+    }
+
+    @Override
+    public String getOptionValue() {
+        return selectedItem != null ? selectedItem.getId() : "";
+    }
+
+    @Override
+    public void setOnOptionValueChangeListener(OnOptionValueChangeListener listener) {
+        this.valueChangeListener = listener;
+    }
+
+    // endregion
 }
