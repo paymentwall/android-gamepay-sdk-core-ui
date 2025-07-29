@@ -1,5 +1,6 @@
 package com.terminal3.t3gamepaysdkcoreui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,7 @@ public class GPMainActivity extends AppCompatActivity {
 
     private GPDefaultInputContainer ipCardNumber, ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
-    private Button btnSwitch, btnValidate;
+    private Button btnSwitch, btnValidate, btnOpenForm;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
 
@@ -51,6 +52,7 @@ public class GPMainActivity extends AppCompatActivity {
         ipCVV = rootView.findViewById(R.id.ip_cvv);
         btnSwitch = rootView.findViewById(R.id.btnSwitch);
         btnValidate = rootView.findViewById(R.id.btnValidate);
+        btnOpenForm = rootView.findViewById(R.id.btnOpenForm);
         dropdown = rootView.findViewById(R.id.countryDropdown);
         setupDropdown();
         setupRules();
@@ -86,6 +88,11 @@ public class GPMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 validator.validate();
             }
+        });
+
+        btnOpenForm.setOnClickListener(v -> {
+            Intent intent = new Intent(GPMainActivity.this, GPFormActivity.class);
+            startActivity(intent);
         });
 
         btnSwitch.setOnClickListener(new View.OnClickListener() {

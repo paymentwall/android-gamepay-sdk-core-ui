@@ -84,6 +84,15 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     }
 
     /**
+     * Retrieves the {@link GPOptionView} associated with the given option ID.
+     * This allows callers to access the underlying input view for validation
+     * or additional customization.
+     */
+    public GPOptionView getOptionView(String optionId) {
+        return optionViews.get(optionId);
+    }
+
+    /**
      * Sets a listener that will be notified whenever any option value changes.
      */
     public void setOnFormValueChangedListener(OnFormValueChangedListener listener) {

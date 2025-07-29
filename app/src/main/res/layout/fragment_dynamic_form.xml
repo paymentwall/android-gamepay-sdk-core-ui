@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/gp_form_inset_top"
+    android:paddingLeft="@dimen/gp_form_inset_left"
+    android:paddingRight="@dimen/gp_form_inset_right">
+
+    <com.terminal3.gpcoreui.components.GPDynamicForm
+        android:id="@+id/dynamicForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/next" />
+</LinearLayout>
