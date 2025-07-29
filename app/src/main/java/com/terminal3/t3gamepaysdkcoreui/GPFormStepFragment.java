@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import com.terminal3.gpcoreui.components.GPPrimaryButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +59,7 @@ public class GPFormStepFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         form = view.findViewById(R.id.dynamicForm);
-        Button btnNext = view.findViewById(R.id.btnNext);
+        GPPrimaryButton btnNext = view.findViewById(R.id.btnNext);
 
         validator = new GPValidator.Builder().setAutoDisplayError(true).build();
 
