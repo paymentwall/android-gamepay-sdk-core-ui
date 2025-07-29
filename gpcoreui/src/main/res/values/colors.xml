@@ -18,6 +18,7 @@
     <color name="gp_bg_error">#FFF5E5</color>
     <color name="gp_bg_press_secondary">#000000</color>
     <color name="gp_bg_payment_dark">#000000</color>
+    <color name="gp_bg_selected_card">#F0F4FF</color>
 
     <!-- Border Colors -->
     <color name="gp_border_payment">#D6E4FF</color>
