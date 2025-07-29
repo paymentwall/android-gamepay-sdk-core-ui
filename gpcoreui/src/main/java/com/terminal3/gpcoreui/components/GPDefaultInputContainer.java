@@ -16,11 +16,11 @@ import androidx.annotation.Nullable;
 
 import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.enums.GPInputState;
+import com.terminal3.gpcoreui.models.GPOption;
 import com.terminal3.gpcoreui.utils.textwatchers.GPTextWatcher;
 import com.terminal3.gpcoreui.utils.validator.GPErrorDisplayable;
-import com.terminal3.gpcoreui.utils.validator.GPValidatable;
 
-public class GPDefaultInputContainer extends LinearLayout implements GPValidatable, GPErrorDisplayable {
+public class GPDefaultInputContainer extends LinearLayout implements GPOptionView, GPErrorDisplayable {
 
     private TextView labelView;
     private GPDefaultEditText editText;
@@ -31,6 +31,9 @@ public class GPDefaultInputContainer extends LinearLayout implements GPValidatab
     private TextView errorTextView;
     private TextView helperView;
     protected GPTextWatcher _gpTextWatcher;
+
+    private GPOption option;
+    private OnOptionValueChangeListener valueChangeListener;
 
     public GPDefaultInputContainer(Context context) {
         super(context);
@@ -55,6 +58,7 @@ public class GPDefaultInputContainer extends LinearLayout implements GPValidatab
         labelView = findViewById(R.id.gp_label);
         editText = findViewById(R.id.gp_edit_text);
         errorView = findViewById(R.id.gp_error);
+        errorTextView = findViewById(R.id.gp_error_text);
         helperView = findViewById(R.id.gp_helper);
         initCustomConfig();
     }
@@ -126,6 +130,9 @@ public class GPDefaultInputContainer extends LinearLayout implements GPValidatab
             }
             @Override
             public void afterTextChanged(android.text.Editable s) {
+                if (valueChangeListener != null && option != null) {
+                    valueChangeListener.onOptionValueChanged(option.getId(), getInput());
+                }
             }
         });
     }
@@ -229,4 +236,37 @@ public class GPDefaultInputContainer extends LinearLayout implements GPValidatab
             return input;
         }
     }
+
+    // region GPOptionView implementation
+
+    @Override
+    public void bindOption(GPOption option) {
+        this.option = option;
+        if (option.getLabel() != null) {
+            setLabel(option.getLabel());
+        }
+        if (option.getHint() != null) {
+            setHintText(option.getHint());
+        }
+        if (option.getValue() != null && !option.getValue().isEmpty()) {
+            setText(option.getValue());
+        }
+    }
+
+    @Override
+    public String getOptionId() {
+        return option != null ? option.getId() : null;
+    }
+
+    @Override
+    public String getOptionValue() {
+        return getInput();
+    }
+
+    @Override
+    public void setOnOptionValueChangeListener(OnOptionValueChangeListener listener) {
+        this.valueChangeListener = listener;
+    }
+
+    // endregion
 }

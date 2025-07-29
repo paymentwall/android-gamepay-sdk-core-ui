@@ -8,6 +8,7 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPCardExpiryDateField](components/GPCardExpiryDateField.md)
 - [GPCardCVVField](components/GPCardCVVField.md)
 - [GPDropdown](components/GPDropdown.md)
+- [GPDynamicForm](components/GPDynamicForm.md)
 
 Each component document follows the same structure:
 1. Introduction

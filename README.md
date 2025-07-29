@@ -38,6 +38,14 @@ Add the desired components in your XML layout. Example card form:
     app:labelText="CVV" />
 ```
 
+To build forms dynamically, use `GPDynamicForm`:
+
+```java
+GPDynamicForm form = findViewById(R.id.dynamicForm);
+form.setOptions(serverOptions);
+Map<String, String> values = form.getValues();
+```
+
 See [`docs/COMPONENTS.md`](docs/COMPONENTS.md) for an index of available widgets. Each component has its own document describing parameters and usage.
 
 ## License
