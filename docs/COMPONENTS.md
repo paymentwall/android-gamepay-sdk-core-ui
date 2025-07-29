@@ -9,6 +9,8 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPCardCVVField](components/GPCardCVVField.md)
 - [GPDropdown](components/GPDropdown.md)
 - [GPDynamicForm](components/GPDynamicForm.md)
+- [GPPrimaryButton](components/GPPrimaryButton.md)
+- [GPOutlinedButton](components/GPOutlinedButton.md)
 
 Each component document follows the same structure:
 1. Introduction

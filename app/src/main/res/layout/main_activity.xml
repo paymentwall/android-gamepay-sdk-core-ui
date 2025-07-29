@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_vertical">
-    <Button
+    <com.terminal3.gpcoreui.components.GPOutlinedButton
         android:id="@+id/btnSwitch"
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -21,7 +21,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/cycle_states_current_default" />
 
-        <Button
+        <com.terminal3.gpcoreui.components.GPPrimaryButton
             android:id="@+id/btnValidate"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -79,7 +79,7 @@
         app:hintText="Choose country"
         />
 
-    <Button
+    <com.terminal3.gpcoreui.components.GPPrimaryButton
         android:id="@+id/btnOpenForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

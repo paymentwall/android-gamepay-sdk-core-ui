@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import com.terminal3.gpcoreui.components.GPPrimaryButton;
+import com.terminal3.gpcoreui.components.GPOutlinedButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,7 +27,8 @@ public class GPMainActivity extends AppCompatActivity {
 
     private GPDefaultInputContainer ipCardNumber, ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
-    private Button btnSwitch, btnValidate, btnOpenForm;
+    private GPOutlinedButton btnSwitch;
+    private GPPrimaryButton btnValidate, btnOpenForm;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
 
