@@ -2,4 +2,6 @@
     <string name="app_name">T3GamePaySDKCoreUI</string>
     <string name="cycle_states_current_default">States: DEFAULT</string>
     <string name="validate">Validate</string>
+    <string name="next">Next</string>
+    <string name="open_form">Open Form</string>
 </resources>

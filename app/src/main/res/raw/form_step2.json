@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "data": {
+        "instruction_action": "show_form",
+        "instructions": [
+            {
+                "label": "Select bank",
+                "value": "",
+                "validation": [],
+                "properties": [],
+                "options": [
+                    {"value": "RABONL2U", "name": "Rabobank", "logo": "https://api.paymentwall.com/images/ideal_banks/RABONL2U@2x.png"},
+                    {"value": "ABNANL2A", "name": "ABN Amro", "logo": "https://api.paymentwall.com/images/ideal_banks/ABNANL2A@2x.png"},
+                    {"value": "INGBNL2A", "name": "ING", "logo": "https://api.paymentwall.com/images/ideal_banks/INGBNL2A@2x.png"}
+                ],
+                "name": "issuer",
+                "type": "select"
+            }
+        ]
+    }
+}
