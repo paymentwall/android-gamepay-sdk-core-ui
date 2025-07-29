@@ -28,7 +28,7 @@ public class GPMainActivity extends AppCompatActivity {
 
     private GPDefaultInputContainer ipCardNumber, ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
-    private GPOutlinedButton btnSwitch, btnOutlined;
+    private GPOutlinedButton btnSwitch, btnOpenSavedCard;
     private GPPrimaryButton btnValidate, btnOpenForm;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
@@ -54,7 +54,7 @@ public class GPMainActivity extends AppCompatActivity {
         ipExpiryDate = rootView.findViewById(R.id.ip_expiry_date);
         ipCVV = rootView.findViewById(R.id.ip_cvv);
         btnSwitch = rootView.findViewById(R.id.btnSwitch);
-        btnOutlined = rootView.findViewById(R.id.btnNextOutlined);
+        btnOpenSavedCard = rootView.findViewById(R.id.btnOpenSavedCard);
         btnValidate = rootView.findViewById(R.id.btnValidate);
         btnOpenForm = rootView.findViewById(R.id.btnOpenForm);
         dropdown = rootView.findViewById(R.id.countryDropdown);
@@ -98,8 +98,9 @@ public class GPMainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnOutlined.setOnClickListener(v -> {
-            Log.d("GPOutlinedButton", "Clicked");
+        btnOpenSavedCard.setOnClickListener(v -> {
+            Intent intent = new Intent(GPMainActivity.this, GPSavedCardActivity.class);
+            startActivity(intent);
         });
 
         btnSwitch.setOnClickListener(v -> {

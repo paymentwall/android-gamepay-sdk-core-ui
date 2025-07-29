@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/gp_saved_card_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/gp_saved_card_background_default"
     android:padding="@dimen/gp_saved_card_padding">
 
     <LinearLayout
@@ -39,6 +41,7 @@
         <ImageView
             android:id="@+id/gp_card_menu"
             style="@style/GPIconBackground.Default"
+            android:background="@color/gp_transparent"
             android:src="@drawable/ic_overflow_menu" />
     </LinearLayout>
 
@@ -46,8 +49,6 @@
         android:id="@+id/gp_cvv_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:labelText="CVV" />
+        android:visibility="gone" />
 
 </LinearLayout>
