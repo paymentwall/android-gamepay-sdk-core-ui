@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gp_saved_card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/gp_saved_card_padding">
+
+    <LinearLayout
+        android:id="@+id/gp_card_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/gp_card_brand"
+            style="@style/GPIconBackground.Default"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_card_brand_master" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/gp_card_name"
+                style="@style/GP.Typography.Body1"
+                android:text="Mastercard Debit" />
+
+            <TextView
+                android:id="@+id/gp_card_number"
+                style="@style/GP.Typography.Label2"
+                android:text=".... 8217" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/gp_card_menu"
+            style="@style/GPIconBackground.Default"
+            android:src="@drawable/ic_overflow_menu" />
+    </LinearLayout>
+
+    <com.terminal3.gpcoreui.components.GPCardCVVField
+        android:id="@+id/gp_cvv_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:labelText="CVV" />
+
+</LinearLayout>

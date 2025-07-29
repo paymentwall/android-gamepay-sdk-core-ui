@@ -10,4 +10,6 @@
     <dimen name="gp_bottomsheet_max_height">500dp</dimen>
     <dimen name="gp_icon_size">24dp</dimen>
     <dimen name="gp_icon_margin_start">4dp</dimen>
+    <dimen name="gp_saved_card_padding">12dp</dimen>
+    <dimen name="gp_saved_card_corner">8dp</dimen>
 </resources>

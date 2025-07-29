@@ -29,6 +29,11 @@
             android:name=".GPFormActivity"
             android:exported="true"
             android:theme="@style/Theme.T3GamePaySDKCoreUI" />
+
+        <activity
+            android:name=".GPSavedCardActivity"
+            android:exported="true"
+            android:theme="@style/Theme.T3GamePaySDKCoreUI" />
     </application>
 
 </manifest>
