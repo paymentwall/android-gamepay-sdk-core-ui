@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_vertical">
+
     <com.terminal3.gpcoreui.components.GPOutlinedButton
         android:id="@+id/btnSwitch"
         android:layout_width="0dp"
@@ -20,6 +21,10 @@
         android:layout_height="@dimen/_54sdp"
         android:layout_marginBottom="16dp"
         android:text="@string/cycle_states_current_default" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="0dp"/>
 
         <com.terminal3.gpcoreui.components.GPPrimaryButton
             android:id="@+id/btnValidate"
@@ -85,5 +90,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/open_form" />
+
+    <com.terminal3.gpcoreui.components.GPOutlinedButton
+        android:id="@+id/btnNextOutlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/next"/>
 
 </LinearLayout>

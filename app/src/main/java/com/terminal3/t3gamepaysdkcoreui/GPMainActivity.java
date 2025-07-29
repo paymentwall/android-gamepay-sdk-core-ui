@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.terminal3.gpcoreui.components.GPDefaultInputContainer;
 import com.terminal3.gpcoreui.components.GPDropdown;
+import com.terminal3.gpcoreui.enums.GPButtonState;
 import com.terminal3.gpcoreui.enums.GPInputState;
 import com.terminal3.gpcoreui.models.DropdownItem;
 import com.terminal3.gpcoreui.utils.textwatchers.GPCardNumberTextWatcher;
@@ -27,7 +28,7 @@ public class GPMainActivity extends AppCompatActivity {
 
     private GPDefaultInputContainer ipCardNumber, ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
-    private GPOutlinedButton btnSwitch;
+    private GPOutlinedButton btnSwitch, btnOutlined;
     private GPPrimaryButton btnValidate, btnOpenForm;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
@@ -53,6 +54,7 @@ public class GPMainActivity extends AppCompatActivity {
         ipExpiryDate = rootView.findViewById(R.id.ip_expiry_date);
         ipCVV = rootView.findViewById(R.id.ip_cvv);
         btnSwitch = rootView.findViewById(R.id.btnSwitch);
+        btnOutlined = rootView.findViewById(R.id.btnNextOutlined);
         btnValidate = rootView.findViewById(R.id.btnValidate);
         btnOpenForm = rootView.findViewById(R.id.btnOpenForm);
         dropdown = rootView.findViewById(R.id.countryDropdown);
@@ -96,6 +98,10 @@ public class GPMainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        btnOutlined.setOnClickListener(v -> {
+            Log.d("GPOutlinedButton", "Clicked");
+        });
+
         btnSwitch.setOnClickListener(v -> {
             counter++;
             switch (counter % 4) {
@@ -104,21 +110,25 @@ public class GPMainActivity extends AppCompatActivity {
                     ipCardNumber.clearError();
                     ipCardNumber.setText("");
                     ipCardNumber.clearFocus();
+                    btnOpenForm.setState(GPButtonState.DEFAULT);
                     break;
                 case 1:
                     currentState = GPInputState.ACTIVE;
                     ipCardNumber.clearError();
                     ipCardNumber.setText("4111 1111 1111 1111");
                     ipCardNumber.setFocus();
+                    btnOpenForm.setState(GPButtonState.DEFAULT);
                     break;
                 case 2:
                     currentState = GPInputState.ERROR;
                     ipCardNumber.setText("1234 5678 9012 3456");
                     ipCardNumber.setErrorMessage("Invalid card number");
+                    btnOpenForm.setState(GPButtonState.LOADING);
                     break;
                 case 3:
                     currentState = GPInputState.FILLED_INACTIVE;
                     ipCardNumber.setInactive();
+                    btnOpenForm.setState(GPButtonState.INACTIVE);
                     break;
             }
 
