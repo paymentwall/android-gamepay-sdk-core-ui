@@ -11,6 +11,7 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPDynamicForm](components/GPDynamicForm.md)
 - [GPPrimaryButton](components/GPPrimaryButton.md)
 - [GPOutlinedButton](components/GPOutlinedButton.md)
+- [GPAgreementCheckboxView](components/GPAgreementCheckboxView.md)
 
 Each component document follows the same structure:
 1. Introduction
