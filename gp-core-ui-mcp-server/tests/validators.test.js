@@ -1,7 +1,6 @@
-// Placeholder tests for Validators
+const test = require('node:test');
 
-describe('Validators', () => {
-  test('should validate xml', () => {
-    // TODO: implement
-  });
+// Placeholder test for Validators
+test('validators placeholder', () => {
+  // TODO: implement
 });

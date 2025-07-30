@@ -1,7 +1,6 @@
-// Placeholder tests for ComponentParser
+const test = require('node:test');
 
-describe('ComponentParser', () => {
-  test('should load components', () => {
-    // TODO: implement
-  });
+// Placeholder test for ComponentParser
+test('component parser placeholder', () => {
+  // TODO: implement
 });
