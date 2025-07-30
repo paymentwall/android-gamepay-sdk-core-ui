@@ -94,4 +94,8 @@ public class GPSavedCardView extends LinearLayout {
     public GPCardCVVField getCvvField() {
         return cvvField;
     }
+
+    public void setOnMenuClickListener(OnClickListener listener) {
+        menuView.setOnClickListener(listener);
+    }
 }
