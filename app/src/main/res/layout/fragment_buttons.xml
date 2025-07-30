@@ -2,8 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:title="Buttons"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
     <com.terminal3.gpcoreui.components.GPPrimaryButton
         android:id="@+id/demoPrimaryButton"
@@ -18,4 +31,5 @@
         android:layout_marginTop="16dp"
         android:text="Outlined Button" />
 
+</LinearLayout>
 </LinearLayout>
