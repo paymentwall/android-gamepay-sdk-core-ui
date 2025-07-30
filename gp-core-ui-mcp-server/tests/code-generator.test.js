@@ -1,7 +1,6 @@
-// Placeholder tests for CodeGenerator
+const test = require('node:test');
 
-describe('CodeGenerator', () => {
-  test('should generate xml', () => {
-    // TODO: implement
-  });
+// Placeholder test for CodeGenerator
+test('code generator placeholder', () => {
+  // TODO: implement
 });

@@ -157,15 +157,21 @@ server.fallbackRequestHandler = async (request) => {
   }
 };
 
-const transport = new StdioServerTransport();
+//#region Server startup and exports
+if (require.main === module) {
+  const transport = new StdioServerTransport();
 
-process.on('SIGTERM', () => {
-  console.error('SIGTERM received but staying alive');
-});
-
-server.connect(transport)
-  .then(() => console.error('Server connected'))
-  .catch(error => {
-    console.error(`Connection error: ${error.message}`);
-    process.exit(1);
+  process.on('SIGTERM', () => {
+    console.error('SIGTERM received but staying alive');
   });
+
+  server.connect(transport)
+    .then(() => console.error('Server connected'))
+    .catch(error => {
+      console.error(`Connection error: ${error.message}`);
+      process.exit(1);
+    });
+}
+
+module.exports = { server };
+//#endregion
