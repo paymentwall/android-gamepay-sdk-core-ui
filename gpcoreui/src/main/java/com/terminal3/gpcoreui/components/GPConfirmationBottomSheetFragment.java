@@ -38,8 +38,8 @@ public class GPConfirmationBottomSheetFragment extends BottomSheetDialogFragment
         View root = inflater.inflate(R.layout.gp_bottom_sheet_confirmation, container, false);
 
         TextView msgView = root.findViewById(R.id.gp_confirmation_message);
-        TextView removeBtn = root.findViewById(R.id.gp_remove_button);
-        TextView cancelBtn = root.findViewById(R.id.gp_cancel_button);
+        GPPrimaryButton removeBtn = root.findViewById(R.id.gp_remove_button);
+        GPOutlinedButton cancelBtn = root.findViewById(R.id.gp_cancel_button);
 
         if (message != null) {
             msgView.setText(message);

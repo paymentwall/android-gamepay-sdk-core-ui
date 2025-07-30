@@ -56,7 +56,7 @@ public class GPSavedCardFragment extends Fragment {
     }
 
     private void showConfirmation(GPSavedCardView card) {
-        String msg = "Remove " + card.getTag() + "?";
+        String msg = "Are you sure you want to remove Mastercard Credit •••• " + card.getTag() + "?";
         GPConfirmationBottomSheetFragment sheet = new GPConfirmationBottomSheetFragment();
         sheet.setMessage(msg);
         sheet.setOnDecisionListener(new GPConfirmationBottomSheetFragment.OnDecisionListener() {
