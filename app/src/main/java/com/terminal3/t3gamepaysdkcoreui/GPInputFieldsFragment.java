@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.content.Intent;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ import com.terminal3.gpcoreui.utils.validator.rules.GPCVVRule;
 import com.terminal3.gpcoreui.utils.validator.rules.GPCreditCardNumberRule;
 import com.terminal3.gpcoreui.utils.validator.rules.GPExpiryDateRule;
 import com.terminal3.gpcoreui.utils.validator.rules.GPRequiredRule;
+import com.terminal3.gpcoreui.views.GPFooterTermsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,7 @@ public class GPInputFieldsFragment extends Fragment {
     private GPOutlinedButton btnSwitch, btnOpenSavedCard;
     private GPPrimaryButton btnValidate, btnOpenForm;
     private GPAgreementCheckboxView agreementView;
+    private GPFooterTermsView footerView;
     private GPInputState currentState = GPInputState.DEFAULT;
     private int counter = 0;
     private GPValidator validator;
@@ -64,6 +68,7 @@ public class GPInputFieldsFragment extends Fragment {
         btnOpenForm = rootView.findViewById(R.id.btnOpenForm);
         dropdown = rootView.findViewById(R.id.countryDropdown);
         agreementView = rootView.findViewById(R.id.agreementView);
+        footerView = rootView.findViewById(R.id.footerView);
         agreementView.configure(
                 "Terms of Service",
                 "https://example.com/tos",
@@ -72,6 +77,8 @@ public class GPInputFieldsFragment extends Fragment {
                 "support@paymentwall.com",
                 "Paymentwall"
         );
+        footerView.setOnTermsClickListener(v -> openUrl("https://www.paymentwall.com/terms"));
+        footerView.setOnPrivacyClickListener(v -> openUrl("https://www.paymentwall.com/privacy"));
         setupDropdown();
         setupRules();
         setupListener();
@@ -143,6 +150,13 @@ public class GPInputFieldsFragment extends Fragment {
             }
             btnSwitch.setText(String.format("State : %s", currentState.name()));
         });
+    }
+
+    private void openUrl(String url) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } catch (Exception ignored) {}
     }
 
     private void setupDropdown() {
