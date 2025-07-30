@@ -3,7 +3,7 @@
     <string name="gp_card_number">4111 1111 1111 1111</string>
     <string name="choose_country">Choose country</string>
     <string name="select_option">Select option</string>
+    <string name="gp_powered_by">Powered by</string>
     <string name="gp_terms">Terms</string>
     <string name="gp_privacy">Privacy</string>
-    <string name="gp_powered_by">Powered by</string>
 </resources>
