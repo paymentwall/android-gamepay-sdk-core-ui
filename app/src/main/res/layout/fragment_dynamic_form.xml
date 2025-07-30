@@ -2,10 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/gp_form_inset_top"
-    android:paddingLeft="@dimen/gp_form_inset_left"
-    android:paddingRight="@dimen/gp_form_inset_right">
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:title="Dynamic Form"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/gp_form_inset_top"
+        android:paddingLeft="@dimen/gp_form_inset_left"
+        android:paddingRight="@dimen/gp_form_inset_right">
 
     <com.terminal3.gpcoreui.components.GPDynamicForm
         android:id="@+id/dynamicForm"
@@ -18,4 +31,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/next" />
+</LinearLayout>
 </LinearLayout>

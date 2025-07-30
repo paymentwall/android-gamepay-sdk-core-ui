@@ -2,12 +2,17 @@ package com.terminal3.t3gamepaysdkcoreui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import java.util.Map;
 
-public class GPFormActivity extends AppCompatActivity implements GPFormStepFragment.OnStepCompleteListener {
+public class GPFormHostFragment extends Fragment implements GPFormStepFragment.OnStepCompleteListener {
 
     private int currentStep = 0;
     private final int[] stepResources = new int[] {
@@ -16,10 +21,15 @@ public class GPFormActivity extends AppCompatActivity implements GPFormStepFragm
             R.raw.form_step3
     };
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_host);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_form_host, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState == null) {
             showStep(0);
         }
@@ -29,14 +39,14 @@ public class GPFormActivity extends AppCompatActivity implements GPFormStepFragm
         currentStep = index;
         GPFormStepFragment fragment = GPFormStepFragment.newInstance(stepResources[index]);
         fragment.setOnStepCompleteListener(this);
-        getSupportFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
                 .commit();
     }
 
     @Override
     public void onStepComplete(Map<String, String> values) {
-        Log.d("GPFormActivity", "Step complete: " + values);
+        Log.d("GPFormHost", "Step complete: " + values);
         if (currentStep + 1 < stepResources.length) {
             showStep(currentStep + 1);
         }
