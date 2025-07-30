@@ -12,6 +12,7 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPPrimaryButton](components/GPPrimaryButton.md)
 - [GPOutlinedButton](components/GPOutlinedButton.md)
 - [GPSavedCardView](components/GPSavedCardView.md)
+- [GPConfirmationBottomSheetFragment](components/GPConfirmationBottomSheetFragment.md)
 
 Each component document follows the same structure:
 1. Introduction

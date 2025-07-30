@@ -34,6 +34,7 @@ GPSavedCardView does not define custom XML attributes.
 | `setCardName(CharSequence name)` | Set card name label |
 | `setMaskedCardNumber(CharSequence number)` | Set masked card number text |
 | `getCvvField()` | Access the internal `GPCardCVVField` |
+| `setOnMenuClickListener(View.OnClickListener)` | Listener for menu icon clicks |
 
 ## Examples
 See `GPSavedCardFragment` in the sample app for a working example.

@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.terminal3.gpcoreui.enums.SavedCardState;
 
+import com.terminal3.gpcoreui.components.GPConfirmationBottomSheetFragment;
 import com.terminal3.gpcoreui.components.GPSavedCardView;
 
 public class GPSavedCardFragment extends Fragment {
@@ -42,6 +43,7 @@ public class GPSavedCardFragment extends Fragment {
 
         for (GPSavedCardView card : cards) {
             card.setOnClickListener(v -> selectCard(card, cards));
+            card.setOnMenuClickListener(v -> showConfirmation(card));
         }
     }
 
@@ -50,6 +52,21 @@ public class GPSavedCardFragment extends Fragment {
         card.setMaskedCardNumber(number);
         card.setCardBrandIcon(ContextCompat.getDrawable(requireContext(), iconRes));
         card.setState(SavedCardState.DEFAULT);
+        card.setTag(name + " " + number);
+    }
+
+    private void showConfirmation(GPSavedCardView card) {
+        String msg = "Are you sure you want to remove Mastercard Credit •••• " + card.getTag() + "?";
+        GPConfirmationBottomSheetFragment sheet = new GPConfirmationBottomSheetFragment();
+        sheet.setMessage(msg);
+        sheet.setOnDecisionListener(new GPConfirmationBottomSheetFragment.OnDecisionListener() {
+            @Override public void onRemove() {
+                // Example action
+            }
+
+            @Override public void onCancel() {}
+        });
+        sheet.show(requireActivity().getSupportFragmentManager(), "confirm");
     }
 
     private void selectCard(GPSavedCardView selected, List<GPSavedCardView> allCards) {
