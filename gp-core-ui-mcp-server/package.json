@@ -1,13 +1,14 @@
 {
   "name": "gp-core-ui-mcp-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "MCP server for GP Core UI library - provides AI assistants with knowledge about UI components and helps generate code snippets",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "dev": "node start-server.js",
     "test": "node --test"
   },
-  "keywords": [],
+  "keywords": ["mcp", "gp-core-ui", "android", "ui-components"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",

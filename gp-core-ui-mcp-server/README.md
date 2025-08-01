@@ -1,63 +1,70 @@
 # GP Core UI MCP Server
 
-This server exposes Model Context Protocol tools for the GP Core UI library. It is based on the MCP JS Server Template.
+This server exposes Model Context Protocol tools for the GP Core UI library. It provides AI assistants with knowledge about UI components and helps generate code snippets, documentation, and implementation guidance.
 
-## Installation
+## Quick Start
 
+### 1. Install Dependencies
 ```bash
 npm install
 ```
 
-## Claude Desktop Configuration
+### 2. Start the Server
+```bash
+npm start
+```
 
-Configure Claude Desktop to run `server.js` via Node.
+The server will start and display the URL you need to add to Cursor.
 
-### Setup with Claude Code and Cursor
+### 3. Add to Cursor
 
-Follow these steps to use the MCP server with the Claude Code extension or the
-Cursor editor:
+1. **Open Cursor**
+2. **Go to Tools → Add Local MCP Server**
+3. **Enter the server URL**: `http://localhost:3000`
+4. **Save and restart Cursor**
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-2. **Start the server**
-   ```bash
-   npm start
-   ```
-3. **Add the server in Claude Code**
-   - Open *Claude Code* and navigate to **Settings → MCP Servers**.
-   - Click **Add Local Server** and enter `node <path-to-server>/server.js`.
-   - Save the configuration and restart Claude Code if prompted.
-4. **Add the server in Cursor**
-   - Open *Cursor* and go to **Tools → Add Local MCP Server**.
-   - Provide the command `node <path-to-server>/server.js`.
-   - Save and enable the server in the tools panel.
+## Server Information
+
+- **Server URL**: `http://localhost:3000`
+- **Server Name**: `gp-coreui-mcp-server`
+- **Version**: `0.1.0`
+- **Port**: `3000` (configurable via `PORT` environment variable)
 
 ## Available Tools
 
-- `get_component_list`
-- `get_component_docs`
-- `generate_xml_usage`
-- `generate_java_usage`
-- `validate_component_usage`
-- `search_components`
-- `get_integration_guide`
+- `get_component_list` - Returns all available GP Core UI components
+- `get_component_docs` - Get full documentation for a component
+- `generate_xml_usage` - Generate XML usage example
+- `generate_java_usage` - Generate Java usage example
+- `validate_component_usage` - Validate component usage code
+- `search_components` - Search components by query and category
+- `get_integration_guide` - Get step-by-step integration guide
 
 ## Usage Examples
 
+Once added to Cursor, you can ask questions like:
+- "Show me all card-related components"
+- "How do I use GPCardNumberField in XML?"
+- "Generate a complete payment form with validation"
+- "What parameters does GPDefaultInputContainer accept?"
+
+## Development
+
+### Environment Variables
+- `PORT` - Server port (default: 3000)
+- `DOCS_PATH` - Path to documentation files
+
+### Testing
+```bash
+npm test
 ```
-get_component_list
-```
-
-## Development Setup
-
-Ensure Node.js 16+ is installed and run tests with `npm test`.
-
-## Testing
-
-Placeholder tests exist under `tests/`.
 
 ## Troubleshooting
 
-Check environment variables `DOCS_PATH`, `PORT`, and `LOG_LEVEL`.
+1. **Server won't start**: Check if port 3000 is available
+2. **Cursor can't connect**: Ensure the server is running and the URL is correct
+3. **Tools not working**: Check the browser at `http://localhost:3000` to verify server status
+
+## Server Status
+
+Visit `http://localhost:3000` in your browser to see the server status page.
