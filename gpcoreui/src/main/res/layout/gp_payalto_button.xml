@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/gp_form_inset_left"
+    android:background="@drawable/gp_payalto_button_background">
+
+    <ImageView
+        android:id="@+id/iv_payalto_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="1dp"
+        android:background="@drawable/ic_background_with_border"
+        tools:src="@drawable/ic_pw_logo"/>
+
+    <TextView
+        android:id="@+id/tv_payalto_title"
+        style="@style/GP.Typography.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/gp_payalto_btn_text_color"
+        tools:text="iDEAL"/>
+
+</LinearLayout>

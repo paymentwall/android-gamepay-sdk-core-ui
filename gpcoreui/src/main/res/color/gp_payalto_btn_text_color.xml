@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state - blue text -->
+    <item android:state_pressed="true" android:color="@color/gp_text_button_light" />
+    <!-- Disabled state - gray text -->
+    <item android:state_enabled="false" android:color="@color/gp_text_button_inactive_secondary" />
+    <!-- Default state - white text -->
+    <item android:color="@color/gp_text_primary" />
+</selector>

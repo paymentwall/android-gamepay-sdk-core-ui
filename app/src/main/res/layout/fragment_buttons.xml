@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:title="Buttons"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:title="Buttons" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,18 +19,26 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-    <com.terminal3.gpcoreui.components.GPPrimaryButton
-        android:id="@+id/demoPrimaryButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Primary Button" />
+        <com.terminal3.gpcoreui.components.GPPrimaryButton
+            android:id="@+id/demoPrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Primary Button" />
 
-    <com.terminal3.gpcoreui.components.GPOutlinedButton
-        android:id="@+id/demoOutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Outlined Button" />
+        <com.terminal3.gpcoreui.components.GPOutlinedButton
+            android:id="@+id/demoOutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Outlined Button" />
 
-</LinearLayout>
+        <com.terminal3.gpcoreui.components.GPPayAltoButton
+            android:id="@+id/demoPayAltoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:imageSrc="@drawable/ic_pw_logo"
+            app:title="iDEAL" />
+
+    </LinearLayout>
 </LinearLayout>

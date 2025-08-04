@@ -1,6 +1,7 @@
 package com.terminal3.t3gamepaysdkcoreui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.terminal3.gpcoreui.components.GPOutlinedButton;
+import com.terminal3.gpcoreui.components.GPPayAltoButton;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
 import com.terminal3.gpcoreui.enums.GPButtonState;
 
@@ -26,6 +28,7 @@ public class GPButtonsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         GPPrimaryButton primary = view.findViewById(R.id.demoPrimaryButton);
         GPOutlinedButton outlined = view.findViewById(R.id.demoOutlinedButton);
+        GPPayAltoButton payAlto = view.findViewById(R.id.demoPayAltoButton);
 
         primary.setOnClickListener(v -> {
             primary.setState(GPButtonState.LOADING);
@@ -38,6 +41,10 @@ public class GPButtonsFragment extends Fragment {
             } else {
                 outlined.setState(GPButtonState.INACTIVE);
             }
+        });
+
+        payAlto.setOnClickListener( v -> {
+            Log.d("GPButtonsFragment", "PayAlto button clicked");
         });
     }
 }
