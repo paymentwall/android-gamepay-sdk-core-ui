@@ -11,6 +11,8 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPDynamicForm](components/GPDynamicForm.md)
 - [GPPrimaryButton](components/GPPrimaryButton.md)
 - [GPOutlinedButton](components/GPOutlinedButton.md)
+- [GPSecondaryButton](components/GPSecondaryButton.md)
+- [GPErrorButton](components/GPErrorButton.md)
 - [GPSavedCardView](components/GPSavedCardView.md)
 - [GPConfirmationBottomSheetFragment](components/GPConfirmationBottomSheetFragment.md)
 - [GPFooterTermsView](components/GPFooterTermsView.md)
