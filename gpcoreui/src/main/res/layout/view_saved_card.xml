@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gp_saved_card_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/gp_saved_card_background_default"
-    android:padding="@dimen/gp_saved_card_padding">
+    android:background="@drawable/gp_saved_card_background_default">
 
     <LinearLayout
         android:id="@+id/gp_card_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:background="@drawable/gp_saved_card_background"
+        android:gravity="center_vertical"
+        android:padding="12dp">
 
         <ImageView
             android:id="@+id/gp_card_brand"
@@ -45,10 +47,16 @@
             android:src="@drawable/ic_overflow_menu" />
     </LinearLayout>
 
-    <com.terminal3.gpcoreui.components.GPCardCVVField
+    <EditText
         android:id="@+id/gp_cvv_field"
+        style="@style/GP.Typography.Body1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:layout_height="56dp"
+        android:background="@color/gp_transparent"
+        android:hint="@string/gp_cvv"
+        android:inputType="numberPassword"
+        android:padding="12dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </LinearLayout>

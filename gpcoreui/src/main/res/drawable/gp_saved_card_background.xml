@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected state -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gp_bg_hoover" /> <!-- Replace with your pink color -->
+            <stroke
+                android:width="2dp"
+                android:color="@color/gp_border_primary" /> <!-- Replace with your black color -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Normal/default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gp_bg_default_light" /> <!-- Replace with your white color -->
+            <stroke
+                android:width="2dp"
+                android:color="@color/gp_border_primary" /> <!-- Replace with your black color -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>
