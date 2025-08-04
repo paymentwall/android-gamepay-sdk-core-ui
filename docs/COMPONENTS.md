@@ -14,6 +14,7 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPSavedCardView](components/GPSavedCardView.md)
 - [GPConfirmationBottomSheetFragment](components/GPConfirmationBottomSheetFragment.md)
 - [GPFooterTermsView](components/GPFooterTermsView.md)
+- [GPPayAltoButton](components/GPPayAltoButton.md)
 
 Each component document follows the same structure:
 1. Introduction
