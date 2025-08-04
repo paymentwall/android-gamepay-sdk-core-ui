@@ -18,8 +18,10 @@ import com.terminal3.gpcoreui.components.GPCardExpiryDateField;
 import com.terminal3.gpcoreui.components.GPCardNumberField;
 import com.terminal3.gpcoreui.components.GPDefaultInputContainer;
 import com.terminal3.gpcoreui.components.GPDropdown;
+import com.terminal3.gpcoreui.components.GPErrorButton;
 import com.terminal3.gpcoreui.components.GPOutlinedButton;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
+import com.terminal3.gpcoreui.components.GPSecondaryButton;
 import com.terminal3.gpcoreui.enums.GPButtonState;
 import com.terminal3.gpcoreui.enums.GPInputState;
 import com.terminal3.gpcoreui.models.DropdownItem;
@@ -40,6 +42,8 @@ public class GPInputFieldsFragment extends Fragment {
     private GPDropdown dropdown;
     private GPOutlinedButton btnSwitch, btnOpenSavedCard;
     private GPPrimaryButton btnValidate, btnOpenForm;
+    private GPSecondaryButton btnSecondary;
+    private GPErrorButton btnError;
     private GPAgreementCheckboxView agreementView;
     private GPFooterTermsView footerView;
     private GPInputState currentState = GPInputState.DEFAULT;
@@ -66,6 +70,8 @@ public class GPInputFieldsFragment extends Fragment {
         btnOpenSavedCard = rootView.findViewById(R.id.btnOpenSavedCard);
         btnValidate = rootView.findViewById(R.id.btnValidate);
         btnOpenForm = rootView.findViewById(R.id.btnOpenForm);
+        btnSecondary = rootView.findViewById(R.id.btnSecondary);
+        btnError = rootView.findViewById(R.id.btnError);
         dropdown = rootView.findViewById(R.id.countryDropdown);
         agreementView = rootView.findViewById(R.id.agreementView);
         footerView = rootView.findViewById(R.id.footerView);
@@ -128,6 +134,8 @@ public class GPInputFieldsFragment extends Fragment {
                     ipCardNumber.setText("");
                     ipCardNumber.clearFocus();
                     btnOpenForm.setState(GPButtonState.DEFAULT);
+                    btnSecondary.setState(GPButtonState.DEFAULT);
+                    btnError.setState(GPButtonState.DEFAULT);
                     break;
                 case 1:
                     currentState = GPInputState.ACTIVE;
@@ -135,17 +143,23 @@ public class GPInputFieldsFragment extends Fragment {
                     ipCardNumber.setText("4111 1111 1111 1111");
                     ipCardNumber.setFocus();
                     btnOpenForm.setState(GPButtonState.DEFAULT);
+                    btnSecondary.setState(GPButtonState.DEFAULT);
+                    btnError.setState(GPButtonState.DEFAULT);
                     break;
                 case 2:
                     currentState = GPInputState.ERROR;
                     ipCardNumber.setText("1234 5678 9012 3456");
                     ipCardNumber.setErrorMessage("Invalid card number");
                     btnOpenForm.setState(GPButtonState.LOADING);
+                    btnSecondary.setState(GPButtonState.LOADING);
+                    btnError.setState(GPButtonState.LOADING);
                     break;
                 case 3:
                     currentState = GPInputState.FILLED_INACTIVE;
                     ipCardNumber.setInactive();
                     btnOpenForm.setState(GPButtonState.INACTIVE);
+                    btnSecondary.setState(GPButtonState.INACTIVE);
+                    btnError.setState(GPButtonState.INACTIVE);
                     break;
             }
             btnSwitch.setText(String.format("State : %s", currentState.name()));

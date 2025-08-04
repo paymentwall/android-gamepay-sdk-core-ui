@@ -83,12 +83,6 @@
 
     </LinearLayout>
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="numberPassword"/>
-
     <com.terminal3.gpcoreui.components.GPDropdown
         android:id="@+id/countryDropdown"
         android:layout_width="match_parent"
@@ -103,6 +97,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/open_form" />
+
+        <com.terminal3.gpcoreui.components.GPSecondaryButton
+            android:id="@+id/btnSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="SECONDARY button" />
+
+        <com.terminal3.gpcoreui.components.GPErrorButton
+            android:id="@+id/btnError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ERROR button" />
 
     <com.terminal3.gpcoreui.components.GPOutlinedButton
         android:id="@+id/btnOpenSavedCard"

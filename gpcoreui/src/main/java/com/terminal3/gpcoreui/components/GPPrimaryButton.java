@@ -2,6 +2,7 @@ package com.terminal3.gpcoreui.components;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -16,6 +17,11 @@ import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.enums.GPButtonState;
 
 public class GPPrimaryButton extends FrameLayout {
+
+    protected int backgroundResId = R.drawable.gp_primary_button_background;
+    protected int textColorStateResId = R.color.gp_primary_button_text_color;
+
+    protected int progressColor = R.color.gp_text_button_light;
 
     protected Button btn;
     protected ProgressBar progressBar;
@@ -62,8 +68,9 @@ public class GPPrimaryButton extends FrameLayout {
     }
 
     protected void initCustomConfig(Context context) {
-        setBackground(ContextCompat.getDrawable(context, R.drawable.gp_primary_button_background));
-        btn.setTextColor(ContextCompat.getColor(context, R.color.gp_text_button_light));
+        setBackground(ContextCompat.getDrawable(context, backgroundResId));
+        btn.setTextColor(ContextCompat.getColorStateList(context, textColorStateResId));
+        progressBar.setIndeterminateTintList(ContextCompat.getColorStateList(context, progressColor));
     }
 
     public void setText(CharSequence text) {
@@ -91,14 +98,12 @@ public class GPPrimaryButton extends FrameLayout {
                 progressBar.setVisibility(GONE);
                 btn.setVisibility(VISIBLE);
                 btn.setEnabled(false);
-                btn.setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_button_inactive_secondary));
                 break;
             case LOADING:
                 setEnabled(true);
                 progressBar.setVisibility(VISIBLE);
-                btn.setVisibility(INVISIBLE);
+                btn.setVisibility(GONE);
                 btn.setEnabled(false);
-                btn.setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_button_light));
                 break;
             case PRESS:
             case DEFAULT:
@@ -107,7 +112,6 @@ public class GPPrimaryButton extends FrameLayout {
                 progressBar.setVisibility(GONE);
                 btn.setVisibility(VISIBLE);
                 btn.setEnabled(true);
-                btn.setTextColor(ContextCompat.getColor(getContext(), R.color.gp_text_button_light));
                 break;
         }
     }

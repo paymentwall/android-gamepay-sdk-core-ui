@@ -43,6 +43,8 @@ public class GPButtonsFragment extends Fragment {
             }
         });
 
+        payAlto.setLogo("https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/ps_logos/pm_mint.png");
+
         payAlto.setOnClickListener( v -> {
             Log.d("GPButtonsFragment", "PayAlto button clicked");
         });

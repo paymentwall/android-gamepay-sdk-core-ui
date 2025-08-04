@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- INACTIVE state (disabled) -->
+    <item android:state_enabled="false" android:color="@color/gp_text_error" />
+
+    <!-- LOADING state (button invisible but technically enabled) -->
+    <!-- Note: Loading state can't be fully represented in XML selector as it involves visibility changes -->
+
+    <!-- PRESS state -->
+    <item android:state_pressed="true" android:color="@color/gp_text_button_light" />
+
+    <!-- DEFAULT state -->
+    <item android:color="@color/gp_text_button_light" />
+</selector>

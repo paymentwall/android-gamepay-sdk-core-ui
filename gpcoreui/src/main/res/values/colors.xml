@@ -15,7 +15,7 @@
     <color name="gp_bg_info">#E0F3FF</color>
     <color name="gp_bg_warning">#FFFFE5</color>
     <color name="gp_bg_success">#DAF7E9</color>
-    <color name="gp_bg_error">#FFF5E5</color>
+    <color name="gp_bg_error">#FFE5E5</color>
     <color name="gp_bg_press_secondary">#3E527A</color>
     <color name="gp_bg_payment_dark">#000000</color>
     <color name="gp_bg_hoover">#F3F7FF</color>
