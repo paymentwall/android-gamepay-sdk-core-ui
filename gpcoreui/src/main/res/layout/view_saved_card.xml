@@ -54,6 +54,7 @@
         android:layout_height="56dp"
         android:background="@color/gp_transparent"
         android:hint="@string/gp_cvv"
+        android:textColorHint="@color/gp_text_secondary"
         android:inputType="numberPassword"
         android:padding="12dp"
         android:visibility="gone"

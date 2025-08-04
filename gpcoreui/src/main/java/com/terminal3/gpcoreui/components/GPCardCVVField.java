@@ -39,6 +39,7 @@ public class GPCardCVVField extends GPDefaultInputContainer{
                 null
         );
 
-        getEditText().setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+//        getEditText().setRawInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
     }
 }

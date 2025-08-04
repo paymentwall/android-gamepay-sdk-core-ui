@@ -1,6 +1,7 @@
 package com.terminal3.t3gamepaysdkcoreui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.terminal3.gpcoreui.enums.SavedCardState;
 
@@ -56,15 +58,26 @@ public class GPSavedCardFragment extends Fragment {
     }
 
     private void showConfirmation(GPSavedCardView card) {
-        String msg = "Are you sure you want to remove Mastercard Credit •••• " + card.getTag() + "?";
+        String title = "Are you sure you want to remove " + card.getTag() + "?";
+        String message = "This payment method will no longer be available on websites that use Terminal3.";
         GPConfirmationBottomSheetFragment sheet = new GPConfirmationBottomSheetFragment();
-        sheet.setMessage(msg);
+        sheet.setTitle(title);
+        sheet.setMessage(message);
+        sheet.setShowDestructiveButton(true, "Remove");
+        sheet.setShowCancelButton(true, "Cancel");
         sheet.setOnDecisionListener(new GPConfirmationBottomSheetFragment.OnDecisionListener() {
-            @Override public void onRemove() {
-                // Example action
+            @Override
+            public void onPositiveClick() {
+                Log.d("GPSavedCardFragment", "onPositiveClick - " + card.getTag());
             }
 
-            @Override public void onCancel() {}
+            @Override public void onDestructiveClick() {
+                Log.d("GPSavedCardFragment", "onDestructiveClick - Card removed: " + card.getTag());
+            }
+
+            @Override public void onCancel() {
+                Log.d("GPSavedCardFragment", "onCancel - Card not removed: " + card.getTag());
+            }
         });
         sheet.show(requireActivity().getSupportFragmentManager(), "confirm");
     }

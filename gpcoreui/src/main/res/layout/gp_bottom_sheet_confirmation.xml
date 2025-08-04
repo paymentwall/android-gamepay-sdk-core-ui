@@ -2,28 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/gp_confirmation_message"
-        style="@style/GP.Typography.Heading3"
-        android:textColorHint="@color/gp_text_primary"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="24dp"
-        android:text="Are your sure?" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <com.terminal3.gpcoreui.components.GPPrimaryButton
-        android:id="@+id/gp_remove_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove" />
+        <TextView
+            android:id="@+id/tvGPBottomSheetConfirmTitle"
+            style="@style/GP.Typography.Heading3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:text="Are your sure?"
+            android:textColorHint="@color/gp_text_primary" />
 
-    <com.terminal3.gpcoreui.components.GPOutlinedButton
-        android:id="@+id/gp_cancel_button"
+        <TextView
+            android:id="@+id/tvGPBottomSheetConfirmMessage"
+            style="@style/GP.Typography.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:text="This payment method will no longer..."
+            android:textColorHint="@color/gp_text_primary" />
+
+        <com.terminal3.gpcoreui.components.GPPrimaryButton
+            android:id="@+id/btnGPBottomSheetConfirmPositive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove" />
+
+        <com.terminal3.gpcoreui.components.GPErrorButton
+            android:id="@+id/btnGPBottomSheetConfirmDestructive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Remove" />
+
+        <com.terminal3.gpcoreui.components.GPSecondaryButton
+            android:id="@+id/btnGPBottomSheetConfirmCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Cancel" />
+    </LinearLayout>
+
+    <com.terminal3.gpcoreui.views.GPFooterTermsView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Cancel" />
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

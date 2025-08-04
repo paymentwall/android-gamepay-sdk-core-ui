@@ -125,7 +125,7 @@ public class GPDefaultInputContainer extends LinearLayout implements GPOptionVie
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (editText.getState() == GPInputState.ERROR) {
-                    editText.setState(GPInputState.DEFAULT);
+                    clearError();
                 }
             }
             @Override
