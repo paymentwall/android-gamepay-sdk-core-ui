@@ -40,5 +40,26 @@
             app:imageSrc="@drawable/ic_pw_logo"
             app:title="iDEAL" />
 
+        <com.terminal3.gpcoreui.components.GPSecondaryButton
+            android:id="@+id/demoSecondaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Secondary Button" />
+
+        <com.terminal3.gpcoreui.components.GPErrorButton
+            android:id="@+id/demoErrorButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Error Button" />
+
+        <Button
+            android:id="@+id/btnStateToggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Next State" />
+
     </LinearLayout>
 </LinearLayout>

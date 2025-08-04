@@ -5,14 +5,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.terminal3.gpcoreui.components.GPErrorButton;
 import com.terminal3.gpcoreui.components.GPOutlinedButton;
 import com.terminal3.gpcoreui.components.GPPayAltoButton;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
+import com.terminal3.gpcoreui.components.GPSecondaryButton;
 import com.terminal3.gpcoreui.enums.GPButtonState;
 
 public class GPButtonsFragment extends Fragment {
@@ -29,6 +32,11 @@ public class GPButtonsFragment extends Fragment {
         GPPrimaryButton primary = view.findViewById(R.id.demoPrimaryButton);
         GPOutlinedButton outlined = view.findViewById(R.id.demoOutlinedButton);
         GPPayAltoButton payAlto = view.findViewById(R.id.demoPayAltoButton);
+        GPSecondaryButton secondary = view.findViewById(R.id.demoSecondaryButton);
+        GPErrorButton error = view.findViewById(R.id.demoErrorButton);
+        Button stateToggle = view.findViewById(R.id.btnStateToggle);
+
+        GPPrimaryButton[] buttons = new GPPrimaryButton[] {primary, outlined, secondary, error};
 
         primary.setOnClickListener(v -> {
             primary.setState(GPButtonState.LOADING);
@@ -48,5 +56,24 @@ public class GPButtonsFragment extends Fragment {
         payAlto.setOnClickListener( v -> {
             Log.d("GPButtonsFragment", "PayAlto button clicked");
         });
+
+        stateToggle.setOnClickListener(v -> {
+            for (GPPrimaryButton button : buttons) {
+                button.setState(nextState(button.getState()));
+            }
+        });
+    }
+
+    private GPButtonState nextState(GPButtonState state) {
+        switch (state) {
+            case DEFAULT:
+                return GPButtonState.LOADING;
+            case LOADING:
+                return GPButtonState.INACTIVE;
+            case INACTIVE:
+                return GPButtonState.PRESS;
+            default:
+                return GPButtonState.DEFAULT;
+        }
     }
 }
