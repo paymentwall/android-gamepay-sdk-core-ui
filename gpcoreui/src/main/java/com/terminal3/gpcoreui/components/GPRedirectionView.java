@@ -57,6 +57,9 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
     public void bindOption(GPOption option) {
         optionId = option.getId();
         optionValue = option.getValue();
+        if (option.customLabel.length() > 0) {
+            message.setText(option.customLabel);
+        }
     }
 
     @Override

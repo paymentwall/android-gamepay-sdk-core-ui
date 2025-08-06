@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 
 import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.GPOption;
+import com.terminal3.gpcoreui.utils.GPHelper;
+import com.terminal3.gpcoreui.utils.textwatchers.GPEpinTextWatcher;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +64,9 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
                 GPDefaultInputContainer input = new GPDefaultInputContainer(getContext());
                 input.bindOption(option);
                 view = input;
+                if (option.getType() == GPOptionType.EPIN) {
+                    input.addTextWatcher(new GPEpinTextWatcher());
+                }
             }
             view.setOnOptionValueChangeListener(this);
             optionViews.put(option.getId(), view);

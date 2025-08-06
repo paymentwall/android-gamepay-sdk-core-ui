@@ -23,6 +23,7 @@ public class GPOption {
     private final String value;
     private final List<DropdownItem> dropdownItems;
     private final List<GPOptionValidation> validations;
+    public CharSequence customLabel = ""; // used for custom labels for redirect options
 
     public GPOption(String id, GPOptionType type, String label, String hint) {
         this(id, type, label, hint, "", null, Collections.emptyList());
@@ -55,7 +56,9 @@ public class GPOption {
 
         String typeStr = obj.optString("type");
         GPOptionType type;
-        if ("select".equalsIgnoreCase(typeStr)) {
+        if ("epin".equalsIgnoreCase(typeStr)) {
+            type = GPOptionType.EPIN;
+        } else if ("select".equalsIgnoreCase(typeStr)) {
             type = GPOptionType.DROPDOWN;
         } else if ("redirect".equalsIgnoreCase(typeStr)) {
             type = GPOptionType.REDIRECT;

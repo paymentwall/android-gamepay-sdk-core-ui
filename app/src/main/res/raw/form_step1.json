@@ -28,6 +28,19 @@
                 "properties": [],
                 "name": "name",
                 "type": "text"
+            },
+            {
+                "label": "E-PIN",
+                "value": "",
+                "validation": [
+                    {
+                        "regex": "^.{1,100}$",
+                        "message": "Please provide a valid data"
+                    }
+                ],
+                "properties": [],
+                "name": "epin",
+                "type": "epin"
             }
         ]
     }

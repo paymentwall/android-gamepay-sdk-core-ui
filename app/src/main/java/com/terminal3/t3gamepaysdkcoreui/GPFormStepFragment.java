@@ -16,6 +16,7 @@ import com.terminal3.gpcoreui.components.GPOptionView;
 import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.GPOption;
 import com.terminal3.gpcoreui.models.GPOptionValidation;
+import com.terminal3.gpcoreui.utils.GPHelper;
 import com.terminal3.gpcoreui.utils.validator.GPValidator;
 import com.terminal3.gpcoreui.utils.validator.rules.GPRegexRule;
 import com.terminal3.gpcoreui.utils.validator.rules.GPRequiredRule;
@@ -122,6 +123,9 @@ public class GPFormStepFragment extends Fragment {
             JSONArray arr = data.getJSONArray("instructions");
             for (int i = 0; i < arr.length(); i++) {
                 GPOption option = GPOption.fromJson(arr.getJSONObject(i));
+                if (option.getType() == GPOptionType.REDIRECT) {
+                    option.customLabel = GPHelper.createPaymentInstructionText("Continue", "KaKaoPay");
+                }
                 list.add(option);
             }
         } catch (Exception e) {
