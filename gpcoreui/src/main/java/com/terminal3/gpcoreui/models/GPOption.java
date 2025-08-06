@@ -54,7 +54,14 @@ public class GPOption {
         String value = obj.optString("value");
 
         String typeStr = obj.optString("type");
-        GPOptionType type = "select".equalsIgnoreCase(typeStr) ? GPOptionType.DROPDOWN : GPOptionType.INPUT_FIELD;
+        GPOptionType type;
+        if ("select".equalsIgnoreCase(typeStr)) {
+            type = GPOptionType.DROPDOWN;
+        } else if ("redirect".equalsIgnoreCase(typeStr)) {
+            type = GPOptionType.REDIRECT;
+        } else {
+            type = GPOptionType.INPUT_FIELD;
+        }
 
         List<DropdownItem> dropdownItems = null;
         if (obj.has("options")) {
