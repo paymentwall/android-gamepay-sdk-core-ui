@@ -54,6 +54,10 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
                 GPDropdown dropdown = new GPDropdown(getContext());
                 dropdown.bindOption(option);
                 view = dropdown;
+            } else if (option.getType() == GPOptionType.REDIRECT) {
+                GPRedirectionView redirect = new GPRedirectionView(getContext());
+                redirect.bindOption(option);
+                view = redirect;
             } else {
                 GPDefaultInputContainer input = new GPDefaultInputContainer(getContext());
                 input.bindOption(option);

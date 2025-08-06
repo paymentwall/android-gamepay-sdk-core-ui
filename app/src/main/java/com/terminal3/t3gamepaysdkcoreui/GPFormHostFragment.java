@@ -18,7 +18,8 @@ public class GPFormHostFragment extends Fragment implements GPFormStepFragment.O
     private final int[] stepResources = new int[] {
             R.raw.form_step1,
             R.raw.form_step2,
-            R.raw.form_step3
+            R.raw.form_step3,
+            R.raw.form_step4
     };
 
     @Nullable

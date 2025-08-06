@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.terminal3.gpcoreui.components.GPDynamicForm;
 import com.terminal3.gpcoreui.components.GPOptionView;
+import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.GPOption;
 import com.terminal3.gpcoreui.models.GPOptionValidation;
 import com.terminal3.gpcoreui.utils.validator.GPValidator;
@@ -67,20 +68,32 @@ public class GPFormStepFragment extends Fragment {
         if (resId != 0) {
             List<GPOption> options = parseOptions(resId);
             form.setOptions(options);
-            setupValidation(options);
-        }
-
-        btnNext.setOnClickListener(v -> {
-            if (validator.validate().getAllErrors().isEmpty()) {
-                if (stepListener != null) {
-                    stepListener.onStepComplete(form.getValues());
-                }
+            boolean isRedirect = !options.isEmpty() && options.get(0).getType() == GPOptionType.REDIRECT;
+            if (isRedirect) {
+                btnNext.setVisibility(View.GONE);
+                form.setOnFormValueChangedListener((id, value) -> {
+                    if (stepListener != null) {
+                        java.util.Map<String, String> map = new java.util.HashMap<>();
+                        map.put(id, value);
+                        stepListener.onStepComplete(map);
+                    }
+                });
+            } else {
+                setupValidation(options);
+                btnNext.setOnClickListener(v -> {
+                    if (validator.validate().getAllErrors().isEmpty()) {
+                        if (stepListener != null) {
+                            stepListener.onStepComplete(form.getValues());
+                        }
+                    }
+                });
             }
-        });
+        }
     }
 
     private void setupValidation(List<GPOption> options) {
         for (GPOption option : options) {
+            if (option.getType() == GPOptionType.REDIRECT) continue;
             GPOptionView view = form.getOptionView(option.getId());
             List<GPOptionValidation> validations = option.getValidations();
             List<com.terminal3.gpcoreui.utils.validator.GPValidationRule> rules = new ArrayList<>();

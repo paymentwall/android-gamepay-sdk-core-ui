@@ -7,5 +7,7 @@ public enum GPOptionType {
     /** Simple text input field */
     INPUT_FIELD,
     /** Dropdown selection list */
-    DROPDOWN
+    DROPDOWN,
+    /** Redirect action */
+    REDIRECT
 }
