@@ -17,7 +17,7 @@ import com.terminal3.gpcoreui.components.GPPayAltoButton;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
 import com.terminal3.gpcoreui.components.GPSecondaryButton;
 import com.terminal3.gpcoreui.enums.GPButtonState;
-import com.terminal3.gpcoreui.views.PollingAnimatedProcessingView;
+import com.terminal3.gpcoreui.views.GPPollingAnimatedProcessingView;
 
 public class GPButtonsFragment extends Fragment {
 
@@ -37,7 +37,7 @@ public class GPButtonsFragment extends Fragment {
         GPErrorButton error = view.findViewById(R.id.demoErrorButton);
         Button stateToggle = view.findViewById(R.id.btnStateToggle);
 
-        PollingAnimatedProcessingView vPolling = view.findViewById(R.id.vPolling);
+        GPPollingAnimatedProcessingView vPolling = view.findViewById(R.id.vPolling);
         vPolling.startAnimation();
 
         GPPrimaryButton[] buttons = new GPPrimaryButton[] {primary, outlined, secondary, error};
@@ -71,7 +71,7 @@ public class GPButtonsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        PollingAnimatedProcessingView vPolling = getView().findViewById(R.id.vPolling);
+        GPPollingAnimatedProcessingView vPolling = getView().findViewById(R.id.vPolling);
         vPolling.stopAnimation();
     }
 

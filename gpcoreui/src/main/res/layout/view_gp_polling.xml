@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1" />
+
+    <!-- Animated Processing View -->
+    <com.terminal3.gpcoreui.views.GPPollingAnimatedProcessingView
+        android:id="@+id/pollingAnimatedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Title Text -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Please proceed in the PIX window to complete the purchase"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/gp_form_inset_left"
+        style="@style/GP.Typography.Heading2" />
+
+    <!-- Subtitle Text -->
+    <TextView
+        android:id="@+id/subtitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Please wait, your transaction is being processed."
+        android:textAlignment="center"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/gp_form_inset_left"
+        style="@style/GP.Typography.Body1" />
+
+    <!-- Spacer to push footer to bottom -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1" />
+</LinearLayout>

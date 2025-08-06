@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-public class PollingAnimatedProcessingView extends View {
+public class GPPollingAnimatedProcessingView extends View {
 
     private static final float CONTAINER_SIZE_DP = 96f;
     private static final float CIRCLE_RADIUS_DP = 36f;
@@ -33,17 +33,17 @@ public class PollingAnimatedProcessingView extends View {
     private AnimatorSet animatorSet;
     private boolean isAnimating = false;
 
-    public PollingAnimatedProcessingView(Context context) {
+    public GPPollingAnimatedProcessingView(Context context) {
         super(context);
         init();
     }
 
-    public PollingAnimatedProcessingView(Context context, AttributeSet attrs) {
+    public GPPollingAnimatedProcessingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public PollingAnimatedProcessingView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GPPollingAnimatedProcessingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <com.terminal3.gpcoreui.views.PollingAnimatedProcessingView
+        <com.terminal3.gpcoreui.views.GPPollingAnimatedProcessingView
             android:id="@+id/vPolling"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
