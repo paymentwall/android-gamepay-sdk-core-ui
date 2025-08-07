@@ -13,9 +13,4 @@
         android:textColor="@color/gp_text_primary"
         android:textSize="16sp" />
 
-    <com.terminal3.gpcoreui.components.GPPrimaryButton
-        android:id="@+id/gp_redirection_continue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Continue" />
 </LinearLayout>

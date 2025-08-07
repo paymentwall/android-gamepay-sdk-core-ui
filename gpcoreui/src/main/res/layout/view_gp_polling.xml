@@ -19,18 +19,19 @@
         android:layout_marginBottom="24dp" />
 
     <!-- Title Text -->
+
+    <!-- Subtitle Text -->
     <TextView
         android:id="@+id/titleText"
+        style="@style/GP.Typography.Heading2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Please proceed in the PIX window to complete the purchase"
-        android:textAlignment="center"
         android:gravity="center"
         android:paddingHorizontal="@dimen/gp_form_inset_left"
-        style="@style/GP.Typography.Heading2" />
+        android:text="Please proceed in the PIX window to complete the purchase"
+        android:textAlignment="center" />
 
-    <!-- Subtitle Text -->
     <TextView
         android:id="@+id/subtitleText"
         android:layout_width="wrap_content"

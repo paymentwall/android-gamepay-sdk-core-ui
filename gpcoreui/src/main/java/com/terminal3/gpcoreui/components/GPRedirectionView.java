@@ -15,7 +15,6 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
 
     //#region Fields and Constants
     private TextView message;
-    private GPPrimaryButton btnContinue;
     private String optionId;
     private String optionValue;
     private OnOptionValueChangeListener listener;
@@ -43,12 +42,12 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.gp_redirection_view, this, true);
         message = findViewById(R.id.gp_redirection_message);
-        btnContinue = findViewById(R.id.gp_redirection_continue);
-        btnContinue.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onOptionValueChanged(optionId, optionValue);
-            }
-        });
+//        btnContinue = findViewById(R.id.gp_redirection_continue);
+//        btnContinue.setOnClickListener(v -> {
+//            if (listener != null) {
+//                listener.onOptionValueChanged(optionId, optionValue);
+//            }
+//        });
     }
     //#endregion
 
@@ -75,6 +74,9 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
     @Override
     public void setOnOptionValueChangeListener(OnOptionValueChangeListener listener) {
         this.listener = listener;
+        if (null != optionId && null != optionValue) {
+            listener.onOptionValueChanged(optionId, optionValue);
+        }
     }
 
     @Override
