@@ -11,5 +11,7 @@ public enum GPOptionType {
     /** Dropdown selection list */
     DROPDOWN,
     /** Redirect action */
-    REDIRECT
+    REDIRECT,
+    /** Group of options linked to a dropdown */
+    GROUP
 }
