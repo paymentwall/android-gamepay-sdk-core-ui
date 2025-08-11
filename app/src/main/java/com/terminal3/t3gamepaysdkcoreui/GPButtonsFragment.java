@@ -21,6 +21,8 @@ import com.terminal3.gpcoreui.views.GPPollingAnimatedProcessingView;
 
 public class GPButtonsFragment extends Fragment {
 
+    private GPPollingAnimatedProcessingView vPolling;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class GPButtonsFragment extends Fragment {
         GPErrorButton error = view.findViewById(R.id.demoErrorButton);
         Button stateToggle = view.findViewById(R.id.btnStateToggle);
 
-        GPPollingAnimatedProcessingView vPolling = view.findViewById(R.id.vPolling);
+        vPolling = view.findViewById(R.id.vPolling);
         vPolling.startAnimation();
 
         GPPrimaryButton[] buttons = new GPPrimaryButton[] {primary, outlined, secondary, error};
@@ -70,9 +72,10 @@ public class GPButtonsFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+        if (null != vPolling) {
+            vPolling.stopAnimation();
+        }
         super.onDestroy();
-        GPPollingAnimatedProcessingView vPolling = getView().findViewById(R.id.vPolling);
-        vPolling.stopAnimation();
     }
 
     private GPButtonState nextState(GPButtonState state) {

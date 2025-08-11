@@ -8,7 +8,7 @@
         android:id="@+id/gp_redirection_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
+        android:paddingVertical="16dp"
         android:text="Click Continue to pay for this order using Kakao Pay. Once your payment is confirmed, you'll receive a notification with your order details."
         android:textColor="@color/gp_text_primary"
         android:textSize="16sp" />
