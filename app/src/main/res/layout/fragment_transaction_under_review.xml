@@ -6,6 +6,8 @@
     <com.terminal3.gpcoreui.views.GPTransactionUnderReviewView
         android:id="@+id/transactionUnderReviewView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_marginVertical="32dp"
+        android:padding="16dp"
+        android:layout_height="400dp" />
 
 </FrameLayout>

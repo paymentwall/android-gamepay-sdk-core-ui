@@ -5,11 +5,11 @@
         android:shape="ring"
         android:useLevel="false"
         android:innerRadiusRatio="3"
-        android:thickness="4dp">
+        android:thickness="6dp">
         <gradient
             android:type="sweep"
-            android:startColor="#CCCCCC"
-            android:endColor="#666666"
+            android:startColor="@color/gp_text_button_light"
+            android:endColor="@color/gp_text_button_dark"
             android:useLevel="false" />
     </shape>
 </rotate>

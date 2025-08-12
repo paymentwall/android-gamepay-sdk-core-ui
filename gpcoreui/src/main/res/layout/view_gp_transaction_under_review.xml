@@ -5,10 +5,10 @@
 
     <ImageButton
         android:id="@+id/closeButton"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="end|top"
-        android:layout_margin="16dp"
+        android:scaleType="fitXY"
         android:background="@android:color/transparent"
         android:contentDescription="@string/gp_close"
         android:src="@drawable/ic_close" />
