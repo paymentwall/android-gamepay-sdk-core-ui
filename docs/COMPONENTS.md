@@ -18,6 +18,7 @@ This overview lists all widgets included in the `gpcoreui` library. Every class 
 - [GPFooterTermsView](components/GPFooterTermsView.md)
 - [GPPayAltoButton](components/GPPayAltoButton.md)
 - [GPRedirectionView](components/GPRedirectionView.md)
+- [GPTransactionUnderReviewView](components/GPTransactionUnderReviewView.md)
 
 Each component document follows the same structure:
 1. Introduction

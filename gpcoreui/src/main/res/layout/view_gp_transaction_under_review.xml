@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end|top"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/gp_close"
+        android:src="@drawable/ic_close" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ProgressBar
+            android:id="@+id/progressIndicator"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/gp_transaction_progress" />
+
+        <TextView
+            android:id="@+id/titleText"
+            style="@style/GP.Typography.Heading2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Transaction under review"
+            android:textAlignment="center"
+            android:textColor="@color/gp_text_primary" />
+
+        <TextView
+            android:id="@+id/subtitleText"
+            style="@style/GP.Typography.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Please wait while your transaction is being reviewed"
+            android:textAlignment="center"
+            android:textColor="@color/gp_text_secondary" />
+
+    </LinearLayout>
+
+</FrameLayout>
