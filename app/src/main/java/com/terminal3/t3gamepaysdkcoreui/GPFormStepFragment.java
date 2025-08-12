@@ -1,7 +1,6 @@
 package com.terminal3.t3gamepaysdkcoreui;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.terminal3.gpcoreui.components.GPDynamicForm;
-import com.terminal3.gpcoreui.components.GPOptionView;
 import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.GPOption;
-import com.terminal3.gpcoreui.models.GPOptionValidation;
 import com.terminal3.gpcoreui.utils.GPHelper;
 import com.terminal3.gpcoreui.utils.validator.GPValidator;
-import com.terminal3.gpcoreui.utils.validator.rules.GPRegexRule;
-import com.terminal3.gpcoreui.utils.validator.rules.GPRequiredRule;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,6 +59,7 @@ public class GPFormStepFragment extends Fragment {
         GPPrimaryButton btnNext = view.findViewById(R.id.btnNext);
 
         validator = new GPValidator.Builder().setAutoDisplayError(true).build();
+        form.setValidator(validator);
 
         int resId = getArguments() != null ? getArguments().getInt(ARG_JSON_RES) : 0;
         if (resId != 0) {
@@ -80,7 +76,6 @@ public class GPFormStepFragment extends Fragment {
                     }
                 });
             } else {
-                setupValidation(options);
                 btnNext.setOnClickListener(v -> {
                     if (validator.validate().getAllErrors().isEmpty()) {
                         if (stepListener != null) {
@@ -89,22 +84,6 @@ public class GPFormStepFragment extends Fragment {
                     }
                 });
             }
-        }
-    }
-
-    private void setupValidation(List<GPOption> options) {
-        for (GPOption option : options) {
-            if (option.getType() == GPOptionType.REDIRECT) continue;
-            GPOptionView view = form.getOptionView(option.getId());
-            List<GPOptionValidation> validations = option.getValidations();
-            List<com.terminal3.gpcoreui.utils.validator.GPValidationRule> rules = new ArrayList<>();
-            rules.add(new GPRequiredRule(option.getLabel() + " is required"));
-            for (GPOptionValidation val : validations) {
-                if (!TextUtils.isEmpty(val.getRegex())) {
-                    rules.add(new GPRegexRule(val.getRegex(), val.getMessage()));
-                }
-            }
-            validator.addRules(view, rules);
         }
     }
 
