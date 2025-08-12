@@ -1,0 +1,99 @@
+{
+    "success": true,
+    "data": {
+        "id": "d65638474",
+        "amount": "1.00",
+        "currency": "EUR",
+        "paid_amount": "0.0000",
+        "paid_currency": null,
+        "status": "pending",
+        "created_at": "2025-08-11 12:13:57 +00:00",
+        "tracked_at": 0,
+        "tracked": false,
+        "approved": false,
+        "session": "56f1fd0f828117c70226ffd2a5b72754",
+        "instructions": [
+            {
+                "label": "Name",
+                "value": "",
+                "validation": [
+                    {
+                        "regex": "^.{1,100}$",
+                        "message": "Please provide a valid data"
+                    }
+                ],
+                "properties": [],
+                "name": "name",
+                "type": "text"
+            },
+            {
+                "label": "Email",
+                "value": "",
+                "validation": [
+                    {
+                        "regex": "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+                        "message": "Please check your email"
+                    }
+                ],
+                "properties": [],
+                "name": "email",
+                "type": "email"
+            },
+            {
+                "label": "Doc Type",
+                "value": "",
+                "validation": [],
+                "properties": [],
+                "options": [
+                    {"value": "personal", "name": "Personal"},
+                    {"value": "business", "name": "Business"}
+                ],
+                "name": "doc_type",
+                "type": "select"
+            },
+            {
+                "label": "",
+                "value": "",
+                "validation": [],
+                "properties": [],
+                "name": "doc_type",
+                "type": "group",
+                "groups": {
+                    "personal": [
+                        {
+                            "label": "CPF",
+                            "value": "",
+                            "validation": [
+                                {
+                                    "regex": "^.{1,100}$",
+                                    "message": "Please provide a valid data"
+                                }
+                            ],
+                            "properties": [],
+                            "name": "cpf",
+                            "type": "text"
+                        }
+                    ],
+                    "business": [
+                        {
+                            "label": "CNPJ",
+                            "value": "",
+                            "validation": [
+                                {
+                                    "regex": "^.{1,100}$",
+                                    "message": "Please provide a valid data"
+                                }
+                            ],
+                            "properties": [],
+                            "name": "cnpj",
+                            "type": "text"
+                        }
+                    ]
+                }
+            }
+        ],
+        "current_step": 0,
+        "next_step": 1,
+        "instruction_action": "show_form"
+    }
+}

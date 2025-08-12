@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents an option returned from the server describing which input
@@ -23,10 +24,11 @@ public class GPOption {
     private final String value;
     private final List<DropdownItem> dropdownItems;
     private final List<GPOptionValidation> validations;
+    private final Map<String, List<GPOption>> groups;
     public CharSequence customLabel = ""; // used for custom labels for redirect options
 
     public GPOption(String id, GPOptionType type, String label, String hint) {
-        this(id, type, label, hint, "", null, Collections.emptyList());
+        this(id, type, label, hint, "", null, Collections.emptyList(), Collections.emptyMap());
     }
 
     public GPOption(String id,
@@ -35,7 +37,8 @@ public class GPOption {
                     String hint,
                     String value,
                     List<DropdownItem> dropdownItems,
-                    List<GPOptionValidation> validations) {
+                    List<GPOptionValidation> validations,
+                    Map<String, List<GPOption>> groups) {
         this.id = id;
         this.type = type;
         this.label = label;
@@ -43,6 +46,7 @@ public class GPOption {
         this.value = value;
         this.dropdownItems = dropdownItems;
         this.validations = validations == null ? Collections.emptyList() : validations;
+        this.groups = groups == null ? Collections.emptyMap() : groups;
     }
 
     /**
@@ -62,6 +66,8 @@ public class GPOption {
             type = GPOptionType.DROPDOWN;
         } else if ("redirect".equalsIgnoreCase(typeStr)) {
             type = GPOptionType.REDIRECT;
+        } else if ("group".equalsIgnoreCase(typeStr)) {
+            type = GPOptionType.GROUP;
         } else {
             type = GPOptionType.INPUT_FIELD;
         }
@@ -90,7 +96,28 @@ public class GPOption {
             }
         }
 
-        return new GPOption(id, type, label, hint, value, dropdownItems, validationRules);
+        Map<String, List<GPOption>> groups = null;
+        if (type == GPOptionType.GROUP && obj.has("groups")) {
+            groups = new java.util.HashMap<>();
+            JSONObject groupsObj = obj.optJSONObject("groups");
+            if (groupsObj != null) {
+                java.util.Iterator<String> keys = groupsObj.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    JSONArray arr = groupsObj.optJSONArray(key);
+                    if (arr != null) {
+                        List<GPOption> groupOptions = new java.util.ArrayList<>();
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject child = arr.getJSONObject(i);
+                            groupOptions.add(GPOption.fromJson(child));
+                        }
+                        groups.put(key, groupOptions);
+                    }
+                }
+            }
+        }
+
+        return new GPOption(id, type, label, hint, value, dropdownItems, validationRules, groups);
     }
 
     public String getId() {
@@ -119,5 +146,9 @@ public class GPOption {
 
     public List<GPOptionValidation> getValidations() {
         return validations;
+    }
+
+    public Map<String, List<GPOption>> getGroups() {
+        return groups;
     }
 }

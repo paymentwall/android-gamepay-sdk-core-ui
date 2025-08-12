@@ -7,7 +7,6 @@ import android.widget.LinearLayout;
 
 import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.GPOption;
-import com.terminal3.gpcoreui.utils.GPHelper;
 import com.terminal3.gpcoreui.utils.textwatchers.GPEpinTextWatcher;
 
 import java.util.HashMap;
@@ -20,8 +19,12 @@ import java.util.Map;
  */
 public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOptionValueChangeListener {
 
+    //#region Fields
     private final Map<String, GPOptionView> optionViews = new HashMap<>();
+    private final Map<String, Map<String, List<GPOption>>> groupedOptions = new HashMap<>();
+    private final Map<String, List<String>> activeGroupOptionIds = new HashMap<>();
     private OnFormValueChangedListener formListener;
+    //#endregion
 
     public GPDynamicForm(Context context) {
         super(context);
@@ -48,34 +51,56 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     public void setOptions(List<GPOption> options) {
         removeAllViews();
         optionViews.clear();
+        groupedOptions.clear();
+        activeGroupOptionIds.clear();
         if (options == null) return;
 
         for (GPOption option : options) {
-            GPOptionView view;
-            if (option.getType() == GPOptionType.DROPDOWN) {
-                GPDropdown dropdown = new GPDropdown(getContext());
-                dropdown.bindOption(option);
-                view = dropdown;
-            } else if (option.getType() == GPOptionType.REDIRECT) {
-                GPRedirectionView redirect = new GPRedirectionView(getContext());
-                redirect.bindOption(option);
-                view = redirect;
-            } else {
-                GPDefaultInputContainer input = new GPDefaultInputContainer(getContext());
-                input.bindOption(option);
-                view = input;
-                if (option.getType() == GPOptionType.EPIN) {
-                    input.addTextWatcher(new GPEpinTextWatcher());
-                }
+            if (option.getType() == GPOptionType.GROUP) {
+                groupedOptions.put(option.getId(), option.getGroups());
+                continue;
             }
+            GPOptionView view = createViewForOption(option);
             view.setOnOptionValueChangeListener(this);
             optionViews.put(option.getId(), view);
             addView((View) view);
+
+            if (groupedOptions.containsKey(option.getId()) && option.getValue() != null && !option.getValue().isEmpty()) {
+                onOptionValueChanged(option.getId(), option.getValue());
+            }
         }
     }
 
     @Override
     public void onOptionValueChanged(String optionId, String value) {
+        if (groupedOptions.containsKey(optionId)) {
+            // Remove existing group fields
+            List<String> existingIds = activeGroupOptionIds.remove(optionId);
+            if (existingIds != null) {
+                for (String id : existingIds) {
+                    GPOptionView view = optionViews.remove(id);
+                    if (view != null) {
+                        removeView((View) view);
+                    }
+                }
+            }
+
+            Map<String, List<GPOption>> groups = groupedOptions.get(optionId);
+            List<GPOption> toAdd = groups.get(value);
+            if (toAdd != null) {
+                int insertIndex = indexOfChild((View) optionViews.get(optionId)) + 1;
+                List<String> newIds = new java.util.ArrayList<>();
+                for (GPOption opt : toAdd) {
+                    GPOptionView view = createViewForOption(opt);
+                    view.setOnOptionValueChangeListener(this);
+                    optionViews.put(opt.getId(), view);
+                    addView((View) view, insertIndex++);
+                    newIds.add(opt.getId());
+                }
+                activeGroupOptionIds.put(optionId, newIds);
+            }
+        }
+
         if (formListener != null) {
             formListener.onValueChanged(optionId, value);
         }
@@ -114,4 +139,27 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     public interface OnFormValueChangedListener {
         void onValueChanged(String optionId, String value);
     }
+
+    //#region Helpers
+    private GPOptionView createViewForOption(GPOption option) {
+        GPOptionView view;
+        if (option.getType() == GPOptionType.DROPDOWN) {
+            GPDropdown dropdown = new GPDropdown(getContext());
+            dropdown.bindOption(option);
+            view = dropdown;
+        } else if (option.getType() == GPOptionType.REDIRECT) {
+            GPRedirectionView redirect = new GPRedirectionView(getContext());
+            redirect.bindOption(option);
+            view = redirect;
+        } else {
+            GPDefaultInputContainer input = new GPDefaultInputContainer(getContext());
+            input.bindOption(option);
+            view = input;
+            if (option.getType() == GPOptionType.EPIN) {
+                input.addTextWatcher(new GPEpinTextWatcher());
+            }
+        }
+        return view;
+    }
+    //#endregion
 }
