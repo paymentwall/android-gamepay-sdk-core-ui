@@ -4,11 +4,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.text.TextUtils;
 
 import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.GPOption;
+import com.terminal3.gpcoreui.models.GPOptionValidation;
 import com.terminal3.gpcoreui.utils.textwatchers.GPEpinTextWatcher;
+import com.terminal3.gpcoreui.utils.validator.GPValidator;
+import com.terminal3.gpcoreui.utils.validator.GPValidationRule;
+import com.terminal3.gpcoreui.utils.validator.rules.GPRegexRule;
+import com.terminal3.gpcoreui.utils.validator.rules.GPRequiredRule;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +31,8 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     private final Map<String, Map<String, List<GPOption>>> groupedOptions = new HashMap<>();
     private final Map<String, List<String>> activeGroupOptionIds = new HashMap<>();
     private OnFormValueChangedListener formListener;
+    private GPValidator validator;
+    private OnFormViewAddedListener viewAddedListener;
     //#endregion
 
     public GPDynamicForm(Context context) {
@@ -50,6 +59,11 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
      */
     public void setOptions(List<GPOption> options) {
         removeAllViews();
+        if (validator != null) {
+            for (GPOptionView view : optionViews.values()) {
+                validator.removeField(view);
+            }
+        }
         optionViews.clear();
         groupedOptions.clear();
         activeGroupOptionIds.clear();
@@ -64,6 +78,8 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
             view.setOnOptionValueChangeListener(this);
             optionViews.put(option.getId(), view);
             addView((View) view);
+            registerValidations(option, view);
+            notifyViewAdded(view);
 
             if (groupedOptions.containsKey(option.getId()) && option.getValue() != null && !option.getValue().isEmpty()) {
                 onOptionValueChanged(option.getId(), option.getValue());
@@ -81,6 +97,9 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
                     GPOptionView view = optionViews.remove(id);
                     if (view != null) {
                         removeView((View) view);
+                        if (validator != null) {
+                            validator.removeField(view);
+                        }
                     }
                 }
             }
@@ -95,6 +114,8 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
                     view.setOnOptionValueChangeListener(this);
                     optionViews.put(opt.getId(), view);
                     addView((View) view, insertIndex++);
+                    registerValidations(opt, view);
+                    notifyViewAdded(view);
                     newIds.add(opt.getId());
                 }
                 activeGroupOptionIds.put(optionId, newIds);
@@ -134,10 +155,31 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     }
 
     /**
+     * Sets the validator used to validate option views in this form.
+     */
+    public void setValidator(GPValidator validator) {
+        this.validator = validator;
+    }
+
+    /**
+     * Sets a listener that will be notified whenever new option views are added.
+     */
+    public void setOnFormViewAddedListener(OnFormViewAddedListener listener) {
+        this.viewAddedListener = listener;
+    }
+
+    /**
      * Listener for form-wide value change events.
      */
     public interface OnFormValueChangedListener {
         void onValueChanged(String optionId, String value);
+    }
+
+    /**
+     * Listener for newly added option views.
+     */
+    public interface OnFormViewAddedListener {
+        void onViewAdded(GPOptionView view);
     }
 
     //#region Helpers
@@ -160,6 +202,25 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
             }
         }
         return view;
+    }
+
+    private void registerValidations(GPOption option, GPOptionView view) {
+        if (validator == null || option == null) return;
+        List<GPValidationRule> rules = new ArrayList<>();
+        String label = option.getLabel() != null ? option.getLabel() : option.getId();
+        rules.add(new GPRequiredRule(label + " is required"));
+        for (GPOptionValidation val : option.getValidations()) {
+            if (!TextUtils.isEmpty(val.getRegex())) {
+                rules.add(new GPRegexRule(val.getRegex(), val.getMessage()));
+            }
+        }
+        validator.addRules(view, rules);
+    }
+
+    private void notifyViewAdded(GPOptionView view) {
+        if (viewAddedListener != null) {
+            viewAddedListener.onViewAdded(view);
+        }
     }
     //#endregion
 }
