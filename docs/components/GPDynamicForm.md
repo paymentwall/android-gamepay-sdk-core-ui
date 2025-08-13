@@ -15,7 +15,8 @@ form.setOnFormValueChangedListener((id, value) -> {
 });
 ```
 
-Use `getValues()` to retrieve all option values at once.
+Use `getValues()` to retrieve values for currently displayed options.
+Call `getAllValues()` to include hidden options with empty values.
 
 ## 3. Grouped Fields
 
