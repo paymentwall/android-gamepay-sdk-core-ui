@@ -1,0 +1,245 @@
+{
+  "success": true,
+  "data": {
+    "id": "d65638768",
+    "amount": "0.99",
+    "currency": "USD",
+    "paid_amount": "0.0000",
+    "paid_currency": null,
+    "status": "pending",
+    "created_at": "2025-08-12 5:06:34 +00:00",
+    "tracked_at": 0,
+    "tracked": false,
+    "approved": false,
+    "session": "ccf5c90580b24e4a195b994336ac337e",
+    "instructions": [
+      {
+        "label": "Name",
+        "value": "",
+        "validation": [
+          {
+            "regex": "^.{1,100}$",
+            "message": "Please provide a valid data"
+          }
+        ],
+        "properties": [],
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "label": "Email",
+        "value": "",
+        "validation": [
+          {
+            "regex": "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+            "message": "Please check your email"
+          }
+        ],
+        "properties": [],
+        "name": "email",
+        "type": "email"
+      },
+      {
+        "label": "Doc Type",
+        "value": "",
+        "validation": [],
+        "properties": [],
+        "options": [
+          {
+            "value": "personal",
+            "name": "Personal"
+          },
+          {
+            "value": "business",
+            "name": "Business"
+          }
+        ],
+        "name": "doc_type",
+        "type": "select",
+        "groups": {
+          "personal": [
+            {
+              "label": "Personal Doc Category",
+              "value": "",
+              "validation": [],
+              "properties": [],
+              "options": [
+                {
+                  "value": "cpf_category_a",
+                  "name": "CPF Category A"
+                },
+                {
+                  "value": "cpf_category_b",
+                  "name": "CPF Category B"
+                }
+              ],
+              "name": "personal_doc_category",
+              "type": "select",
+              "groups": {
+                "cpf_category_a": [
+                  {
+                    "label": "Personal Doc Subcategory",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "cpf_type_a1",
+                        "name": "CPF Type A1"
+                      },
+                      {
+                        "value": "cpf_type_a2",
+                        "name": "CPF Type A2"
+                      }
+                    ],
+                    "name": "personal_doc_subcategory_a",
+                    "type": "select",
+                    "groups": {
+                      "cpf_type_a1": [
+                        {
+                          "label": "CPF A1 Number",
+                          "value": "",
+                          "validation": [
+                            {
+                              "regex": "^.{1,100}$",
+                              "message": "Please provide a valid data"
+                            }
+                          ],
+                          "properties": [],
+                          "name": "cpf_a1",
+                          "type": "text"
+                        }
+                      ],
+                      "cpf_type_a2": [
+                        {
+                          "label": "CPF A2 Number",
+                          "value": "",
+                          "validation": [
+                            {
+                              "regex": "^.{1,100}$",
+                              "message": "Please provide a valid data"
+                            }
+                          ],
+                          "properties": [],
+                          "name": "cpf_a2",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "cpf_category_b": [
+                  {
+                    "label": "Personal Doc Subcategory",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "cpf_type_b1",
+                        "name": "CPF Type B1"
+                      },
+                      {
+                        "value": "cpf_type_b2",
+                        "name": "CPF Type B2"
+                      }
+                    ],
+                    "name": "personal_doc_subcategory_b",
+                    "type": "select",
+                    "groups": {
+                      "cpf_type_b1": [
+                        {
+                          "label": "CPF B1 Number",
+                          "value": "",
+                          "validation": [
+                            {
+                              "regex": "^.{1,100}$",
+                              "message": "Please provide a valid data"
+                            }
+                          ],
+                          "properties": [],
+                          "name": "cpf_b1",
+                          "type": "text"
+                        }
+                      ],
+                      "cpf_type_b2": [
+                        {
+                          "label": "CPF B2 Number",
+                          "value": "",
+                          "validation": [
+                            {
+                              "regex": "^.{1,100}$",
+                              "message": "Please provide a valid data"
+                            }
+                          ],
+                          "properties": [],
+                          "name": "cpf_b2",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "business": [
+            {
+              "label": "Business Doc Category",
+              "value": "",
+              "validation": [],
+              "properties": [],
+              "options": [
+                {
+                  "value": "cnpj_type_a",
+                  "name": "CNPJ Type A"
+                },
+                {
+                  "value": "cnpj_type_b",
+                  "name": "CNPJ Type B"
+                }
+              ],
+              "name": "business_doc_category",
+              "type": "select",
+              "groups": {
+                "cnpj_type_a": [
+                  {
+                    "label": "CNPJ",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^.{1,100}$",
+                        "message": "Please provide a valid data"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "cnpj_a",
+                    "type": "text"
+                  }
+                ],
+                "cnpj_type_b": [
+                  {
+                    "label": "CNPJ Extra",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^.{1,100}$",
+                        "message": "Please provide a valid data"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "cnpj_b",
+                    "type": "text"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "current_step": 0,
+    "next_step": 1,
+    "instruction_action": "show_form"
+  }
+}

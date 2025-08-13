@@ -70,8 +70,10 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
         if (options == null) return;
 
         for (GPOption option : options) {
-            if (option.getType() == GPOptionType.GROUP) {
+            if (option.getGroups() != null && !option.getGroups().isEmpty()) {
                 groupedOptions.put(option.getId(), option.getGroups());
+            }
+            if (option.getType() == GPOptionType.GROUP) {
                 continue;
             }
             GPOptionView view = createViewForOption(option);
@@ -90,17 +92,10 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     @Override
     public void onOptionValueChanged(String optionId, String value) {
         if (groupedOptions.containsKey(optionId)) {
-            // Remove existing group fields
             List<String> existingIds = activeGroupOptionIds.remove(optionId);
             if (existingIds != null) {
                 for (String id : existingIds) {
-                    GPOptionView view = optionViews.remove(id);
-                    if (view != null) {
-                        removeView((View) view);
-                        if (validator != null) {
-                            validator.removeField(view);
-                        }
-                    }
+                    removeOptionAndChildren(id);
                 }
             }
 
@@ -117,6 +112,13 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
                     registerValidations(opt, view);
                     notifyViewAdded(view);
                     newIds.add(opt.getId());
+
+                    if (opt.getGroups() != null && !opt.getGroups().isEmpty()) {
+                        groupedOptions.put(opt.getId(), opt.getGroups());
+                        if (opt.getValue() != null && !opt.getValue().isEmpty()) {
+                            onOptionValueChanged(opt.getId(), opt.getValue());
+                        }
+                    }
                 }
                 activeGroupOptionIds.put(optionId, newIds);
             }
@@ -220,6 +222,23 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     private void notifyViewAdded(GPOptionView view) {
         if (viewAddedListener != null) {
             viewAddedListener.onViewAdded(view);
+        }
+    }
+
+    private void removeOptionAndChildren(String optionId) {
+        groupedOptions.remove(optionId);
+        GPOptionView view = optionViews.remove(optionId);
+        if (view != null) {
+            removeView((View) view);
+            if (validator != null) {
+                validator.removeField(view);
+            }
+        }
+        List<String> childIds = activeGroupOptionIds.remove(optionId);
+        if (childIds != null) {
+            for (String childId : childIds) {
+                removeOptionAndChildren(childId);
+            }
         }
     }
     //#endregion

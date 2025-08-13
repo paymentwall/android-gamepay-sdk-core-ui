@@ -19,27 +19,27 @@ Use `getValues()` to retrieve all option values at once.
 
 ## 3. Grouped Fields
 
-`GPDynamicForm` can render fields conditionally based on a dropdown selection.  
-Include an option with `"type":"group"` that shares the same `name` as a `select` option:
+`GPDynamicForm` can render fields conditionally based on a dropdown selection.
+Include a `groups` object inside the parent option:
 
 ```json
 {
   "label": "Doc Type",
   "name": "doc_type",
   "type": "select",
-  "options": [{"value":"personal","name":"Personal"},{"value":"business","name":"Business"}]
-},
-{
-  "type": "group",
-  "name": "doc_type",
+  "options": [
+    {"value": "personal", "name": "Personal"},
+    {"value": "business", "name": "Business"}
+  ],
   "groups": {
-    "personal": [{"label":"CPF","name":"cpf","type":"text"}],
-    "business": [{"label":"CNPJ","name":"cnpj","type":"text"}]
+    "personal": [{"label": "CPF", "name": "cpf", "type": "text"}],
+    "business": [{"label": "CNPJ", "name": "cnpj", "type": "text"}]
   }
 }
 ```
 
 The group remains hidden until the user selects a value from the dropdown.
 Once selected, the matching group of options is inserted directly below the dropdown.
+Nested groups are supported by providing `groups` on any option.
 
-For a full example JSON payload, see `app/src/main/res/raw/form_step5.json` in the sample app.
+For full example JSON payloads, see `app/src/main/res/raw/form_step5.json` and `app/src/main/res/raw/form_step6.json` in the sample app.

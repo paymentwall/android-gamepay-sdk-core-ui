@@ -1,99 +1,349 @@
 {
-    "success": true,
-    "data": {
-        "id": "d65638474",
-        "amount": "1.00",
-        "currency": "EUR",
-        "paid_amount": "0.0000",
-        "paid_currency": null,
-        "status": "pending",
-        "created_at": "2025-08-11 12:13:57 +00:00",
-        "tracked_at": 0,
-        "tracked": false,
-        "approved": false,
-        "session": "56f1fd0f828117c70226ffd2a5b72754",
-        "instructions": [
-            {
-                "label": "Name",
-                "value": "",
-                "validation": [
-                    {
-                        "regex": "^.{1,100}$",
-                        "message": "Please provide a valid data"
-                    }
-                ],
-                "properties": [],
-                "name": "name",
-                "type": "text"
-            },
-            {
-                "label": "Email",
-                "value": "",
-                "validation": [
-                    {
-                        "regex": "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
-                        "message": "Please check your email"
-                    }
-                ],
-                "properties": [],
-                "name": "email",
-                "type": "email"
-            },
-            {
-                "label": "Doc Type",
-                "value": "",
-                "validation": [],
-                "properties": [],
-                "options": [
-                    {"value": "personal", "name": "Personal"},
-                    {"value": "business", "name": "Business"}
-                ],
-                "name": "doc_type",
-                "type": "select"
-            },
-            {
-                "label": "",
-                "value": "",
-                "validation": [],
-                "properties": [],
-                "name": "doc_type",
-                "type": "group",
-                "groups": {
-                    "personal": [
-                        {
-                            "label": "CPF",
-                            "value": "",
-                            "validation": [
-                                {
-                                    "regex": "^.{1,100}$",
-                                    "message": "Please provide a valid data"
-                                }
-                            ],
-                            "properties": [],
-                            "name": "cpf",
-                            "type": "text"
-                        }
-                    ],
-                    "business": [
-                        {
-                            "label": "CNPJ",
-                            "value": "",
-                            "validation": [
-                                {
-                                    "regex": "^.{1,100}$",
-                                    "message": "Please provide a valid data"
-                                }
-                            ],
-                            "properties": [],
-                            "name": "cnpj",
-                            "type": "text"
-                        }
-                    ]
-                }
-            }
+  "success": true,
+  "data": {
+    "id": "d65639378",
+    "amount": "1.00",
+    "currency": "USD",
+    "paid_amount": "0.0000",
+    "paid_currency": null,
+    "status": "pending",
+    "created_at": "2025-08-13 2:59:07 +00:00",
+    "trackedat": 0,
+    "tracked": false,
+    "approved": false,
+    "session": "bc6bdd9eef9b08c40c8095e89dc52597",
+    "instructions": [
+      {
+        "label": "Name",
+        "value": "",
+        "validation": [
+          {
+            "regex": "^.{1,100}$",
+            "message": "Please provide a valid data"
+          }
         ],
-        "current_step": 0,
-        "next_step": 1,
-        "instruction_action": "show_form"
-    }
+        "properties": [],
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "label": "Email",
+        "value": "",
+        "validation": [
+          {
+            "regex": "[A-Z0-9a-z.%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+            "message": "Please check your email"
+          }
+        ],
+        "properties": [],
+        "name": "email",
+        "type": "email"
+      },
+      {
+        "label": "Doc Type",
+        "value": "",
+        "validation": [],
+        "properties": [],
+        "options": [
+          {
+            "value": "personal",
+            "name": "Personal"
+          },
+          {
+            "value": "business",
+            "name": "Business"
+          },
+          {
+            "value": "entrepreneur",
+            "name": "Entrepreneur"
+          }
+        ],
+        "name": "doc_type",
+        "type": "select",
+        "groups": {
+          "personal": [
+            {
+              "label": "CPF",
+              "value": "",
+              "validation": [
+                {
+                  "regex": "^.{1,100}$",
+                  "message": "Please provide a valid data"
+                }
+              ],
+              "properties": [],
+              "name": "cpf",
+              "type": "text"
+            }
+          ],
+          "business": [
+            {
+              "label": "CNPJ",
+              "value": "",
+              "validation": [
+                {
+                  "regex": "^.{1,100}$",
+                  "message": "Please provide a valid data"
+                }
+              ],
+              "properties": [],
+              "name": "cnpj",
+              "type": "text"
+            }
+          ],
+          "entrepreneur": [
+            {
+              "label": "Entrepreneur Domain",
+              "value": "",
+              "validation": [
+                {
+                  "regex": "^.{1,100}$",
+                  "message": "Please provide a valid data"
+                }
+              ],
+              "options": [
+                {
+                  "value": "ecommerce",
+                  "name": "ECommerce"
+                },
+                {
+                  "value": "game",
+                  "name": "Game"
+                },
+                {
+                  "value": "other",
+                  "name": "Other"
+                }
+              ],
+              "properties": [],
+              "name": "ent_domain",
+              "type": "select",
+              "groups": {
+                "ecommerce": [
+                  {
+                    "label": "Store Name",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^.{2,50}$",
+                        "message": "Store name must be between 2-50 characters"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "store_name",
+                    "type": "text"
+                  },
+                  {
+                    "label": "Platform",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "shopify",
+                        "name": "Shopify"
+                      },
+                      {
+                        "value": "woocommerce",
+                        "name": "WooCommerce"
+                      },
+                      {
+                        "value": "magento",
+                        "name": "Magento"
+                      },
+                      {
+                        "value": "custom",
+                        "name": "Custom Solution"
+                      }
+                    ],
+                    "name": "ecommerce_platform",
+                    "type": "select"
+                  },
+                  {
+                    "label": "Monthly Revenue Range",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "0-1k",
+                        "name": "$0 - $1,000"
+                      },
+                      {
+                        "value": "1k-5k",
+                        "name": "$1,000 - $5,000"
+                      },
+                      {
+                        "value": "5k-20k",
+                        "name": "$5,000 - $20,000"
+                      },
+                      {
+                        "value": "20k+",
+                        "name": "$20,000+"
+                      }
+                    ],
+                    "name": "monthly_revenue",
+                    "type": "select"
+                  }
+                ],
+                "game": [
+                  {
+                    "label": "Game Title",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^.{1,100}$",
+                        "message": "Please provide a valid game title"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "game_title",
+                    "type": "text"
+                  },
+                  {
+                    "label": "Game Type",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "mobile",
+                        "name": "Mobile Game"
+                      },
+                      {
+                        "value": "pc",
+                        "name": "PC Game"
+                      },
+                      {
+                        "value": "console",
+                        "name": "Console Game"
+                      },
+                      {
+                        "value": "web",
+                        "name": "Web Game"
+                      }
+                    ],
+                    "name": "game_type",
+                    "type": "select"
+                  },
+                  {
+                    "label": "Development Stage",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "concept",
+                        "name": "Concept"
+                      },
+                      {
+                        "value": "development",
+                        "name": "In Development"
+                      },
+                      {
+                        "value": "beta",
+                        "name": "Beta Testing"
+                      },
+                      {
+                        "value": "released",
+                        "name": "Released"
+                      }
+                    ],
+                    "name": "dev_stage",
+                    "type": "select"
+                  },
+                  {
+                    "label": "Team Size",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^[1-9][0-9]*$",
+                        "message": "Please enter a valid number"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "team_size",
+                    "type": "number"
+                  }
+                ],
+                "other": [
+                  {
+                    "label": "Business Description",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^.{10,500}$",
+                        "message": "Please provide a description between 10-500 characters"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "business_description",
+                    "type": "textarea"
+                  },
+                  {
+                    "label": "Industry Category",
+                    "value": "",
+                    "validation": [],
+                    "properties": [],
+                    "options": [
+                      {
+                        "value": "technology",
+                        "name": "Technology"
+                      },
+                      {
+                        "value": "healthcare",
+                        "name": "Healthcare"
+                      },
+                      {
+                        "value": "education",
+                        "name": "Education"
+                      },
+                      {
+                        "value": "finance",
+                        "name": "Finance"
+                      },
+                      {
+                        "value": "retail",
+                        "name": "Retail"
+                      },
+                      {
+                        "value": "services",
+                        "name": "Services"
+                      },
+                      {
+                        "value": "manufacturing",
+                        "name": "Manufacturing"
+                      },
+                      {
+                        "value": "other",
+                        "name": "Other"
+                      }
+                    ],
+                    "name": "industry_category",
+                    "type": "select"
+                  },
+                  {
+                    "label": "Years in Business",
+                    "value": "",
+                    "validation": [
+                      {
+                        "regex": "^[0-9]+$",
+                        "message": "Please enter a valid number of years"
+                      }
+                    ],
+                    "properties": [],
+                    "name": "years_in_business",
+                    "type": "number"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "current_step": 0,
+    "next_step": 1,
+    "instruction_action": "show_form"
+  }
 }

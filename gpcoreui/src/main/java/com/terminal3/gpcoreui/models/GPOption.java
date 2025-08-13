@@ -97,7 +97,7 @@ public class GPOption {
         }
 
         Map<String, List<GPOption>> groups = null;
-        if (type == GPOptionType.GROUP && obj.has("groups")) {
+        if (obj.has("groups")) {
             groups = new java.util.HashMap<>();
             JSONObject groupsObj = obj.optJSONObject("groups");
             if (groupsObj != null) {
