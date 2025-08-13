@@ -44,6 +44,7 @@ To build forms dynamically, use `GPDynamicForm`:
 GPDynamicForm form = findViewById(R.id.dynamicForm);
 form.setOptions(serverOptions);
 Map<String, String> values = form.getValues();
+// Or form.getAllValues() to include hidden fields
 ```
 
 See [`docs/COMPONENTS.md`](docs/COMPONENTS.md) for an index of available widgets. Each component has its own document describing parameters and usage.

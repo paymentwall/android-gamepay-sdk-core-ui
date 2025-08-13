@@ -30,6 +30,7 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     private final Map<String, GPOptionView> optionViews = new HashMap<>();
     private final Map<String, Map<String, List<GPOption>>> groupedOptions = new HashMap<>();
     private final Map<String, List<String>> activeGroupOptionIds = new HashMap<>();
+    private final Map<String, GPOption> allOptions = new HashMap<>();
     private OnFormValueChangedListener formListener;
     private GPValidator validator;
     private OnFormViewAddedListener viewAddedListener;
@@ -67,7 +68,10 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
         optionViews.clear();
         groupedOptions.clear();
         activeGroupOptionIds.clear();
+        allOptions.clear();
         if (options == null) return;
+
+        collectAllOptions(options);
 
         for (GPOption option : options) {
             if (option.getGroups() != null && !option.getGroups().isEmpty()) {
@@ -141,6 +145,26 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     }
 
     /**
+     * Returns the current values for all options in this form, including those
+     * not currently visible. Hidden options will return an empty string if no value is set.
+     */
+    public Map<String, String> getAllValues() {
+        Map<String, String> result = new HashMap<>();
+        for (String id : allOptions.keySet()) {
+            GPOptionView view = optionViews.get(id);
+            String value;
+            if (view != null) {
+                value = view.getOptionValue();
+            } else {
+                GPOption option = allOptions.get(id);
+                value = option.getValue() != null ? option.getValue() : "";
+            }
+            result.put(id, value);
+        }
+        return result;
+    }
+
+    /**
      * Retrieves the {@link GPOptionView} associated with the given option ID.
      * This allows callers to access the underlying input view for validation
      * or additional customization.
@@ -185,6 +209,20 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     }
 
     //#region Helpers
+    private void collectAllOptions(List<GPOption> options) {
+        if (options == null) return;
+        for (GPOption option : options) {
+            if (option.getType() != GPOptionType.GROUP) {
+                allOptions.put(option.getId(), option);
+            }
+            if (option.getGroups() != null && !option.getGroups().isEmpty()) {
+                for (List<GPOption> groupOptions : option.getGroups().values()) {
+                    collectAllOptions(groupOptions);
+                }
+            }
+        }
+    }
+
     private GPOptionView createViewForOption(GPOption option) {
         GPOptionView view;
         if (option.getType() == GPOptionType.DROPDOWN) {
