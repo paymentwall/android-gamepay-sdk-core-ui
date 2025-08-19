@@ -34,9 +34,9 @@ public class GPSavedCardFragment extends Fragment {
         GPSavedCardView card2 = view.findViewById(R.id.savedCard2);
         GPSavedCardView card3 = view.findViewById(R.id.savedCard3);
 
-        setupCard(card1, "Mastercard Debit", ".... 8217", com.terminal3.gpcoreui.R.drawable.ic_card_brand_master);
-        setupCard(card2, "Visa Credit", ".... 4242", com.terminal3.gpcoreui.R.drawable.ic_card_brand_visa);
-        setupCard(card3, "Amex", ".... 1005", com.terminal3.gpcoreui.R.drawable.ic_card_brand_amex);
+        setupCard(card1, "Mastercard Debit", ".... 8217", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_master);
+        setupCard(card2, "Visa Credit", ".... 4242", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_visa);
+        setupCard(card3, "Amex", ".... 1005", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_amex);
 
         List<GPSavedCardView> cards = new ArrayList<>();
         cards.add(card1);

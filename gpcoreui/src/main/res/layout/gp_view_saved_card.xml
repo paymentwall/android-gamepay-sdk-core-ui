@@ -21,7 +21,8 @@
             android:id="@+id/gp_card_brand"
             style="@style/GPIconBackground.Default"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_card_brand_master" />
+            android:background="@color/gp_transparent"
+            android:src="@drawable/gp_ic_card_brand_visa" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -44,7 +45,7 @@
             android:id="@+id/gp_card_menu"
             style="@style/GPIconBackground.Default"
             android:background="@color/gp_transparent"
-            android:src="@drawable/ic_overflow_menu" />
+            android:src="@drawable/gp_ic_overflow_menu" />
     </LinearLayout>
 
     <EditText

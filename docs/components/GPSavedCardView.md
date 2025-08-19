@@ -17,7 +17,7 @@
 GPSavedCardView cardView = findViewById(R.id.savedCard);
 cardView.setCardName("Mastercard Debit");
 cardView.setMaskedCardNumber(".... 8217");
-cardView.setCardBrandIcon(ContextCompat.getDrawable(this, R.drawable.ic_card_brand_master));
+cardView.setCardBrandIcon(ContextCompat.getDrawable(this, R.drawable.gp_ic_card_brand_master));
 cardView.setState(SavedCardState.SELECTED);
 ```
 

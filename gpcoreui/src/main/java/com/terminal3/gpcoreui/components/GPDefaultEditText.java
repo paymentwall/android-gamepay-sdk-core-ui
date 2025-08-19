@@ -106,19 +106,19 @@ public class GPDefaultEditText extends AppCompatEditText {
         Drawable bg = null;
         switch (state) {
             case ACTIVE:
-                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_active);
+                bg = ContextCompat.getDrawable(getContext(), R.drawable.gp_input_bg_active);
                 break;
             case ERROR:
-                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_error);
+                bg = ContextCompat.getDrawable(getContext(), R.drawable.gp_input_bg_error);
                 break;
             case FILLED_INACTIVE:
-                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_filled_inactive);
+                bg = ContextCompat.getDrawable(getContext(), R.drawable.gp_input_bg_filled_inactive);
                 break;
 //            case FILLED:
-//                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_active);
+//                bg = ContextCompat.getDrawable(getContext(), R.drawable.gp_input_bg_active);
 //                break;
             default:
-                bg = ContextCompat.getDrawable(getContext(), R.drawable.input_bg_default);
+                bg = ContextCompat.getDrawable(getContext(), R.drawable.gp_input_bg_default);
                 break;
         }
         setBackground(bg);

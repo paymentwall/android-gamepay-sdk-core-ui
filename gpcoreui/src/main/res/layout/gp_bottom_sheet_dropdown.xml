@@ -10,7 +10,7 @@
         style="@style/GP.Typography.Label1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_option"
+        android:text="@string/gp_select_option"
         android:paddingHorizontal="24dp"
         android:paddingBottom="16dp" />
 

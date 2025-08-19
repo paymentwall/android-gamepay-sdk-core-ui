@@ -39,7 +39,7 @@ public class GPCardNumberField extends GPDefaultInputContainer {
         getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
                 null,
-                ContextCompat.getDrawable(getContext(), R.drawable.ic_card_brands_supported),
+                ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported),
                 null
         );
         getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -112,7 +112,7 @@ public class GPCardNumberField extends GPDefaultInputContainer {
             getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null,
                     null,
-                    ContextCompat.getDrawable(getContext(), R.drawable.ic_card_brands_supported),
+                    ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported),
                     null
             );
             return;
@@ -131,7 +131,7 @@ public class GPCardNumberField extends GPDefaultInputContainer {
             getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null,
                     null,
-                    ContextCompat.getDrawable(getContext(), R.drawable.ic_card_unknown),
+                    ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_unknown),
                     null
             );
         }
@@ -144,12 +144,12 @@ public class GPCardNumberField extends GPDefaultInputContainer {
 
     // Card brand enum and detector
     public enum CardBrand {
-        VISA(R.drawable.ic_card_brand_visa),
-        MASTERCARD(R.drawable.ic_card_brand_master),
-        AMEX(R.drawable.ic_card_brand_amex),
-        DISCOVER(R.drawable.ic_card_unknown),
-        DINERS(R.drawable.ic_card_unknown),
-        JCB(R.drawable.ic_card_brand_jcb),
+        VISA(R.drawable.gp_ic_card_brand_visa),
+        MASTERCARD(R.drawable.gp_ic_card_brand_master),
+        AMEX(R.drawable.gp_ic_card_brand_amex),
+        DISCOVER(R.drawable.gp_ic_card_unknown),
+        DINERS(R.drawable.gp_ic_card_unknown),
+        JCB(R.drawable.gp_ic_card_brand_jcb),
         UNKNOWN(0);
 
         private final int iconResId;

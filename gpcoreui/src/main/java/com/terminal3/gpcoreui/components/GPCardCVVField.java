@@ -35,7 +35,7 @@ public class GPCardCVVField extends GPDefaultInputContainer{
         getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
                 null,
-                ContextCompat.getDrawable(getContext(), R.drawable.ic_card_cvv),
+                ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_cvv),
                 null
         );
 

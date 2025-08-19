@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,7 +43,7 @@ public class GPSavedCardView extends LinearLayout {
 
     private void init(Context context) {
         setOrientation(VERTICAL);
-        LayoutInflater.from(context).inflate(R.layout.view_saved_card, this, true);
+        LayoutInflater.from(context).inflate(R.layout.gp_view_saved_card, this, true);
         llCardRow = findViewById(R.id.gp_card_row);
         cardBrandView = findViewById(R.id.gp_card_brand);
         cardNameView = findViewById(R.id.gp_card_name);
@@ -60,7 +59,7 @@ public class GPSavedCardView extends LinearLayout {
         cvvField.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
                 null,
-                ContextCompat.getDrawable(getContext(), R.drawable.ic_card_cvv),
+                ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_cvv),
                 null
         );
     }
