@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:title="PayPal"
-    app:imageSrc="@drawable/ic_pw_logo"/>
+    app:imageSrc="@drawable/gp_ic_pw_logo"/>
 ```
 
 ## 4. How to use in Activity / Fragment

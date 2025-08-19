@@ -5,7 +5,7 @@
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/input_bg_active</item>
+        <item name="android:background">@drawable/gp_input_bg_active</item>
         <item name="android:maxHeight">@dimen/gp_bottomsheet_max_height</item>
     </style>
 
@@ -16,7 +16,7 @@
 
 
     <style name="GPIconBackground">
-        <item name="android:background">@drawable/ic_background_base</item>
+        <item name="android:background">@drawable/gp_ic_background_base</item>
         <item name="android:padding">0dp</item> <!-- Adjust as needed -->
     </style>
 

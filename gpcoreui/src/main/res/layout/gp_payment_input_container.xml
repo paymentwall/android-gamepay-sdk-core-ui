@@ -33,7 +33,7 @@
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_warning_fill"/>
+            android:src="@drawable/gp_ic_warning_fill"/>
         <TextView
             android:id="@+id/gp_error_text"
             style="@style/GP.Typography.Label2"

@@ -3,7 +3,6 @@ package com.terminal3.gpcoreui.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -41,7 +40,7 @@ public class GPTransactionUnderReviewView extends FrameLayout {
 
     //region Initialization
     private void init(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.view_gp_transaction_under_review, this, true);
+        LayoutInflater.from(context).inflate(R.layout.gp_view_transaction_under_review, this, true);
         progressIndicator = findViewById(R.id.progressIndicator);
         titleText = findViewById(R.id.titleText);
         subtitleText = findViewById(R.id.subtitleText);

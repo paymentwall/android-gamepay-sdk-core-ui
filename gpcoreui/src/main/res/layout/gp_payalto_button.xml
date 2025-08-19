@@ -13,8 +13,8 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:padding="1dp"
-        android:background="@drawable/ic_background_with_border"
-        tools:src="@drawable/ic_pw_logo"/>
+        android:background="@drawable/gp_ic_background_with_border"
+        tools:src="@drawable/gp_ic_pw_logo"/>
 
     <TextView
         android:id="@+id/tv_payalto_title"

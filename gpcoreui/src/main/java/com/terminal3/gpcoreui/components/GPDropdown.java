@@ -50,11 +50,11 @@ public class GPDropdown extends GPDefaultInputContainer {
         getEditText().setFocusable(false);
         getEditText().setClickable(true);
         getEditText().setLongClickable(false);
-        getEditText().setHint(R.string.select_option);
+        getEditText().setHint(R.string.gp_select_option);
 
 //        // Set dropdown arrow
         getEditText().setCompoundDrawablesWithIntrinsicBounds(
-                0, 0, R.drawable.ic_arrow_drop_down, 0
+                0, 0, R.drawable.gp_ic_arrow_drop_down, 0
         );
 
         // Handle click to show bottom sheet
@@ -64,12 +64,12 @@ public class GPDropdown extends GPDefaultInputContainer {
     private void rotateArrow(boolean show) {
         if (show) {
             getEditText().setCompoundDrawablesWithIntrinsicBounds(
-                    0, 0, R.drawable.ic_arrow_drop_down_up, 0
+                    0, 0, R.drawable.gp_ic_arrow_drop_down_up, 0
             );
         }
         else {
             getEditText().setCompoundDrawablesWithIntrinsicBounds(
-                    0, 0, R.drawable.ic_arrow_drop_down, 0
+                    0, 0, R.drawable.gp_ic_arrow_drop_down, 0
             );
         }
 
@@ -124,7 +124,7 @@ public class GPDropdown extends GPDefaultInputContainer {
         bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogTheme);
 
         View view = LayoutInflater.from(context).inflate(
-                R.layout.bottom_sheet_dropdown,
+                R.layout.gp_bottom_sheet_dropdown,
                 new FrameLayout(context),
                 false
         );

@@ -3,7 +3,6 @@ package com.terminal3.gpcoreui.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +35,7 @@ public class GPFooterTermsView extends LinearLayout {
 
     private void init(Context context) {
         setOrientation(HORIZONTAL);
-        LayoutInflater.from(context).inflate(R.layout.view_footer_terms, this, true);
+        LayoutInflater.from(context).inflate(R.layout.gp_view_footer_terms, this, true);
         termsButton = findViewById(R.id.termsButton);
         privacyButton = findViewById(R.id.privacyButton);
     }

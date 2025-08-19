@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:imageSrc="@drawable/ic_pw_logo"
+            app:imageSrc="@drawable/gp_ic_pw_logo"
             app:title="iDEAL" />
 
         <com.terminal3.gpcoreui.components.GPSecondaryButton

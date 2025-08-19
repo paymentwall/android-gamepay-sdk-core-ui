@@ -35,7 +35,7 @@ public class GPPollingView extends LinearLayout {
 
     private void init(Context context) {
         setOrientation(LinearLayout.VERTICAL);
-        LayoutInflater.from(context).inflate(R.layout.view_gp_polling, this, true);
+        LayoutInflater.from(context).inflate(R.layout.gp_view_polling, this, true);
         
         animatedProcessingView = findViewById(R.id.pollingAnimatedView);
         titleText = findViewById(R.id.titleText);

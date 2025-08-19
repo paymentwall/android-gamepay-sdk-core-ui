@@ -29,7 +29,7 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_dropdown, parent, false);
+                .inflate(R.layout.gp_item_dropdown, parent, false);
         return new ViewHolder(view);
     }
 
@@ -62,7 +62,7 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
                 Glide.with(itemView.getContext())
                         .load(item.getPhotoUrl())
 //                        .circleCrop() // Optional: if you want circular images
-//                        .placeholder(R.drawable.ic_background_base) // Add a default placeholder
+//                        .placeholder(R.drawable.gp_ic_background_base) // Add a default placeholder
 //                        .error(R.drawable.error_placeholder) // Add an error placeholder
                         .into(icon);
             } else if (item.getIconResId() > 0) {
