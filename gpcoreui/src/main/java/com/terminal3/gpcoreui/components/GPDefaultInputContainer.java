@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -227,12 +226,10 @@ public class GPDefaultInputContainer extends LinearLayout implements GPOptionVie
     public String getInput() {
         if (null == _gpTextWatcher) {
             if (null == getEditText().getText()) return "";
-            Log.d("GPDefaultInputContainer", "getInput: " + getEditText().getText().toString());
             return getEditText().getText().toString();
         }
         else {
             String input = _gpTextWatcher.getRealValue();
-            Log.d("GPDefaultInputContainer", "getInput: " + input);
             return input;
         }
     }

@@ -3,7 +3,6 @@ package com.terminal3.gpcoreui.components;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -80,7 +79,6 @@ public class GPDefaultEditText extends AppCompatEditText {
         if (state == currentState) return;
         currentState = state;
         setBackgroundState(state);
-        Log.i("GPDefaultEditText", "setState: " + state);
     }
 
     public GPInputState getState() {
@@ -88,7 +86,6 @@ public class GPDefaultEditText extends AppCompatEditText {
     }
 
     public void setErrorMessage(String message) {
-        Log.i("GPDefaultEditText", "setErrorMessage: " + message);
         errorMessage = message;
         setState(GPInputState.ERROR);
     }

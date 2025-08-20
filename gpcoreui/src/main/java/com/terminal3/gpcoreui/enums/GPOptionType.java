@@ -13,5 +13,7 @@ public enum GPOptionType {
     /** Redirect action */
     REDIRECT,
     /** Group of options linked to a dropdown */
-    GROUP
+    GROUP,
+    /** Phone number input field */
+    TEL
 }

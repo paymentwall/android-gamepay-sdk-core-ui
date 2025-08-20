@@ -239,6 +239,8 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
             view = input;
             if (option.getType() == GPOptionType.EPIN) {
                 input.addTextWatcher(new GPEpinTextWatcher());
+            } else if (option.getType() == GPOptionType.TEL) {
+                input.getEditText().setInputType(android.text.InputType.TYPE_CLASS_PHONE);
             }
         }
         return view;
