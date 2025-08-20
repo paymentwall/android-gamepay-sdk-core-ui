@@ -68,6 +68,8 @@ public class GPOption {
             type = GPOptionType.REDIRECT;
         } else if ("group".equalsIgnoreCase(typeStr)) {
             type = GPOptionType.GROUP;
+        } else if ("tel".equalsIgnoreCase(typeStr)) {
+            type = GPOptionType.TEL;
         } else {
             type = GPOptionType.INPUT_FIELD;
         }

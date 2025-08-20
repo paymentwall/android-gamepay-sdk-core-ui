@@ -41,6 +41,32 @@
                 "properties": [],
                 "name": "epin",
                 "type": "epin"
+            },
+            {
+                "label": "Test Invalid Regex",
+                "value": "",
+                "validation": [
+                    {
+                        "regex": "^[0-9]{}$",
+                        "message": "This field has invalid regex from backend"
+                    }
+                ],
+                "properties": [],
+                "name": "test_invalid_regex",
+                "type": "text"
+            },
+            {
+                "label": "Phone number",
+                "value": "",
+                "validation": [
+                    {
+                        "regex": "^[0-9]{10}$",
+                        "message": "Please enter a 10 digit number"
+                    }
+                ],
+                "properties": [],
+                "name": "telNo",
+                "type": "tel"
             }
         ]
     }
