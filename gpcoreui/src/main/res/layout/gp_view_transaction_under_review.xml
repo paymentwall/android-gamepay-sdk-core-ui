@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Transaction under review"
+            android:text="Your transaction is under review"
             android:textAlignment="center"
             android:textColor="@color/gp_text_primary" />
 
@@ -45,9 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Please wait while your transaction is being reviewed"
+            android:text="We're quickly verifying your transaction for security. This usually takes just a few minutes."
             android:textAlignment="center"
-            android:textColor="@color/gp_text_secondary" />
+            android:textColor="@color/gp_text_primary" />
 
     </LinearLayout>
 
