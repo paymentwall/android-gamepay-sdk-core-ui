@@ -8,7 +8,8 @@ public class GPCardNumberTextWatcher implements GPTextWatcher {
     private String currentText = "";
     private static final char SEPARATOR = ' ';
     private static final int GROUP_SIZE = 4;
-    private static final int MAX_GROUPS = 4;
+//    private static final int MAX_GROUPS = 4;
+    private static final int MAX_DIGITS = 19; // Maximum 19 digits for some UnionPay cards
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -23,15 +24,41 @@ public class GPCardNumberTextWatcher implements GPTextWatcher {
         isFormatting = true;
 
         String digitsOnly = s.toString().replaceAll("[^\\d]", "");
+//        StringBuilder formatted = new StringBuilder();
+//
+//        for (int i = 0; i < digitsOnly.length(); i++) {
+//            if (i > 0 && i % GROUP_SIZE == 0 && i / GROUP_SIZE < MAX_GROUPS) {
+//                formatted.append(SEPARATOR);
+//            }
+//            if (i < MAX_GROUPS * GROUP_SIZE) {
+//                formatted.append(digitsOnly.charAt(i));
+//            }
+//        }
+//
+//        currentText = formatted.toString();
+//        if (!s.toString().equals(currentText)) {
+//            s.replace(0, s.length(), currentText);
+//            try {
+//                Selection.setSelection(s, currentText.length());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        isFormatting = false;
+        // Limit to maximum 19 digits
+        if (digitsOnly.length() > MAX_DIGITS) {
+            digitsOnly = digitsOnly.substring(0, MAX_DIGITS);
+        }
+
         StringBuilder formatted = new StringBuilder();
 
         for (int i = 0; i < digitsOnly.length(); i++) {
-            if (i > 0 && i % GROUP_SIZE == 0 && i / GROUP_SIZE < MAX_GROUPS) {
+            // Add separator after every 4 digits, but don't add at the end
+            if (i > 0 && i % GROUP_SIZE == 0) {
                 formatted.append(SEPARATOR);
             }
-            if (i < MAX_GROUPS * GROUP_SIZE) {
-                formatted.append(digitsOnly.charAt(i));
-            }
+            formatted.append(digitsOnly.charAt(i));
         }
 
         currentText = formatted.toString();
