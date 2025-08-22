@@ -12,12 +12,23 @@ import androidx.core.content.ContextCompat;
 import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.utils.textwatchers.GPTextWatcher;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
+import java.util.ArrayList;
+import java.util.List;
+
 public class GPCardNumberField extends GPDefaultInputContainer {
 
     private final CardBrandDetector cardBrandDetector = new CardBrandDetector();
 
     private CardBrand currentCardBrand = null;
     private boolean isFieldEmpty = true;
+
+    private final List<CardBrand> cardBrandList = new ArrayList<>();
+    private Drawable cardBrandIconsDrawable;
 
     public GPCardNumberField(Context context) {
         super(context);
@@ -35,14 +46,65 @@ public class GPCardNumberField extends GPDefaultInputContainer {
     }
 
     private void initCardBrandUI() {
+        cardBrandIconsDrawable = ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported);
         // Add card brand icon to the right side
         getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
                 null,
-                ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported),
+                cardBrandIconsDrawable,
                 null
         );
         getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+    }
+
+    public void setCardBrandList(List<CardBrand> brands) {
+        cardBrandList.clear();
+        if (brands != null) {
+            cardBrandList.addAll(brands);
+        }
+        cardBrandIconsDrawable = createCardBrandIconsDrawable();
+        if (isFieldEmpty) {
+            getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    null,
+                    null,
+                    cardBrandIconsDrawable,
+                    null
+            );
+        }
+    }
+
+    private Drawable createCardBrandIconsDrawable() {
+        if (cardBrandList.isEmpty()) {
+            return ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported);
+        }
+
+        int spacing = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4,
+                getResources().getDisplayMetrics());
+        List<Drawable> drawables = new ArrayList<>();
+        int totalWidth = 0;
+        int maxHeight = 0;
+        for (CardBrand brand : cardBrandList) {
+            Drawable d = ContextCompat.getDrawable(getContext(), brand.getIconResId());
+            if (d != null) {
+                drawables.add(d);
+                totalWidth += d.getIntrinsicWidth();
+                maxHeight = Math.max(maxHeight, d.getIntrinsicHeight());
+            }
+        }
+        if (drawables.isEmpty()) {
+            return ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported);
+        }
+        totalWidth += spacing * (drawables.size() - 1);
+        Bitmap bitmap = Bitmap.createBitmap(totalWidth, maxHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        int x = 0;
+        for (Drawable d : drawables) {
+            int top = (maxHeight - d.getIntrinsicHeight()) / 2;
+            d.setBounds(x, top, x + d.getIntrinsicWidth(), top + d.getIntrinsicHeight());
+            d.draw(canvas);
+            x += d.getIntrinsicWidth() + spacing;
+        }
+        return new BitmapDrawable(getResources(), bitmap);
     }
 
     @Override
@@ -108,18 +170,16 @@ public class GPCardNumberField extends GPDefaultInputContainer {
         getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
 
         if (isFieldEmpty) {
-            // Show the right views container when no input
             getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null,
                     null,
-                    ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported),
+                    cardBrandIconsDrawable,
                     null
             );
             return;
         }
 
-        if (currentCardBrand != null && currentCardBrand != CardBrand.UNKNOWN) {
-            // Set detected brand as right drawable
+        if (currentCardBrand != null && currentCardBrand != CardBrand.UNKNOWN && cardBrandList.contains(currentCardBrand)) {
             getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null,
                     null,
@@ -127,7 +187,6 @@ public class GPCardNumberField extends GPDefaultInputContainer {
                     null
             );
         } else {
-            // Set unknown card icon when brand not detected
             getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                     null,
                     null,

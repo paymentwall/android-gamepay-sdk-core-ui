@@ -19,8 +19,14 @@ Inherits all parameters from `GPDefaultInputContainer`.
 ```java
 GPCardNumberField numberField = findViewById(R.id.cardNumber);
 String digits = numberField.getCardNumber();
+numberField.setCardBrandList(java.util.Arrays.asList(
+    GPCardNumberField.CardBrand.VISA,
+    GPCardNumberField.CardBrand.MASTERCARD,
+    GPCardNumberField.CardBrand.JCB
+));
 ```
 
 ## 5. How to interact with UI component
 - `getCardNumber()` returns digits without spaces
+- `setCardBrandList(List<CardBrand>)` sets supported card brands and displays their icons
 - Card brand icon updates automatically as the user types
