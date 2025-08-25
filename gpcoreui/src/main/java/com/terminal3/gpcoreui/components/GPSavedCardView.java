@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,11 +19,13 @@ import com.terminal3.gpcoreui.enums.SavedCardState;
 
 public class GPSavedCardView extends LinearLayout {
 
+    private LinearLayout viewRoot;
     private LinearLayout llCardRow;
     private ImageView cardBrandView;
     private TextView cardNameView;
     private TextView cardNumberView;
     private ImageView menuView;
+    private View vSavedCardDivider;
     private EditText cvvField;
     private SavedCardState state = SavedCardState.DEFAULT;
 
@@ -44,12 +47,17 @@ public class GPSavedCardView extends LinearLayout {
     private void init(Context context) {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.gp_view_saved_card, this, true);
+        viewRoot = findViewById(R.id.gp_saved_card_root);
         llCardRow = findViewById(R.id.gp_card_row);
         cardBrandView = findViewById(R.id.gp_card_brand);
         cardNameView = findViewById(R.id.gp_card_name);
         cardNumberView = findViewById(R.id.gp_card_number);
         menuView = findViewById(R.id.gp_card_menu);
+        vSavedCardDivider = findViewById(R.id.gp_saved_card_divider);
         cvvField = findViewById(R.id.gp_cvv_field);
+
+        setClipToOutline(true);
+//        cvvField.setClipToOutline(true);
         setState(SavedCardState.DEFAULT);
         setOnClickListener(v -> toggle());
 
@@ -84,12 +92,14 @@ public class GPSavedCardView extends LinearLayout {
 
     private void updateState() {
         if (state == SavedCardState.SELECTED) {
-            llCardRow.setSelected(true);
-            setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_selected));
+//            llCardRow.setSelected(true);
+            viewRoot.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_selected));
+            vSavedCardDivider.setVisibility(VISIBLE);
             cvvField.setVisibility(VISIBLE);
         } else {
-            llCardRow.setSelected(false);
-            setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_default));
+//            llCardRow.setSelected(false);
+            viewRoot.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_default));
+            vSavedCardDivider.setVisibility(GONE);
             cvvField.setVisibility(GONE);
         }
     }

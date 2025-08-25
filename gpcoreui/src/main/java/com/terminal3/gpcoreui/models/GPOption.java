@@ -26,6 +26,7 @@ public class GPOption {
     private final List<GPOptionValidation> validations;
     private final Map<String, List<GPOption>> groups;
     public CharSequence customLabel = ""; // used for custom labels for redirect options
+    public String customRedirectionIconUrl = ""; // used for custom icon URLs for redirect options
 
     public GPOption(String id, GPOptionType type, String label, String hint) {
         this(id, type, label, hint, "", null, Collections.emptyList(), Collections.emptyMap());
@@ -152,5 +153,13 @@ public class GPOption {
 
     public Map<String, List<GPOption>> getGroups() {
         return groups;
+    }
+
+    public void setCustomRedirectionIconUrl(String iconUrl) {
+        this.customRedirectionIconUrl = iconUrl;
+    }
+
+    public String getCustomRedirectionIconUrl() {
+        return customRedirectionIconUrl;
     }
 }

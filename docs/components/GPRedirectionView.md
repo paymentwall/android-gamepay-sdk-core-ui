@@ -17,10 +17,15 @@ This component exposes no custom XML attributes. The redirect URL is supplied vi
 ```java
 GPRedirectionView view = findViewById(R.id.redirectView);
 view.bindOption(option);
+view.setRedirectionIconUrl("https://example.com/payment-logo.png");
 view.setOnOptionValueChangeListener((id, value) -> {
     // handle redirect action
 });
 ```
 
-## 5. How to interact with the UI component
+## 5. Available Methods
+- `setRedirectionIconUrl(String logoUrl)` – Load a logo image from URL with 12dp rounded corners using Glide
+
+## 6. How to interact with the UI component
 - Press the **Continue** button to trigger `OnOptionValueChangeListener` with the redirect URL.
+- The logo image will be automatically loaded and displayed with rounded corners when a URL is provided.

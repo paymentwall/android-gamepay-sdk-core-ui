@@ -104,6 +104,7 @@ public class GPFormStepFragment extends Fragment {
                 GPOption option = GPOption.fromJson(arr.getJSONObject(i));
                 if (option.getType() == GPOptionType.REDIRECT) {
                     option.customLabel = GPHelper.createPaymentInstructionText("Continue", "KaKaoPay");
+                    option.setCustomRedirectionIconUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnQ54gdjaHKfhtVWT3C1n-gLZljKqucGLOeg&s");
                 }
                 list.add(option);
             }

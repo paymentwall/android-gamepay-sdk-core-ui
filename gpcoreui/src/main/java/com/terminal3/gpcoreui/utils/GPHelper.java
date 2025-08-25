@@ -1,5 +1,6 @@
 package com.terminal3.gpcoreui.utils;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -50,5 +51,15 @@ public class GPHelper {
         }
 
         return spannableBuilder;
+    }
+
+    /**
+     * Convert dp to pixels
+     * @param context The context to get display metrics from
+     * @param dp The dp value to convert
+     * @return The equivalent pixel value
+     */
+    public static int dpToPx(Context context, int dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 }

@@ -1,10 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="62dp"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
-    android:paddingVertical="12dp"
     >
 
     <View
@@ -27,7 +26,6 @@
             style="@style/GP.Typography.BodyCompact1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:text="@string/gp_powered_by"
             android:textColor="@color/gp_text_primary" />
 
@@ -35,11 +33,10 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
             android:contentDescription="Paymentwall logo"
-            android:src="@drawable/gp_ic_pw_logo" />
+            android:src="@drawable/gp_ic_terminal3_logo" />
 
         <!-- Divider "|" -->
         <View
@@ -48,7 +45,8 @@
             android:layout_height="16dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:background="@color/gp_text_primary" />
+            android:background="@color/gp_text_primary"
+            android:visibility="gone"/>
 
         <!-- Terms Button -->
         <TextView
@@ -58,7 +56,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/gp_terms"
-            android:textColor="@color/gp_text_primary" />
+            android:textColor="@color/gp_text_primary"
+            android:visibility="gone"/>
 
         <!-- Privacy Button -->
         <TextView
@@ -68,6 +67,12 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/gp_privacy"
-            android:textColor="@color/gp_text_primary" />
+            android:textColor="@color/gp_text_primary"
+            android:visibility="gone"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

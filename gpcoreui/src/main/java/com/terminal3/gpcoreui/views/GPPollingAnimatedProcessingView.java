@@ -90,15 +90,31 @@ public class GPPollingAnimatedProcessingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float centerX = containerSize / 2f;
-        float centerY = containerSize / 2f;
+//        float centerX = containerSize / 2f;
+//        float centerY = containerSize / 2f;
+//
+//        // Draw circle
+//        canvas.drawCircle(centerX, centerY, circleRadius, circlePaint);
+//
+//        // Draw chevrons
+//        for (int i = 0; i < chevronPositions.length; i++) {
+//            drawChevron(canvas, chevronPositions[i], centerY, chevronOpacities[i]);
+//        }
+
+        float viewSize = getWidth(); // Use actual view size, not containerSize
+        float centerX = viewSize / 2f;
+        float centerY = viewSize / 2f;
+
+        // Adjust circle radius proportionally if needed
+        float actualCircleRadius = circleRadius * (viewSize / containerSize);
 
         // Draw circle
-        canvas.drawCircle(centerX, centerY, circleRadius, circlePaint);
+        canvas.drawCircle(centerX, centerY, actualCircleRadius, circlePaint);
 
-        // Draw chevrons
+        // Adjust chevron positions proportionally
         for (int i = 0; i < chevronPositions.length; i++) {
-            drawChevron(canvas, chevronPositions[i], centerY, chevronOpacities[i]);
+            float adjustedX = chevronPositions[i] * (viewSize / containerSize);
+            drawChevron(canvas, adjustedX, centerY, chevronOpacities[i]);
         }
     }
 

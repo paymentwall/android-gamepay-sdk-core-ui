@@ -11,9 +11,8 @@
     <LinearLayout
         android:id="@+id/gp_card_row"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         android:orientation="horizontal"
-        android:background="@drawable/gp_saved_card_background"
         android:gravity="center_vertical"
         android:padding="12dp">
 
@@ -37,7 +36,8 @@
 
             <TextView
                 android:id="@+id/gp_card_number"
-                style="@style/GP.Typography.Label2"
+                style="@style/GP.Typography.BodyMedium1"
+                android:textStyle="bold"
                 android:text=".... 8217" />
         </LinearLayout>
 
@@ -48,16 +48,26 @@
             android:src="@drawable/gp_ic_overflow_menu" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/gp_saved_card_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gp_border_primary"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
     <EditText
         android:id="@+id/gp_cvv_field"
         style="@style/GP.Typography.Body1"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/gp_transparent"
+        android:background="@drawable/gp_cvv_background_selected"
         android:hint="@string/gp_cvv"
         android:textColorHint="@color/gp_text_secondary"
         android:inputType="numberPassword"
-        android:padding="12dp"
+        android:padding="10dp"
+        android:layout_marginHorizontal="1dp"
+        android:layout_marginBottom="1dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 
