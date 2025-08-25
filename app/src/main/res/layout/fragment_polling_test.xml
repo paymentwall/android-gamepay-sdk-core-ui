@@ -78,14 +78,14 @@
         <com.terminal3.gpcoreui.views.GPPollingView
             android:id="@+id/pollingView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="400dp">
 
             <!-- Footer Terms View -->
             <com.terminal3.gpcoreui.views.GPFooterTermsView
                 android:id="@+id/footerTermsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                />
         </com.terminal3.gpcoreui.views.GPPollingView>
     </LinearLayout>
 

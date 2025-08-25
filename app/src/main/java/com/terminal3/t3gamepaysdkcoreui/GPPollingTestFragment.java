@@ -65,10 +65,6 @@ public class GPPollingTestFragment extends Fragment {
         });
 
         // Set up Terms and Privacy click listeners
-        pollingView.setOnTermsClickListener(v -> 
-            Toast.makeText(getContext(), "Terms clicked", Toast.LENGTH_SHORT).show());
-
-        pollingView.setOnPrivacyClickListener(v -> 
-            Toast.makeText(getContext(), "Privacy clicked", Toast.LENGTH_SHORT).show());
+        pollingView.setPayAltoPollingTexts("Teen Cash");
     }
 }

@@ -38,7 +38,8 @@ import java.util.List;
 
 public class GPInputFieldsFragment extends Fragment {
 
-    private GPDefaultInputContainer ipCardNumber, ipExpiryDate, ipCVV;
+    private GPCardNumberField ipCardNumber;
+    private GPDefaultInputContainer ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
     private GPOutlinedButton btnSwitch, btnOpenSavedCard;
     private GPPrimaryButton btnValidate, btnOpenForm;
@@ -64,6 +65,11 @@ public class GPInputFieldsFragment extends Fragment {
 
     private void initView(View rootView) {
         ipCardNumber = rootView.findViewById(R.id.ip_card_number);
+        ipCardNumber.setCardBrandList(java.util.Arrays.asList(
+                GPCardNumberField.CardBrand.VISA,
+                GPCardNumberField.CardBrand.MASTERCARD,
+                GPCardNumberField.CardBrand.JCB
+        ));
         ipExpiryDate = rootView.findViewById(R.id.ip_expiry_date);
         ipCVV = rootView.findViewById(R.id.ip_cvv);
         btnSwitch = rootView.findViewById(R.id.btnSwitch);

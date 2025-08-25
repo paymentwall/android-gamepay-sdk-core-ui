@@ -1,6 +1,10 @@
 package com.terminal3.gpcoreui.views;
 
 import android.content.Context;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +20,6 @@ public class GPPollingView extends LinearLayout {
     public GPPollingAnimatedProcessingView animatedProcessingView;
     public TextView titleText;
     public TextView subtitleText;
-    public GPFooterTermsView footerTermsView;
 
     public GPPollingView(Context context) {
         super(context);
@@ -70,15 +73,29 @@ public class GPPollingView extends LinearLayout {
         }
     }
 
-    public void setOnTermsClickListener(@Nullable View.OnClickListener listener) {
-        if (footerTermsView != null) {
-            footerTermsView.setOnTermsClickListener(listener);
+    private void setSubtitleTextWithBoldParam(String text, String boldParam) {
+        if (subtitleText != null && boldParam != null) {
+            SpannableStringBuilder builder = new SpannableStringBuilder(text);
+            int start = text.indexOf(boldParam);
+            if (start >= 0) {
+                builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + boldParam.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            subtitleText.setText(builder);
         }
     }
 
-    public void setOnPrivacyClickListener(@Nullable View.OnClickListener listener) {
-        if (footerTermsView != null) {
-            footerTermsView.setOnPrivacyClickListener(listener);
-        }
+    // region Setup Title & SubTitle
+    public void setPaymentUnderReviewTexts(String paymentId) {
+        setTitleText(getContext().getString(R.string.gp_payment_under_review_title));
+        String subtitle = getContext().getString(R.string.gp_payment_under_review_subtitle, paymentId);
+        setSubtitleTextWithBoldParam(subtitle, paymentId);
     }
+
+    public void setPayAltoPollingTexts(String paymentMethod) {
+        setTitleText(getContext().getString(R.string.gp_payalto_polling_title));
+        String subtitle = getContext().getString(R.string.gp_payalto_polling_subtitle, paymentMethod);
+        setSubtitleTextWithBoldParam(subtitle, paymentMethod);
+    }
+
+    // end region
 }
