@@ -101,7 +101,7 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
         if (redirectionIcon != null && logoUrl != null && !logoUrl.isEmpty()) {
             RequestOptions requestOptions = new RequestOptions()
                     .transform(new RoundedCorners(GPHelper.dpToPx(getContext(), 12)));
-            
+
             Glide.with(getContext())
                     .load(logoUrl)
                     .apply(requestOptions)

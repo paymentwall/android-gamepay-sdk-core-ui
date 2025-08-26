@@ -5,19 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/gp_redirection_icon"
+    <FrameLayout
         android:layout_width="64dp"
-        android:layout_height="64dp"
-        tools:src="@drawable/gp_ic_warning_fill" />
+        android:layout_height="64dp">
+
+        <ImageView
+            android:id="@+id/gp_redirection_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gp_bg_rectangle_rounded"/>
+
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/gp_redirection_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="16dp"
-        android:text="Click Continue to pay for this order using Kakao Pay. Once your payment is confirmed, you'll receive a notification with your order details."
         android:textColor="@color/gp_text_primary"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        tools:text="Click Continue to pay for this order using Kakao Pay. Once your payment is confirmed, you'll receive a notification with your order details."/>
 
 </LinearLayout>
