@@ -68,7 +68,11 @@ public class GPInputFieldsFragment extends Fragment {
         ipCardNumber.setCardBrandList(java.util.Arrays.asList(
                 GPCardNumberField.CardBrand.VISA,
                 GPCardNumberField.CardBrand.MASTERCARD,
-                GPCardNumberField.CardBrand.JCB
+                GPCardNumberField.CardBrand.DISCOVER,
+                GPCardNumberField.CardBrand.DINERS,
+                GPCardNumberField.CardBrand.JCB,
+                GPCardNumberField.CardBrand.UNIONPAY,
+                GPCardNumberField.CardBrand.AMEX
         ));
         ipExpiryDate = rootView.findViewById(R.id.ip_expiry_date);
         ipCVV = rootView.findViewById(R.id.ip_cvv);

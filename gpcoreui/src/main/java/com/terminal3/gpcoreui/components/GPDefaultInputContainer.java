@@ -51,9 +51,12 @@ public class GPDefaultInputContainer extends LinearLayout implements GPOptionVie
 
     // region Init
 
+    protected int getLayoutResId() {
+        return R.layout.gp_payment_input_container;
+    }
     private void init(Context context) {
         setOrientation(VERTICAL);
-        LayoutInflater.from(context).inflate(R.layout.gp_payment_input_container, this, true);
+        LayoutInflater.from(context).inflate(getLayoutResId(), this, true);
         labelView = findViewById(R.id.gp_label);
         editText = findViewById(R.id.gp_edit_text);
         errorView = findViewById(R.id.gp_error);
@@ -64,7 +67,7 @@ public class GPDefaultInputContainer extends LinearLayout implements GPOptionVie
 
     private void init(Context context, AttributeSet attrs) {
         setOrientation(VERTICAL);
-        LayoutInflater.from(context).inflate(R.layout.gp_payment_input_container, this, true);
+        LayoutInflater.from(context).inflate(getLayoutResId(), this, true);
         labelView = findViewById(R.id.gp_label);
         editText = findViewById(R.id.gp_edit_text);
         errorView = findViewById(R.id.gp_error);
