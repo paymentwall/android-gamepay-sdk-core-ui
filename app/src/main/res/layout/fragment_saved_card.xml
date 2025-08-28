@@ -33,6 +33,12 @@
     <com.terminal3.gpcoreui.components.GPSavedCardView
         android:id="@+id/savedCard3"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/gp_row_spacing" />
+
+    <com.terminal3.gpcoreui.components.GPSavedCardView
+        android:id="@+id/savedCard4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

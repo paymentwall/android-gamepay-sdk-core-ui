@@ -29,6 +29,10 @@ public class GPSavedCardView extends LinearLayout {
     private EditText cvvField;
     private SavedCardState state = SavedCardState.DEFAULT;
 
+    private boolean canDeleteCard = true;
+    private boolean isRequireCVV = true;
+
+
     public GPSavedCardView(Context context) {
         super(context);
         init(context);
@@ -42,6 +46,12 @@ public class GPSavedCardView extends LinearLayout {
     public GPSavedCardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+    }
+
+    public void updateConfig(Boolean canDeleteCard, Boolean isRequireCVV) {
+        this.canDeleteCard = canDeleteCard;
+        this.isRequireCVV = isRequireCVV;
+        updateUI();
     }
 
     private void init(Context context) {
@@ -60,6 +70,7 @@ public class GPSavedCardView extends LinearLayout {
 //        cvvField.setClipToOutline(true);
         setState(SavedCardState.DEFAULT);
         setOnClickListener(v -> toggle());
+        updateUI();
 
         cvvField.setFilters(new InputFilter[] {
                 new InputFilter.LengthFilter(4)
@@ -94,14 +105,19 @@ public class GPSavedCardView extends LinearLayout {
         if (state == SavedCardState.SELECTED) {
 //            llCardRow.setSelected(true);
             viewRoot.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_selected));
-            vSavedCardDivider.setVisibility(VISIBLE);
-            cvvField.setVisibility(VISIBLE);
+            vSavedCardDivider.setVisibility(isRequireCVV ? VISIBLE : GONE);
+            cvvField.setVisibility(isRequireCVV ? VISIBLE : GONE);
         } else {
 //            llCardRow.setSelected(false);
             viewRoot.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_default));
             vSavedCardDivider.setVisibility(GONE);
             cvvField.setVisibility(GONE);
         }
+    }
+
+    private void updateUI() {
+        menuView.setVisibility(canDeleteCard ? VISIBLE : GONE);
+        updateState();
     }
 
     public void setCardBrandIcon(Drawable drawable) {

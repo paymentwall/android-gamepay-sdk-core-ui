@@ -33,15 +33,18 @@ public class GPSavedCardFragment extends Fragment {
         GPSavedCardView card1 = view.findViewById(R.id.savedCard1);
         GPSavedCardView card2 = view.findViewById(R.id.savedCard2);
         GPSavedCardView card3 = view.findViewById(R.id.savedCard3);
+        GPSavedCardView card4 = view.findViewById(R.id.savedCard4);
 
-        setupCard(card1, "Mastercard Debit", ".... 8217", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_master);
-        setupCard(card2, "Visa Credit", ".... 4242", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_visa);
-        setupCard(card3, "Amex", ".... 1005", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_amex);
+        setupCard(card1, "Mastercard Debit (Menu + CVV)", ".... 8217", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_master, true, true);
+        setupCard(card2, "Visa Credit (Menu only)", ".... 4242", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_visa, true, false);
+        setupCard(card3, "Amex (CVV only)", ".... 1005", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_amex, false, true);
+        setupCard(card4, "Discover (No menu, No CVV)", ".... 6011", com.terminal3.gpcoreui.R.drawable.gp_ic_card_brand_discover, false, false);
 
         List<GPSavedCardView> cards = new ArrayList<>();
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
+        cards.add(card4);
 
         for (GPSavedCardView card : cards) {
             card.setOnClickListener(v -> selectCard(card, cards));
@@ -55,6 +58,11 @@ public class GPSavedCardFragment extends Fragment {
         card.setCardBrandIcon(ContextCompat.getDrawable(requireContext(), iconRes));
         card.setState(SavedCardState.DEFAULT);
         card.setTag(name + " " + number);
+    }
+
+    private void setupCard(GPSavedCardView card, String name, String number, int iconRes, boolean canDeleteCard, boolean isRequireCVV) {
+        setupCard(card, name, number, iconRes);
+        card.updateConfig(canDeleteCard, isRequireCVV);
     }
 
     private void showConfirmation(GPSavedCardView card) {
