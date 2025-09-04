@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.terminal3.gpcoreui.components.GPOrDivider;
 import com.terminal3.gpcoreui.components.GPPayAltoButton;
 
 import org.json.JSONArray;
@@ -51,6 +52,13 @@ public class GPPayAltoListFragment extends Fragment {
                 if (i > 0) {
                     params.topMargin = dpToPx(16);
                 }
+
+                if (i == 3) {
+                    GPOrDivider divider = new GPOrDivider(requireContext());
+                    divider.setLayoutParams(params);
+                    containerLayout.addView(divider);
+                }
+
                 button.setLayoutParams(params);
                 containerLayout.addView(button);
             }

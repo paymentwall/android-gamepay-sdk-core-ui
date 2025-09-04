@@ -32,6 +32,7 @@
     <!-- Text Colors -->
     <color name="gp_text_primary">#060B14</color>
     <color name="gp_text_secondary">#3E527A</color>
+    <color name="gp_text_link">#1E41FF</color>
     <color name="gp_text_button_light">#FFFFFF</color>
     <color name="gp_text_button_dark">#060B14</color>
     <color name="gp_text_button_inactive_primary">#D6E4FF</color>

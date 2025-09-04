@@ -4,8 +4,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
 <!--        <item name="fontFamily">?attr/primaryFontFamily</item>-->
+        <item name="fontFamily">@font/sfpro_family</item>
         <item name="android:textColor">?attr/primaryTextColor</item>
-        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
 <!--        <item name="android:autoSizeTextType">uniform</item>-->
     </style>
 
@@ -36,7 +38,7 @@
 
     <style name="GP.Typography.Label1" parent="GP.Typography">
         <item name="android:textSize">14sp</item>
-        <item name="android:textFontWeight">510</item>
+        <item name="android:textFontWeight">600</item>
     </style>
 
     <style name="GP.Typography.Label2" parent="GP.Typography">
@@ -71,7 +73,7 @@
 
     <style name="GP.Typography.BodyMedium2" parent="GP.Typography">
         <item name="android:textSize">20sp</item>
-        <item name="android:textFontWeight">700</item>
+        <item name="android:textFontWeight">500</item>
     </style>
 
     <style name="GP.Typography.BodyCompact1" parent="GP.Typography">

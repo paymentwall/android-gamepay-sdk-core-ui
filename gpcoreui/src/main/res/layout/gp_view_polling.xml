@@ -23,18 +23,15 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:paddingHorizontal="@dimen/gp_form_inset_left"
-        android:text="Waiting for payment"
         android:textAlignment="center" />
 
     <TextView
         android:id="@+id/subtitleText"
+        style="@style/GP.Typography.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Please proceed to the Gift Card Dollar
-General window to complete your purchase"
         android:textAlignment="center"
         android:gravity="center"
-        android:paddingHorizontal="@dimen/gp_form_inset_left"
-        style="@style/GP.Typography.Body1" />
+        android:paddingHorizontal="@dimen/gp_form_inset_left" />
 </LinearLayout>

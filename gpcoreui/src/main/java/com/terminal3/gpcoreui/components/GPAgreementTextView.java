@@ -10,7 +10,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,13 +26,11 @@ public class GPAgreementTextView extends AppCompatTextView {
     private String merchantName;
 
     public GPAgreementTextView(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public GPAgreementTextView(Context context, @Nullable android.util.AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public GPAgreementTextView(Context context, @Nullable android.util.AttributeSet attrs, int defStyleAttr) {
@@ -80,13 +77,10 @@ public class GPAgreementTextView extends AppCompatTextView {
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setColor(getContext().getColor(R.color.gp_text_primary));
-                ds.setUnderlineText(true);
+                ds.setColor(getContext().getColor(R.color.gp_text_link));
             }
         }, start, start + length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                start, start + length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new android.text.style.UnderlineSpan(),
+        builder.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.NORMAL),
                 start, start + length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 

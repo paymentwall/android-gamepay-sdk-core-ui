@@ -8,11 +8,12 @@
     <string name="gp_privacy">Privacy</string>
     <string name="gp_cvv">CVV</string>
     <string name="gp_close">Close</string>
-    <string name="gp_agreement_text">By paying you agree to %1$s\'s %2$s and %3$s</string>
+    <string name="gp_agreement_text">By proceeding, you agree to %1$s\'s %2$s and %3$s. %1$s is the authorized reseller and merchant of products and services in this store.</string>
     <string name="gp_payment_under_review_title">Payment under review</string>
     <string name="gp_payment_under_review_subtitle">Payment ID %1$s is being reviewed by our Risk department to protect your account from fraud.</string>
     <string name="gp_payalto_polling_title">Finish your payment</string>
     <string name="gp_payalto_polling_subtitle">Please proceed to the %1$s window to complete your purchase. Keep this page open until payment is confirmed.</string>
     <string name="gp_card_removal_title">Confirm card removal</string>
     <string name="gp_card_removal_subtitle">Are you sure you want to remove %1$s %2$s •••• %3$s? You can always add it back later.</string>
+    <string name="gp_or_text">Or</string>
 </resources>

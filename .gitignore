@@ -25,3 +25,5 @@ replay_pid*
 *.lock
 *.probe
 /.gradle
+/.idea
+/.gradle

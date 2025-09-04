@@ -14,18 +14,19 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <TextView
+        style="@style/GP.Typography.BodyCompact1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="GPAgreementTextView Test"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textColor="@color/gp_text_primary" />
 
     <com.terminal3.gpcoreui.components.GPAgreementTextView
         android:id="@+id/agreementTextView"
+        style="@style/GP.Typography.BodyCompact1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="14sp" />
+        />
 
 </LinearLayout>

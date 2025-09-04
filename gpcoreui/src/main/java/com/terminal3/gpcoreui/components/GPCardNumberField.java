@@ -65,7 +65,7 @@ public class GPCardNumberField extends GPDefaultInputContainer {
 
     private void initCardBrandUI() {
 //        cardBrandIconsDrawable = ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brands_supported);
-        cardBrandIconsDrawable = ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_unknown);
+        cardBrandIconsDrawable = ContextCompat.getDrawable(getContext(), R.drawable.gp_ic_card_brand_unknown);
         // Add card brand icon to the right side
         getEditText().setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
