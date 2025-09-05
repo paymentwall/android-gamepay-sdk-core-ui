@@ -232,10 +232,10 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
         } else if (option.getType() == GPOptionType.REDIRECT) {
             GPRedirectionView redirect = new GPRedirectionView(getContext());
             redirect.bindOption(option);
-            String iconUrl = option.getCustomRedirectionIconUrl();
-            if (iconUrl != null && !iconUrl.isEmpty()) {
-                redirect.setRedirectionIconUrl(iconUrl);
-            }
+//            String iconUrl = option.getCustomRedirectionIconUrl();
+//            if (iconUrl != null && !iconUrl.isEmpty()) {
+//                redirect.setRedirectionIconUrl(iconUrl);
+//            }
             view = redirect;
         } else {
             GPDefaultInputContainer input = new GPDefaultInputContainer(getContext());

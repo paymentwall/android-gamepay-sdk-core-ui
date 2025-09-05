@@ -20,7 +20,6 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
 
     //#region Fields and Constants
     private TextView message;
-    private ImageView redirectionIcon;
     private String optionId;
     private String optionValue;
     private OnOptionValueChangeListener listener;
@@ -48,7 +47,6 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.gp_redirection_view, this, true);
         message = findViewById(R.id.gp_redirection_message);
-        redirectionIcon = findViewById(R.id.gp_redirection_icon);
 //        btnContinue = findViewById(R.id.gp_redirection_continue);
 //        btnContinue.setOnClickListener(v -> {
 //            if (listener != null) {
@@ -97,16 +95,16 @@ public class GPRedirectionView extends LinearLayout implements GPOptionView {
      * Load a logo image from URL with rounded corners (12dp radius)
      * @param logoUrl The URL of the logo to load
      */
-    public void setRedirectionIconUrl(String logoUrl) {
-        if (redirectionIcon != null && logoUrl != null && !logoUrl.isEmpty()) {
-            RequestOptions requestOptions = new RequestOptions()
-                    .transform(new RoundedCorners(GPHelper.dpToPx(getContext(), 12)));
-
-            Glide.with(getContext())
-                    .load(logoUrl)
-                    .apply(requestOptions)
-                    .into(redirectionIcon);
-        }
-    }
+//    public void setRedirectionIconUrl(String logoUrl) {
+//        if (redirectionIcon != null && logoUrl != null && !logoUrl.isEmpty()) {
+//            RequestOptions requestOptions = new RequestOptions()
+//                    .transform(new RoundedCorners(GPHelper.dpToPx(getContext(), 12)));
+//
+//            Glide.with(getContext())
+//                    .load(logoUrl)
+//                    .apply(requestOptions)
+//                    .into(redirectionIcon);
+//        }
+//    }
     //#endregion
 }
