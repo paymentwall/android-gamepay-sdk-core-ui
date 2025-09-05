@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.terminal3.gpcoreui.R;
-import com.terminal3.gpcoreui.enums.SavedCardState;
+import com.terminal3.gpcoreui.enums.GPSavedCardState;
 
 public class GPSavedCardView extends LinearLayout {
 
@@ -27,7 +27,7 @@ public class GPSavedCardView extends LinearLayout {
     private ImageView menuView;
     private View vSavedCardDivider;
     private EditText cvvField;
-    private SavedCardState state = SavedCardState.DEFAULT;
+    private GPSavedCardState state = GPSavedCardState.DEFAULT;
 
     private boolean canDeleteCard = true;
     private boolean isRequireCVV = true;
@@ -68,7 +68,7 @@ public class GPSavedCardView extends LinearLayout {
 
         setClipToOutline(true);
 //        cvvField.setClipToOutline(true);
-        setState(SavedCardState.DEFAULT);
+        setState(GPSavedCardState.DEFAULT);
         setOnClickListener(v -> toggle());
         updateUI();
 
@@ -83,26 +83,26 @@ public class GPSavedCardView extends LinearLayout {
         );
     }
 
-    public void setState(SavedCardState newState) {
+    public void setState(GPSavedCardState newState) {
         if (state == newState) return;
         state = newState;
         updateState();
     }
 
-    public SavedCardState getState() {
+    public GPSavedCardState getState() {
         return state;
     }
 
     public void toggle() {
-        if (state == SavedCardState.DEFAULT) {
-            setState(SavedCardState.SELECTED);
+        if (state == GPSavedCardState.DEFAULT) {
+            setState(GPSavedCardState.SELECTED);
         } else {
-            setState(SavedCardState.DEFAULT);
+            setState(GPSavedCardState.DEFAULT);
         }
     }
 
     private void updateState() {
-        if (state == SavedCardState.SELECTED) {
+        if (state == GPSavedCardState.SELECTED) {
 //            llCardRow.setSelected(true);
             viewRoot.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.gp_saved_card_background_selected));
             vSavedCardDivider.setVisibility(isRequireCVV ? VISIBLE : GONE);

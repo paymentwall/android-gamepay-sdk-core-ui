@@ -27,6 +27,9 @@ android {
 
 dependencies {
 
+    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+    implementation 'com.caverock:androidsvg-aar:1.4'
+
     implementation libs.glide
     implementation libs.sdp.android
     implementation libs.ssp.android

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.terminal3.gpcoreui.enums.SavedCardState;
+import com.terminal3.gpcoreui.enums.GPSavedCardState;
 
 import com.terminal3.gpcoreui.components.GPConfirmationBottomSheetFragment;
 import com.terminal3.gpcoreui.components.GPSavedCardView;
@@ -56,7 +56,7 @@ public class GPSavedCardFragment extends Fragment {
         card.setCardName(name);
         card.setMaskedCardNumber(number);
         card.setCardBrandIcon(ContextCompat.getDrawable(requireContext(), iconRes));
-        card.setState(SavedCardState.DEFAULT);
+        card.setState(GPSavedCardState.DEFAULT);
         card.setTag(name + " " + number);
     }
 
@@ -93,9 +93,9 @@ public class GPSavedCardFragment extends Fragment {
     private void selectCard(GPSavedCardView selected, List<GPSavedCardView> allCards) {
         for (GPSavedCardView card : allCards) {
             if (card == selected) {
-                card.setState(SavedCardState.SELECTED);
+                card.setState(GPSavedCardState.SELECTED);
             } else {
-                card.setState(SavedCardState.DEFAULT);
+                card.setState(GPSavedCardState.DEFAULT);
             }
         }
     }

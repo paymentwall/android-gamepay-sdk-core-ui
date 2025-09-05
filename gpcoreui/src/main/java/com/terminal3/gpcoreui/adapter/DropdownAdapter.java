@@ -1,5 +1,9 @@
 package com.terminal3.gpcoreui.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,11 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.models.DropdownItem;
+import com.terminal3.gpcoreui.utils.transformation.GPRoundedCornersWithBorderTransformation;
+import com.terminal3.gpcoreui.utils.transformation.GPSvgWithBorderTarget;
+import com.terminal3.gpcoreui.utils.transformation.SvgLoaderWithBorder;
 
 import java.util.List;
 
@@ -48,6 +59,20 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
         private final ImageView icon;
         private final TextView text;
 
+        int cornerRadius = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                4,
+                itemView.getContext().getResources().getDisplayMetrics()
+        );
+
+        int borderWidth = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                1,
+                itemView.getContext().getResources().getDisplayMetrics()
+        );
+
+        int borderColor = R.color.gp_border_primary;
+
         ViewHolder(View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.item_icon);
@@ -59,12 +84,27 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
             if (item.getIconResId() == -1 && !item.getPhotoUrl().isEmpty()) {
                 // Show photo using Glide
                 icon.setVisibility(View.VISIBLE);
-                Glide.with(itemView.getContext())
-                        .load(item.getPhotoUrl())
-//                        .circleCrop() // Optional: if you want circular images
-//                        .placeholder(R.drawable.gp_ic_background_base) // Add a default placeholder
-//                        .error(R.drawable.error_placeholder) // Add an error placeholder
-                        .into(icon);
+//                Glide.with(itemView.getContext())
+//                        .load(item.getPhotoUrl())
+//                        .transform(new GPRoundedCornersWithBorderTransformation(cornerRadius, borderWidth, itemView.getContext().getColor(borderColor)))
+//                        .into(icon);
+
+                SvgLoaderWithBorder.loadSvgWithBorder(
+                        itemView.getContext(),
+                        item.getPhotoUrl(),
+                        new SvgLoaderWithBorder.SvgLoadCallback() {
+                            @Override
+                            public void onSuccess(Drawable drawable) {
+                                icon.setImageDrawable(drawable);
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                throwable.printStackTrace();
+                            }
+                        }
+                );
+
             } else if (item.getIconResId() > 0) {
                 // Show icon resource
                 icon.setVisibility(View.VISIBLE);
@@ -78,13 +118,13 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
-                    listener.onItemClick(item);
+                    listener.onItemClick(item, icon.getDrawable());
                 }
             });
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DropdownItem item);
+        void onItemClick(DropdownItem item, @Nullable Drawable itemDrawable);
     }
 }

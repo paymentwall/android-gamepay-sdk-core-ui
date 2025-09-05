@@ -1,6 +1,6 @@
 package com.terminal3.gpcoreui.enums;
 
-public enum SavedCardState {
+public enum GPSavedCardState {
     DEFAULT,
     SELECTED
 }

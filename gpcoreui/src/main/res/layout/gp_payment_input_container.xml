@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@color/gp_text_primary"
-        android:layout_marginBottom="@dimen/gp_input_field_title_margin_bottom"
         tools:text="Title p"
         />
 
@@ -24,7 +23,9 @@
         android:layout_gravity="center_vertical"
         android:paddingHorizontal="16dp"
         android:singleLine="true"
-        android:textColorHint="@color/gp_text_secondary" />
+        android:gravity="center_vertical"
+        android:textColorHint="@color/gp_text_secondary"
+        />
 
     <LinearLayout
         android:id="@+id/gp_error"

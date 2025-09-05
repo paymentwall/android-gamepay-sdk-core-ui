@@ -2,6 +2,7 @@
 <resources>
     <string name="gp_card_number">4111 1111 1111 1111</string>
     <string name="gp_choose_country">Choose country</string>
+    <string name="gp_country">Country</string>
     <string name="gp_select_option">Select option</string>
     <string name="gp_powered_by">Powered by</string>
     <string name="gp_terms">Terms</string>
@@ -16,4 +17,7 @@
     <string name="gp_card_removal_title">Confirm card removal</string>
     <string name="gp_card_removal_subtitle">Are you sure you want to remove %1$s %2$s •••• %3$s? You can always add it back later.</string>
     <string name="gp_or_text">Or</string>
+    <string name="gp_no_payment_methods_title">Select a different country</string>
+    <string name="gp_no_payment_methods_subtitle">Payment processing isn\'t available in your current region. Choose a supported country to proceed with your transaction.</string>
+    <string name="gp_continue">Continue</string>
 </resources>
