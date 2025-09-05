@@ -8,13 +8,25 @@
     android:paddingHorizontal="@dimen/gp_form_inset_left"
     android:background="@drawable/gp_payalto_button_background">
 
-    <ImageView
-        android:id="@+id/iv_payalto_icon"
-        android:layout_width="@dimen/gp_icon_size_xl_32"
-        android:layout_height="@dimen/gp_icon_size_xl_32"
-        android:padding="1dp"
-        android:background="@drawable/gp_ic_background_with_border"
-        tools:src="@drawable/gp_ic_pw_logo"/>
+    <FrameLayout
+        style="@style/GPIconBackground.Big">
+        <ImageView
+            android:id="@+id/iv_payalto_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="1dp"
+            android:background="@color/gp_bg_default_light"
+            tools:src="@drawable/gp_ic_pw_logo"/>
+
+        <View
+            style="@style/GPIconBackground.Big"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gp_ic_tranparent_with_border"
+            />
+
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/tv_payalto_title"

@@ -24,7 +24,7 @@
 
     <style name="GP.Typography.Heading3" parent="GP.Typography">
         <item name="android:textSize">24sp</item>
-        <item name="android:textFontWeight">590</item>
+        <item name="android:textFontWeight">700</item>
     </style>
 
     <style name="GP.Typography.Heading4" parent="GP.Typography">
