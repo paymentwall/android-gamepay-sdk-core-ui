@@ -12,7 +12,7 @@
 
     <!-- Specific layouts -->
     <dimen name="gp_screen_title_vertical_margin">@dimen/gp_space_lg_16</dimen>
-    <dimen name="gp_input_field_title_margin_bottom">8dp</dimen>
+    <dimen name="gp_input_field_title_margin_bottom">4dp</dimen>
 
     <!-- Form container -->
     <dimen name="gp_form_inset_top">@dimen/gp_space_lg_16</dimen>
