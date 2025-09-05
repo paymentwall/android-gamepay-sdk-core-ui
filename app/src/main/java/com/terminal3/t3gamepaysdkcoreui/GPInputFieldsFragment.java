@@ -184,20 +184,18 @@ public class GPInputFieldsFragment extends Fragment {
     }
 
     private void setupDropdown() {
-        List<DropdownItem> countries = new ArrayList<>();
-        countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
-        countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
-        countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
-        countries.add(new DropdownItem("th", "ThaiLand", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/banktransferthailand/logo_Bay.png"));
-        countries.add(new DropdownItem("us", "United States", R.drawable.ic_flag_us));
-        countries.add(new DropdownItem("ca", "Canada", R.drawable.ic_flag_ca));
-        countries.add(new DropdownItem("gb", "Autralia", R.drawable.ic_flag_au));
-        countries.add(new DropdownItem("ag", "Austria", 0));
-        dropdown.setLabel("Country");
-        dropdown.setItems(countries);
+        List<DropdownItem> banks = new ArrayList<>();
+        banks.add(new DropdownItem("109", "Mandiri", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/goc/Mandiri.png"));
+        banks.add(new DropdownItem("107", "BRI", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/goc/BRI.png"));
+        banks.add(new DropdownItem("12", "BCA", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/goc/BCA.png"));
+        banks.add(new DropdownItem("11", "BNI", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/goc/BNI.png"));
+        banks.add(new DropdownItem("62", "Permata", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/goc/Permata.png"));
+        banks.add(new DropdownItem("64", "CIMB", "https://feature-t3ts-4.wallapi.bamboo.stuffio.com/images/goc/CIMB.png"));
+        dropdown.setLabel("Select your bank");
+        dropdown.setItems(banks);
         dropdown.setOnItemSelectedListener(position -> {
             dropdown.setText(position.getText());
-            Log.d("GPDropdown", "Selected: " + position.getText());
+            Log.d("GPDropdown", "Selected: " + position.getText() + " (ID: " + position.getId() + ")");
         });
     }
 }

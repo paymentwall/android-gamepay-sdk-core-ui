@@ -67,7 +67,7 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
 
         int borderWidth = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                1,
+                0,
                 itemView.getContext().getResources().getDisplayMetrics()
         );
 
@@ -82,28 +82,33 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
         void bind(DropdownItem item, OnItemClickListener listener) {
             // Handle icon visibility and content
             if (item.getIconResId() == -1 && !item.getPhotoUrl().isEmpty()) {
-                // Show photo using Glide
+                // Show photo using appropriate loader based on file extension
                 icon.setVisibility(View.VISIBLE);
-//                Glide.with(itemView.getContext())
-//                        .load(item.getPhotoUrl())
-//                        .transform(new GPRoundedCornersWithBorderTransformation(cornerRadius, borderWidth, itemView.getContext().getColor(borderColor)))
-//                        .into(icon);
+                
+                if (item.getPhotoUrl().toLowerCase().endsWith(".svg")) {
+                    // Use SvgLoaderWithBorder for SVG files
+                    SvgLoaderWithBorder.loadSvgWithBorder(
+                            itemView.getContext(),
+                            item.getPhotoUrl(),
+                            new SvgLoaderWithBorder.SvgLoadCallback() {
+                                @Override
+                                public void onSuccess(Drawable drawable) {
+                                    icon.setImageDrawable(drawable);
+                                }
 
-                SvgLoaderWithBorder.loadSvgWithBorder(
-                        itemView.getContext(),
-                        item.getPhotoUrl(),
-                        new SvgLoaderWithBorder.SvgLoadCallback() {
-                            @Override
-                            public void onSuccess(Drawable drawable) {
-                                icon.setImageDrawable(drawable);
+                                @Override
+                                public void onError(Throwable throwable) {
+                                    throwable.printStackTrace();
+                                }
                             }
-
-                            @Override
-                            public void onError(Throwable throwable) {
-                                throwable.printStackTrace();
-                            }
-                        }
-                );
+                    );
+                } else {
+                    // Use Glide for other image formats (PNG, JPG, etc.)
+                    Glide.with(itemView.getContext())
+                            .load(item.getPhotoUrl())
+                            .transform(new GPRoundedCornersWithBorderTransformation(cornerRadius, borderWidth, itemView.getContext().getColor(borderColor)))
+                            .into(icon);
+                }
 
             } else if (item.getIconResId() > 0) {
                 // Show icon resource
