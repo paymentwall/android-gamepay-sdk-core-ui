@@ -47,7 +47,7 @@ public class GPAlertViewBottom extends LinearLayout {
     private ImageView ivGPAlertIconHeader;
     private TextView tvGPAlertTitle;
     private TextView tvGPAlertSubtitle;
-    private GPPrimaryButton btnGPAlertBackToMerchant;
+    public GPPrimaryButton btnGPAlertBackToMerchant;
 
     private OnBackToMerchantClickListener onBackToMerchantClickListener;
 
