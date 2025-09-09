@@ -34,6 +34,8 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
     private OnFormValueChangedListener formListener;
     private GPValidator validator;
     private OnFormViewAddedListener viewAddedListener;
+
+    private GPRedirectionView vRedirect;
     //#endregion
 
     public GPDynamicForm(Context context) {
@@ -69,6 +71,7 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
         groupedOptions.clear();
         activeGroupOptionIds.clear();
         allOptions.clear();
+        vRedirect = null;
         if (options == null) return;
 
         collectAllOptions(options);
@@ -173,6 +176,10 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
         return optionViews.get(optionId);
     }
 
+    public GPRedirectionView getRedirectionView() {
+        return vRedirect;
+    }
+
     /**
      * Sets a listener that will be notified whenever any option value changes.
      */
@@ -237,6 +244,7 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
 //                redirect.setRedirectionIconUrl(iconUrl);
 //            }
             view = redirect;
+            vRedirect = redirect;
         } else {
             GPDefaultInputContainer input = new GPDefaultInputContainer(getContext());
             input.bindOption(option);
@@ -245,6 +253,8 @@ public class GPDynamicForm extends LinearLayout implements GPOptionView.OnOption
                 input.addTextWatcher(new GPEpinTextWatcher());
             } else if (option.getType() == GPOptionType.TEL) {
                 input.getEditText().setInputType(android.text.InputType.TYPE_CLASS_PHONE);
+            } else if (option.getType() == GPOptionType.NUMBER) {
+                input.getEditText().setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
             }
         }
         return view;

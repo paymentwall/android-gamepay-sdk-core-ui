@@ -20,4 +20,11 @@
     <string name="gp_no_payment_methods_title">Select a different country</string>
     <string name="gp_no_payment_methods_subtitle">Payment processing isn\'t available in your current region. Choose a supported country to proceed with your transaction.</string>
     <string name="gp_continue">Continue</string>
+    <string name="gp_back_to_merchant">Back to merchant</string>
+
+    <string name="gp_alert_subtitle_security">We\'ve temporarily limited access while verifying your account for safety. Sorry for any inconvenience.</string>
+    <string name="gp_alert_title_security">Security review in progress</string>
+
+    <string name="gp_alert_subtitle_unexpected">Something went wrong on our end. Give it another try, or contact support if this keeps happening.</string>
+    <string name="gp_alert_title_unexpected">Unexpected error</string>
 </resources>

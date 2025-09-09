@@ -15,5 +15,7 @@ public enum GPOptionType {
     /** Group of options linked to a dropdown */
     GROUP,
     /** Phone number input field */
-    TEL
+    TEL,
+    /** Number input field */
+    NUMBER
 }

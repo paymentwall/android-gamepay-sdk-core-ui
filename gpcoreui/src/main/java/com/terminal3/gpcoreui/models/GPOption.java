@@ -71,6 +71,8 @@ public class GPOption {
             type = GPOptionType.GROUP;
         } else if ("tel".equalsIgnoreCase(typeStr)) {
             type = GPOptionType.TEL;
+        } else if ("number".equalsIgnoreCase(typeStr)) {
+            type = GPOptionType.NUMBER;
         } else {
             type = GPOptionType.INPUT_FIELD;
         }

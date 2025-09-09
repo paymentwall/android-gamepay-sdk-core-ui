@@ -24,7 +24,7 @@ public class GPMainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView listView = view.findViewById(R.id.listOptions);
-        String[] items = new String[] {"Input Fields", "Buttons", "Dynamic Form", "Saved Cards", "PayAlto Buttons", "Polling View Test", "Transaction Under Review", "Agreement Text View", "Card Removal Confirmation", "No Payment Methods"};
+        String[] items = new String[] {"Input Fields", "Buttons", "Dynamic Form", "Saved Cards", "PayAlto Buttons", "Polling View Test", "Transaction Under Review", "Agreement Text View", "Card Removal Confirmation", "No Payment Methods", "Alert View Bottom"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, items);
         listView.setAdapter(adapter);
 
@@ -61,6 +61,9 @@ public class GPMainFragment extends Fragment {
                         break;
                     case 9:
                         ((GPMainActivity) requireActivity()).showFragment(new GPNoPaymentMethodsTestFragment(), true);
+                        break;
+                    case 10:
+                        ((GPMainActivity) requireActivity()).showFragment(new GPAlertViewBottomFragment(), true);
                         break;
                 }
             }
