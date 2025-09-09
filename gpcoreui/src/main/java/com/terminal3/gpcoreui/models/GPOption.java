@@ -20,7 +20,7 @@ public class GPOption {
     private final String id;
     private final GPOptionType type;
     private final String label;
-    private final String hint;
+    private String hint;
     private final String value;
     private final List<DropdownItem> dropdownItems;
     private final List<GPOptionValidation> validations;
@@ -57,6 +57,9 @@ public class GPOption {
         String id = obj.optString("name");
         String label = obj.optString("label");
         String hint = obj.optString("hint");
+        if (hint.isEmpty()) {
+            hint = label;
+        }
         String value = obj.optString("value");
 
         String typeStr = obj.optString("type");
@@ -137,6 +140,9 @@ public class GPOption {
         return label;
     }
 
+    public void setHint(String hint) {
+        this.hint = hint;
+    }
     public String getHint() {
         return hint;
     }

@@ -28,12 +28,17 @@ import java.util.List;
 
 public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHolder> {
 
-    private final List<DropdownItem> items;
+    private List<DropdownItem> items;
     private final OnItemClickListener listener;
 
     public DropdownAdapter(List<DropdownItem> items, OnItemClickListener listener) {
         this.items = items;
         this.listener = listener;
+    }
+
+    public void updateItems(List<DropdownItem> newItems) {
+        this.items = newItems;
+        notifyDataSetChanged();
     }
 
     @NonNull

@@ -55,12 +55,12 @@ public class GPValidator {
     public GPValidationResult validate() {
         Map<GPValidatable, List<String>> errors = new HashMap<>();
 
-        // First clear all errors
-        validationRules.keySet().forEach(field -> {
-            if (field instanceof GPErrorDisplayable) {
-                ((GPErrorDisplayable) field).clearError();
-            }
-        });
+        // First clear all errors - remove this logic cause UI issue blink error
+//        validationRules.keySet().forEach(field -> {
+//            if (field instanceof GPErrorDisplayable) {
+//                ((GPErrorDisplayable) field).clearError();
+//            }
+//        });
 
         for (Map.Entry<GPValidatable, List<GPValidationRule>> entry : validationRules.entrySet()) {
             GPValidatable field = entry.getKey();

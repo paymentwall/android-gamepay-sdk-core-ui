@@ -7,11 +7,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.VectorDrawable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -29,6 +33,7 @@ import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.DropdownItem;
 import com.terminal3.gpcoreui.models.GPOption;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GPDropdown extends GPDefaultInputContainer {
@@ -40,9 +45,13 @@ public class GPDropdown extends GPDefaultInputContainer {
 
     // UI Components
     private List<DropdownItem> items;
+    private List<DropdownItem> originalItems;
+    private List<DropdownItem> filteredItems;
     private BottomSheetDialog bottomSheetDialog;
     private DropdownItem selectedItem;
     private Drawable leftDrawable;
+    private GPDefaultEditText searchEditText;
+    private DropdownAdapter adapter;
 
     // Listeners
     private OnItemSelectedListener itemSelectedListener;
@@ -50,6 +59,9 @@ public class GPDropdown extends GPDefaultInputContainer {
 
     // GPOption integration
     private GPOption option;
+    
+    // Search functionality
+    private boolean isSearchEnabled = false;
 
     public GPDropdown(Context context) {
         super(context);
@@ -123,6 +135,8 @@ public class GPDropdown extends GPDefaultInputContainer {
      */
     public void setItems(List<DropdownItem> items) {
         this.items = items;
+        this.originalItems = items != null ? new ArrayList<>(items) : null;
+        this.filteredItems = items != null ? new ArrayList<>(items) : null;
     }
 
     /**
@@ -139,6 +153,22 @@ public class GPDropdown extends GPDefaultInputContainer {
      */
     public void setOnItemSelectedListener(OnItemSelectedListener listener) {
         this.itemSelectedListener = listener;
+    }
+
+    /**
+     * Enable or disable search functionality in the dropdown
+     * @param enabled true to enable search, false to disable
+     */
+    public void setSearchEnabled(boolean enabled) {
+        this.isSearchEnabled = enabled;
+    }
+
+    /**
+     * Check if search functionality is enabled
+     * @return true if search is enabled, false otherwise
+     */
+    public boolean isSearchEnabled() {
+        return isSearchEnabled;
     }
 
     /**
@@ -222,31 +252,128 @@ public class GPDropdown extends GPDefaultInputContainer {
             title.setText(hint);
         }
 
+        // Setup search functionality
+        searchEditText = view.findViewById(R.id.gp_search_edit_text);
+        if (isSearchEnabled) {
+            searchEditText.setVisibility(View.VISIBLE);
+            setupSearchFunctionality();
+        } else {
+            searchEditText.setVisibility(View.GONE);
+        }
+
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new DropdownAdapter(items, (item, drawable) -> {
+        
+        // Use filteredItems for the adapter
+        List<DropdownItem> itemsToShow = isSearchEnabled ? filteredItems : items;
+        adapter = new DropdownAdapter(itemsToShow, (item, drawable) -> {
             setSelectedItem(item, drawable);
             if (itemSelectedListener != null) {
                 itemSelectedListener.onItemSelected(item);
             }
             bottomSheetDialog.dismiss();
-        }));
+        });
+        recyclerView.setAdapter(adapter);
 
         bottomSheetDialog.setContentView(view);
 
-        // Expand the bottom sheet fully
-        bottomSheetDialog.setOnShowListener(dialog -> {
-            View bottomSheet = bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-            if (bottomSheet != null) {
-                BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
-        });
+        // Configure dialog behavior based on search enabled state
+        if (isSearchEnabled) {
+            setupFullScreenDialog();
+        } else {
+            // Expand the bottom sheet fully for non-search mode
+            bottomSheetDialog.setOnShowListener(dialog -> {
+                View bottomSheet = bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                if (bottomSheet != null) {
+                    BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            });
+        }
 
         bottomSheetDialog.setOnDismissListener(dialog -> {
             rotateArrow(false);
+            // Clear search when dialog is dismissed
+            if (isSearchEnabled && searchEditText != null) {
+                searchEditText.setText("");
+                resetFilteredItems();
+            }
         });
 
         bottomSheetDialog.show();
+    }
+
+    private void setupFullScreenDialog() {
+        if (bottomSheetDialog == null) return;
+        
+        bottomSheetDialog.setOnShowListener(dialog -> {
+            BottomSheetDialog d = (BottomSheetDialog) dialog;
+            View bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            if (bottomSheet != null) {
+                BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(bottomSheet);
+                
+                // Set the bottom sheet to full screen height
+                ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
+                layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                bottomSheet.setLayoutParams(layoutParams);
+                
+                // Configure behavior for full screen
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                behavior.setSkipCollapsed(true);
+                behavior.setPeekHeight(0);
+            }
+        });
+
+        // Enable soft input adjustment for better keyboard handling
+        if (bottomSheetDialog.getWindow() != null) {
+            bottomSheetDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        }
+    }
+
+    private void setupSearchFunctionality() {
+        if (searchEditText == null) return;
+        
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterItems(s.toString());
+            }
+        });
+    }
+
+    private void filterItems(String query) {
+        if (originalItems == null || filteredItems == null) return;
+        
+        filteredItems.clear();
+        
+        if (query == null || query.trim().isEmpty()) {
+            filteredItems.addAll(originalItems);
+        } else {
+            String lowerCaseQuery = query.toLowerCase().trim();
+            for (DropdownItem item : originalItems) {
+                if (item.getText().toLowerCase().contains(lowerCaseQuery)) {
+                    filteredItems.add(item);
+                }
+            }
+        }
+        
+        if (adapter != null) {
+            adapter.updateItems(filteredItems);
+        }
+    }
+
+    private void resetFilteredItems() {
+        if (originalItems != null && filteredItems != null) {
+            filteredItems.clear();
+            filteredItems.addAll(originalItems);
+        }
     }
 
     @Override

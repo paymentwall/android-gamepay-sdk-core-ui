@@ -61,7 +61,8 @@ public class GPNoPaymentMethodsView extends LinearLayout {
 
     private void setupCountryDropdown() {
         countryDropdown.setLabel(getContext().getString(R.string.gp_country));
-        countryDropdown.setHintText(getContext().getString(R.string.gp_choose_country));
+        countryDropdown.setHintText(getContext().getString(R.string.gp_country));
+        countryDropdown.setSearchEnabled(true);
         countryDropdown.setOnItemSelectedListener(item -> {
             if (countrySelectedListener != null && supportedCountries != null) {
                 for (GPCountry country : supportedCountries) {
@@ -100,6 +101,7 @@ public class GPNoPaymentMethodsView extends LinearLayout {
             dropdownItems.add(item);
         }
         countryDropdown.setItems(dropdownItems);
+        countryDropdown.setSelectedItem(dropdownItems.get(0), null);
     }
 
     public void setTitle(String title) {
