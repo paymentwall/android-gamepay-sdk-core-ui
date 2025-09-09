@@ -11,6 +11,13 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp">
 
+        <ImageView
+            android:id="@+id/ivGPConfirmCancel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:src="@drawable/gp_ic_close"/>
+
         <TextView
             android:id="@+id/tvGPBottomSheetConfirmTitle"
             style="@style/GP.Typography.Heading3"
@@ -44,15 +51,16 @@
             android:layout_marginTop="16dp"
             android:text="Remove" />
 
-        <com.terminal3.gpcoreui.components.GPSecondaryButton
-            android:id="@+id/btnGPBottomSheetConfirmCancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel" />
+<!--        <com.terminal3.gpcoreui.components.GPSecondaryButton-->
+<!--            android:id="@+id/btnGPBottomSheetConfirmCancel"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Cancel" />-->
     </LinearLayout>
 
     <com.terminal3.gpcoreui.views.GPFooterTermsView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>

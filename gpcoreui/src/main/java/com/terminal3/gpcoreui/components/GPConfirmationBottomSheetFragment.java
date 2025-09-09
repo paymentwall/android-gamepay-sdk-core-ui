@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ public class GPConfirmationBottomSheetFragment extends BottomSheetDialogFragment
     private boolean showCancelButton = false;
     private String positiveButtonText = "Confirm";
     private String destructiveButtonText = "Remove";
-    private String cancelButtonText = "Cancel";
+//    private String cancelButtonText = "Cancel";
 
     TextView tvTitle;
     TextView tvSubtitle;
@@ -58,9 +59,9 @@ public class GPConfirmationBottomSheetFragment extends BottomSheetDialogFragment
 
     public void setShowCancelButton(boolean show, String buttonText) {
         this.showCancelButton = show;
-        if (buttonText != null) {
-            this.cancelButtonText = buttonText;
-        }
+//        if (buttonText != null) {
+//            this.cancelButtonText = buttonText;
+//        }
     }
 
     public void setOnDecisionListener(OnDecisionListener listener) {
@@ -111,7 +112,8 @@ public class GPConfirmationBottomSheetFragment extends BottomSheetDialogFragment
         tvSubtitle = root.findViewById(R.id.tvGPBottomSheetConfirmMessage);
         GPPrimaryButton positiveBtn = root.findViewById(R.id.btnGPBottomSheetConfirmPositive);
         GPErrorButton destructiveBtn = root.findViewById(R.id.btnGPBottomSheetConfirmDestructive);
-        GPSecondaryButton cancelBtn = root.findViewById(R.id.btnGPBottomSheetConfirmCancel);
+        ImageView ivCancel = root.findViewById(R.id.ivGPConfirmCancel);
+//        GPSecondaryButton cancelBtn = root.findViewById(R.id.btnGPBottomSheetConfirmCancel);
 
         // Set title if provided
         if (title != null) {
@@ -157,14 +159,14 @@ public class GPConfirmationBottomSheetFragment extends BottomSheetDialogFragment
 
         // Configure cancel button visibility and text
         if (showCancelButton) {
-            cancelBtn.setVisibility(View.VISIBLE);
-            cancelBtn.setText(cancelButtonText);
-            cancelBtn.setOnClickListener(v -> {
+            ivCancel.setVisibility(View.VISIBLE);
+//            ivCancel.setText(cancelButtonText);
+            ivCancel.setOnClickListener(v -> {
                 if (decisionListener != null) decisionListener.onCancel();
                 dismiss();
             });
         } else {
-            cancelBtn.setVisibility(View.GONE);
+            ivCancel.setVisibility(View.GONE);
         }
 
         return root;
