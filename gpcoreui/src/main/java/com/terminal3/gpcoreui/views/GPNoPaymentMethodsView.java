@@ -1,6 +1,7 @@
 package com.terminal3.gpcoreui.views;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import com.terminal3.gpcoreui.components.GPDropdown;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
 import com.terminal3.gpcoreui.models.DropdownItem;
 import com.terminal3.gpcoreui.models.GPCountry;
+import com.terminal3.gpcoreui.utils.transformation.SvgLoaderWithBorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,10 @@ public class GPNoPaymentMethodsView extends LinearLayout {
     private GPPrimaryButton continueButton;
     
     private List<GPCountry> supportedCountries;
+    public List<DropdownItem> dropdownItems = new ArrayList<>();
     private OnCountrySelectedListener countrySelectedListener;
     private OnContinueClickListener continueClickListener;
+//    private String selectedCountry = "";
 
     public GPNoPaymentMethodsView(Context context) {
         super(context);
@@ -84,24 +88,56 @@ public class GPNoPaymentMethodsView extends LinearLayout {
     }
 
     public void setSupportedCountries(List<GPCountry> countries) {
+//        this.selectedCountry = selectedCountry;
         this.supportedCountries = countries;
         updateCountryDropdown();
     }
 
     private void updateCountryDropdown() {
         if (supportedCountries == null) return;
-        
-        List<DropdownItem> dropdownItems = new ArrayList<>();
+
+//        DropdownItem selectedCountry = null;
         for (GPCountry country : supportedCountries) {
             DropdownItem item = new DropdownItem(
                 country.getCountryCode(),
                 country.getCountryName(),
                 country.getFlagUrl()
             );
+//            if (this.selectedCountry.equals(country.getCountryCode())) {
+//                selectedCountry = item;
+//            }
             dropdownItems.add(item);
         }
         countryDropdown.setItems(dropdownItems);
-        countryDropdown.setSelectedItem(dropdownItems.get(0), null);
+
+//        if (null != selectedCountry) {
+//            DropdownItem finalSelectedCountry = selectedCountry;
+//            SvgLoaderWithBorder.loadSvgWithBorder(
+//                    getContext(),
+//                    selectedCountry.getPhotoUrl(),
+//                    new SvgLoaderWithBorder.SvgLoadCallback() {
+//                        @Override
+//                        public void onSuccess(Drawable drawable) {
+//                            if (null == countryDropdown.getSelectedItem()) {
+//                                countryDropdown.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        countryDropdown.setSelectedItem(finalSelectedCountry, drawable);
+//                                        countryDropdown.invalidate();
+//                                        countryDropdown.requestLayout();
+//                                    }
+//                                });
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable throwable) {
+//                            throwable.printStackTrace();
+//                        }
+//                    }
+//            );
+//        }
+
     }
 
     public void setTitle(String title) {
