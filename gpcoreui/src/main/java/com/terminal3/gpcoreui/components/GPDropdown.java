@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -122,6 +123,20 @@ public class GPDropdown extends GPDefaultInputContainer {
                 dp,
                 getContext().getResources().getDisplayMetrics()
         );
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            View currentFocus = null;
+            if (searchEditText != null && searchEditText.hasFocus()) {
+                currentFocus = searchEditText;
+            }
+            if (currentFocus != null) {
+                imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                currentFocus.clearFocus();
+            }
+        }
     }
 
     // endregion
@@ -267,6 +282,9 @@ public class GPDropdown extends GPDefaultInputContainer {
         // Use filteredItems for the adapter
         List<DropdownItem> itemsToShow = isSearchEnabled ? filteredItems : items;
         adapter = new DropdownAdapter(itemsToShow, (item, drawable) -> {
+            // Hide keyboard if it's open
+            hideKeyboard();
+            
             setSelectedItem(item, drawable);
             if (itemSelectedListener != null) {
                 itemSelectedListener.onItemSelected(item);
@@ -292,6 +310,8 @@ public class GPDropdown extends GPDefaultInputContainer {
 
         bottomSheetDialog.setOnDismissListener(dialog -> {
             rotateArrow(false);
+            // Hide keyboard and clear focus when dialog is dismissed
+            hideKeyboard();
             // Clear search when dialog is dismissed
             if (isSearchEnabled && searchEditText != null) {
                 searchEditText.setText("");

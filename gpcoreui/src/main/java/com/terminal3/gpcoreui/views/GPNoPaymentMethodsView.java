@@ -96,48 +96,15 @@ public class GPNoPaymentMethodsView extends LinearLayout {
     private void updateCountryDropdown() {
         if (supportedCountries == null) return;
 
-//        DropdownItem selectedCountry = null;
         for (GPCountry country : supportedCountries) {
             DropdownItem item = new DropdownItem(
                 country.getCountryCode(),
                 country.getCountryName(),
                 country.getFlagUrl()
             );
-//            if (this.selectedCountry.equals(country.getCountryCode())) {
-//                selectedCountry = item;
-//            }
             dropdownItems.add(item);
         }
         countryDropdown.setItems(dropdownItems);
-
-//        if (null != selectedCountry) {
-//            DropdownItem finalSelectedCountry = selectedCountry;
-//            SvgLoaderWithBorder.loadSvgWithBorder(
-//                    getContext(),
-//                    selectedCountry.getPhotoUrl(),
-//                    new SvgLoaderWithBorder.SvgLoadCallback() {
-//                        @Override
-//                        public void onSuccess(Drawable drawable) {
-//                            if (null == countryDropdown.getSelectedItem()) {
-//                                countryDropdown.post(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        countryDropdown.setSelectedItem(finalSelectedCountry, drawable);
-//                                        countryDropdown.invalidate();
-//                                        countryDropdown.requestLayout();
-//                                    }
-//                                });
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable throwable) {
-//                            throwable.printStackTrace();
-//                        }
-//                    }
-//            );
-//        }
-
     }
 
     public void setTitle(String title) {
@@ -170,6 +137,67 @@ public class GPNoPaymentMethodsView extends LinearLayout {
             }
         }
         return null;
+    }
+
+    public void setSelectedCountryByCode(String countryCode) {
+        if (countryCode == null || supportedCountries == null || dropdownItems == null) {
+            return;
+        }
+
+        // Find the country by code
+        GPCountry targetCountry = null;
+        for (GPCountry country : supportedCountries) {
+            if (country.getCountryCode().equalsIgnoreCase(countryCode)) {
+                targetCountry = country;
+                break;
+            }
+        }
+
+        if (targetCountry == null) {
+            return;
+        }
+
+        // Find the corresponding dropdown item
+        DropdownItem targetItem = null;
+        for (DropdownItem item : dropdownItems) {
+            if (item.getId().equalsIgnoreCase(countryCode)) {
+                targetItem = item;
+                break;
+            }
+        }
+
+        if (targetItem != null) {
+            // Load the flag and set as selected
+            if (targetItem.getPhotoUrl() != null && !targetItem.getPhotoUrl().isEmpty()) {
+                if (targetItem.getPhotoUrl().toLowerCase().endsWith(".svg")) {
+                    // Load SVG flag
+                    DropdownItem finalTargetItem = targetItem;
+                    SvgLoaderWithBorder.loadSvgWithBorder(
+                            getContext(),
+                            targetItem.getPhotoUrl(),
+                            new SvgLoaderWithBorder.SvgLoadCallback() {
+                                @Override
+                                public void onSuccess(Drawable drawable) {
+                                    countryDropdown.setSelectedItem(finalTargetItem, drawable);
+                                }
+
+                                @Override
+                                public void onError(Throwable throwable) {
+                                    // Set without flag on error
+                                    countryDropdown.setSelectedItem(finalTargetItem, null);
+                                }
+                            }
+                    );
+                } else {
+                    // For non-SVG images, set item without pre-loaded drawable
+                    // The dropdown will handle loading internally
+                    countryDropdown.setSelectedItem(targetItem, null);
+                }
+            } else {
+                // No flag URL, set item without drawable
+                countryDropdown.setSelectedItem(targetItem, null);
+            }
+        }
     }
 
     public interface OnCountrySelectedListener {

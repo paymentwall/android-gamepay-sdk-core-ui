@@ -41,6 +41,13 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
+        // Clear any pending requests when view is recycled
+        holder.clearPreviousRequests();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -63,6 +70,9 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView icon;
         private final TextView text;
+        
+        // Store current loading URL to prevent flickering
+        private String currentLoadingUrl = null;
 
         int cornerRadius = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -84,11 +94,28 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
             text = itemView.findViewById(R.id.item_text);
         }
 
+        void clearPreviousRequests() {
+            // Clear any pending Glide requests for this ImageView
+            Glide.with(itemView.getContext()).clear(icon);
+            
+            // Clear the current loading URL to invalidate any pending SVG callbacks
+            currentLoadingUrl = null;
+        }
+
         void bind(DropdownItem item, OnItemClickListener listener) {
+            // Clear any previous loading requests to prevent flickering
+            clearPreviousRequests();
+            
             // Handle icon visibility and content
             if (item.getIconResId() == -1 && !item.getPhotoUrl().isEmpty()) {
                 // Show photo using appropriate loader based on file extension
                 icon.setVisibility(View.VISIBLE);
+                
+                // Set current loading URL for tracking
+                currentLoadingUrl = item.getPhotoUrl();
+                
+                // Set placeholder immediately
+                icon.setImageResource(R.drawable.gp_flag_placeholder);
                 
                 if (item.getPhotoUrl().toLowerCase().endsWith(".svg")) {
                     // Use SvgLoaderWithBorder for SVG files
@@ -98,12 +125,19 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
                             new SvgLoaderWithBorder.SvgLoadCallback() {
                                 @Override
                                 public void onSuccess(Drawable drawable) {
-                                    icon.setImageDrawable(drawable);
+                                    // Only set image if this is still the current item
+                                    if (item.getPhotoUrl().equals(currentLoadingUrl) && drawable != null) {
+                                        icon.setImageDrawable(drawable);
+                                    }
                                 }
 
                                 @Override
                                 public void onError(Throwable throwable) {
                                     throwable.printStackTrace();
+                                    // Only handle error if this is still the current item
+                                    if (item.getPhotoUrl().equals(currentLoadingUrl)) {
+                                        // Keep placeholder on error - no action needed
+                                    }
                                 }
                             }
                     );
@@ -111,6 +145,8 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
                     // Use Glide for other image formats (PNG, JPG, etc.)
                     Glide.with(itemView.getContext())
                             .load(item.getPhotoUrl())
+                            .placeholder(R.drawable.gp_flag_placeholder)
+                            .error(R.drawable.gp_flag_placeholder)
                             .transform(new GPRoundedCornersWithBorderTransformation(cornerRadius, borderWidth, itemView.getContext().getColor(borderColor)))
                             .into(icon);
                 }
@@ -118,10 +154,12 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
             } else if (item.getIconResId() > 0) {
                 // Show icon resource
                 icon.setVisibility(View.VISIBLE);
+                currentLoadingUrl = null; // Clear URL tracking for static resources
                 icon.setImageResource(item.getIconResId());
             } else {
                 // No icon or photo
                 icon.setVisibility(View.GONE);
+                currentLoadingUrl = null; // Clear URL tracking
             }
 
             text.setText(item.getText());

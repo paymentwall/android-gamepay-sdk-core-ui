@@ -14,6 +14,13 @@ import androidx.fragment.app.Fragment;
 import com.terminal3.gpcoreui.models.GPCountry;
 import com.terminal3.gpcoreui.views.GPNoPaymentMethodsView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +40,12 @@ public class GPNoPaymentMethodsTestFragment extends Fragment {
         
         noPaymentMethodsView = view.findViewById(R.id.gp_no_payment_methods_view);
         
-        // Setup sample countries
-        List<GPCountry> countries = createSampleCountries();
+        // Setup countries from JSON
+        List<GPCountry> countries = loadCountriesFromJson();
         noPaymentMethodsView.setSupportedCountries(countries);
+        
+        // Demo: Set US as pre-selected country
+        noPaymentMethodsView.setSelectedCountryByCode("US");
         
         // Setup listeners
         noPaymentMethodsView.setOnCountrySelectedListener(country -> {
@@ -60,16 +70,49 @@ public class GPNoPaymentMethodsTestFragment extends Fragment {
         });
     }
 
-    private List<GPCountry> createSampleCountries() {
+    private List<GPCountry> loadCountriesFromJson() {
         List<GPCountry> countries = new ArrayList<>();
-        countries.add(new GPCountry("United States", "us"));
-        countries.add(new GPCountry("United Kingdom", "gb"));
-        countries.add(new GPCountry("Germany", "de"));
-        countries.add(new GPCountry("France", "fr"));
-        countries.add(new GPCountry("Canada", "ca"));
-        countries.add(new GPCountry("Australia", "au"));
-        countries.add(new GPCountry("Japan", "jp"));
-        countries.add(new GPCountry("South Korea", "kr"));
+        
+        try {
+            // Read JSON file from raw resources
+            InputStream inputStream = getResources().openRawResource(R.raw.countries);
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            
+            String jsonString = new String(buffer, StandardCharsets.UTF_8);
+            JSONArray jsonArray = new JSONArray(jsonString);
+            
+            // Parse JSON and create GPCountry objects
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject countryObj = jsonArray.getJSONObject(i);
+                String name = countryObj.getString("name");
+                String code = countryObj.getString("code");
+                
+                // Convert to uppercase for consistency with existing flag URLs
+                countries.add(new GPCountry(name, code.toUpperCase()));
+            }
+            
+        } catch (IOException | JSONException e) {
+            Log.e("NoPaymentMethods", "Error loading countries from JSON: " + e.getMessage());
+            // Fallback to sample countries if JSON loading fails
+            countries = createFallbackCountries();
+        }
+        
+        return countries;
+    }
+    
+    private List<GPCountry> createFallbackCountries() {
+        List<GPCountry> countries = new ArrayList<>();
+        countries.add(new GPCountry("United States", "US"));
+        countries.add(new GPCountry("United Kingdom", "GB"));
+        countries.add(new GPCountry("Germany", "DE"));
+        countries.add(new GPCountry("France", "FR"));
+        countries.add(new GPCountry("Canada", "CA"));
+        countries.add(new GPCountry("Australia", "AU"));
+        countries.add(new GPCountry("Japan", "JP"));
+        countries.add(new GPCountry("South Korea", "KR"));
         return countries;
     }
 }

@@ -30,7 +30,7 @@ public class SvgLoaderWithBorder {
     }
 
     // Default target size in dp
-    private static final float TARGET_SIZE_DP = 96f;
+    public static final float TARGET_SIZE_DP = 96f;
     private static final int borderColor = R.color.gp_border_subtle;
 
     public static void loadSvgWithBorder(
