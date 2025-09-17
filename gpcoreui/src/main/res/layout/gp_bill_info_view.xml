@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!-- Billing Information Header -->
+    <TextView
+        android:id="@+id/gp_billing_header"
+        style="@style/GP.Typography.Heading3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Billing information"
+        android:textColor="@color/gp_text_primary"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Country Dropdown -->
+    <com.terminal3.gpcoreui.components.GPDropdown
+        android:id="@+id/gp_country_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Fields Shimmer Loading Container -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/gp_fields_shimmer_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Shimmer ZIP Code Input -->
+            <include layout="@layout/gp_shimmer_apply_input_field" />
+
+<!--            &lt;!&ndash; Shimmer Region Dropdown &ndash;&gt;-->
+<!--            <include layout="@layout/gp_shimmer_input_field" />-->
+
+<!--            &lt;!&ndash; Shimmer Tax ID Input &ndash;&gt;-->
+<!--            <include layout="@layout/gp_shimmer_apply_input_field" />-->
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Fields Container -->
+    <LinearLayout
+        android:id="@+id/gp_fields_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ZIP Code Input -->
+        <com.terminal3.gpcoreui.components.GPApplyCodeInputView
+            android:id="@+id/gp_zip_code_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <!-- Region Dropdown -->
+        <com.terminal3.gpcoreui.components.GPDropdown
+            android:id="@+id/gp_region_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <!-- Tax ID Input -->
+        <com.terminal3.gpcoreui.components.GPApplyCodeInputView
+            android:id="@+id/gp_tax_id_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gp_border_primary"
+        android:layout_marginVertical="8dp" />
+
+    <!-- Shimmer Loading Container -->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/gp_shimmer_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Shimmer Subtotal -->
+            <include layout="@layout/gp_shimmer_calculation_item" />
+
+            <!-- Shimmer Tax -->
+            <include layout="@layout/gp_shimmer_calculation_item" />
+
+            <!-- Shimmer Discount -->
+            <include layout="@layout/gp_shimmer_calculation_item" />
+
+            <!-- Shimmer Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gp_skeleton_loading_color"
+                android:layout_marginVertical="8dp" />
+
+            <!-- Shimmer Total -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/gp_skeleton_loading_color" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/gp_skeleton_loading_color" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!-- Billing Calculation Section -->
+    <LinearLayout
+        android:id="@+id/gp_calculation_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Subtotal -->
+        <include
+            android:id="@+id/gp_subtotal_item"
+            layout="@layout/gp_billing_calculation_item" />
+
+        <!-- Tax -->
+        <LinearLayout
+            android:id="@+id/gp_tax_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/gp_tax_label"
+                style="@style/GP.Typography.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gp_text_primary"
+                android:text="Tax" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/gp_tax_value"
+                    style="@style/GP.Typography.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gp_text_primary"
+                    android:layout_gravity="right"
+                    android:text="$0.00"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/gp_tax_message"
+                    style="@style/GP.Typography.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gp_text_secondary"
+                    android:text="@string/gp_msg_enter_a_zip_code_to_calculate"
+                    android:layout_gravity="right"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Discount -->
+        <include
+            android:id="@+id/gp_discount_item"
+            layout="@layout/gp_billing_calculation_item" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gp_border_primary"
+            android:layout_marginVertical="8dp" />
+
+        <!-- Total -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/gp_total_label"
+                style="@style/GP.Typography.Heading4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/gp_text_primary"
+                android:text="Total" />
+
+            <TextView
+                android:id="@+id/gp_total_value"
+                style="@style/GP.Typography.Heading4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gp_text_primary"
+                android:text="$8.86" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

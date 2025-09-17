@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.terminal3.gpcoreui.components.GPDefaultInputContainer
+        android:id="@+id/gp_input_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/gp_label"
+            style="@style/GP.Typography.Label1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/gp_input_field_title_margin_bottom"
+            android:textColor="@color/gp_text_primary"
+            android:textSize="14sp" />
+
+
+        <com.terminal3.gpcoreui.components.GPPrimaryButton
+            android:id="@+id/gp_apply_button"
+            android:layout_width="102dp"
+            android:layout_height="48dp"
+            android:text="Apply" />
+    </LinearLayout>
+
+</LinearLayout>

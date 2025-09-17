@@ -38,4 +38,7 @@
     <color name="gp_text_button_inactive_primary">#D6E4FF</color>
     <color name="gp_text_button_inactive_secondary">#3E527A</color>
     <color name="gp_text_error">#FF3A3A</color>
+
+    <!-- Support Colors -->
+    <color name="gp_skeleton_loading_color">#D6E4FF</color>
 </resources>

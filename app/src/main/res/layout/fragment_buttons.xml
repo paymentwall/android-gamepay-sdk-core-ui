@@ -28,13 +28,13 @@
         <com.terminal3.gpcoreui.components.GPPrimaryButton
             android:id="@+id/demoPrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:text="Primary Button" />
 
         <com.terminal3.gpcoreui.components.GPOutlinedButton
             android:id="@+id/demoOutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginTop="16dp"
             android:text="Outlined Button" />
 
@@ -49,14 +49,14 @@
         <com.terminal3.gpcoreui.components.GPSecondaryButton
             android:id="@+id/demoSecondaryButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginTop="16dp"
             android:text="Secondary Button" />
 
         <com.terminal3.gpcoreui.components.GPErrorButton
             android:id="@+id/demoErrorButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginTop="16dp"
             android:text="Error Button" />
 
