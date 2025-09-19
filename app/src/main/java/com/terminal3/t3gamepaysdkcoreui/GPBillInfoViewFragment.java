@@ -50,77 +50,77 @@ public class GPBillInfoViewFragment extends Fragment {
         setupListeners();
         setupContinueButton();
         
-        // Set initial data
-        loadDefaultBillingConfig();
-        setInitialBillingCalculation();
+        // Set initial data with pre-selected country
+        setupInitialBillingWithPreSelectedCountry();
+//        setInitialBillingCalculation();
     }
 
     private void loadCountriesFromJson() {
-            allCountries = GPSDKHelper.loadCountriesFromJson(requireContext());
-            billInfoView.setCountries(allCountries);
+        allCountries = GPSDKHelper.loadCountriesFromJson(requireContext());
     }
 
     private void setupListeners() {
-        billInfoView.setOnCountrySelectedListener(country -> {
-            // Simulate loading delay when country changes
-            simulateDataLoading(() -> {
-                resetBillingCalculation();
-                loadBillingConfigForCountry(country.getCountryCode());
-            });
-        });
+        billInfoView.setOnBillInfoListener((event, data) -> {
+            switch (event) {
+                case COUNTRY_SELECTED:
+                    GPCountry country = (GPCountry) data;
+                    // Simulate loading delay when country changes
+                    simulateDataLoading(() -> {
+                        resetBillingCalculation();
+                        loadBillingConfigForCountry(country.getCountryCode());
+                    });
+                    break;
+                    
+                case ZIP_CODE_APPLIED:
+                    String zipCode = (String) data;
+                    billInfoView.setZipCodeLoading(true);
+                    
+                    // Simulate tax calculation delay
+                    handler.postDelayed(() -> {
+                        billInfoView.setZipCodeLoading(false);
+                        billInfoView.setZipCodeApplied(true);
+                        
+                        // Calculate tax based on ZIP code
+                        calculateTaxForZipCode(zipCode);
+                    }, 2000); // 2 second delay
+                    break;
+                    
+                case REGION_SELECTED:
+                    GPRegion region = (GPRegion) data;
+                    // Calculate tax for selected region immediately
+                    billInfoView.setCalculationLoading(true);
 
-        billInfoView.setOnZipCodeAppliedListener(zipCode -> {
-            billInfoView.setZipCodeLoading(true);
-            
-            // Simulate tax calculation delay
-            handler.postDelayed(() -> {
-                billInfoView.setZipCodeLoading(false);
-                billInfoView.setZipCodeApplied(true);
-                
-                // Calculate tax based on ZIP code
-                calculateTaxForZipCode(zipCode);
-
-            }, 2000); // 2 second delay
-        });
-
-        billInfoView.setOnRegionSelectedListener(region -> {
-            // Calculate tax for selected region immediately
-            billInfoView.setCalculationLoading(true);
-
-            handler.postDelayed( () -> {
-                billInfoView.setCalculationLoading(false);
-                billInfoView.setTaxMessage("");
-//                // Calculate tax based on selected region
-//                calculateTaxForRegion(region.getRCode());
-                calculateTaxForRegion(region.getRCode());
-
-            }, 2000 );
-
-        });
-
-        billInfoView.setOnTaxIdAppliedListener(taxId -> {
-            billInfoView.setTaxIdLoading(true);
-            
-            // Simulate validation delay
-            handler.postDelayed(() -> {
-                billInfoView.setTaxIdLoading(false);
-                billInfoView.setTaxIdApplied(true);
-                
-                // Show success message or update calculation
-                updateBillingCalculationWithTaxId(taxId);
-                
-            }, 1500); // 1.5 second delay
-        });
-
-        // Set up validation state listener
-        billInfoView.setOnValidationStateChangeListener(isValid -> {
-            if (isValid) {
-                continueButton.setState(GPButtonState.DEFAULT);
+                    handler.postDelayed(() -> {
+                        billInfoView.setCalculationLoading(false);
+                        billInfoView.setTaxMessage("");
+                        // Calculate tax based on selected region
+                        calculateTaxForRegion(region.getRCode());
+                    }, 2000);
+                    break;
+                    
+                case TAX_ID_APPLIED:
+                    String taxId = (String) data;
+                    billInfoView.setTaxIdLoading(true);
+                    
+                    // Simulate validation delay
+                    handler.postDelayed(() -> {
+                        billInfoView.setTaxIdLoading(false);
+                        billInfoView.setTaxIdApplied(true);
+                        
+                        // Show success message or update calculation
+                        updateBillingCalculationWithTaxId(taxId);
+                    }, 1500); // 1.5 second delay
+                    break;
+                    
+                case VALIDATION_STATE_CHANGED:
+                    Boolean isValid = (Boolean) data;
+                    if (isValid) {
+                        continueButton.setState(GPButtonState.DEFAULT);
+                    } else {
+                        continueButton.setState(GPButtonState.INACTIVE);
+                    }
+                    break;
             }
-            else {
-                continueButton.setState(GPButtonState.INACTIVE);
-            }
-//            continueButton.setEnabled(isValid);
         });
     }
 
@@ -184,29 +184,58 @@ public class GPBillInfoViewFragment extends Fragment {
                 .show();
     }
 
-    private void loadDefaultBillingConfig() {
-        // Default to US configuration
-        loadBillingConfigForCountry("US");
+    private void setupInitialBillingWithPreSelectedCountry() {
+        // Find US country from the loaded countries list
+        GPCountry preSelectedCountry = findCountryByCode("US");
+        
+        // Create billing config for US
+        GPBillingConfig config = createBillingConfigForCountry("US");
+
+        GPBillingCalculation calculation = new GPBillingCalculation();
+        calculation.setSubtotal(new BigDecimal("100.00"));
+        calculation.setTax(new BigDecimal("0.00"));
+        calculation.setDiscount(new BigDecimal("0.00"));
+        calculation.setTotal(new BigDecimal("8.86"));
+        calculation.setTaxMessage("Enter a ZIP code to calculate");
+
+        // Use the new combined setup method
+        billInfoView.setupBillingWithPreSelectedCountry(config, calculation, allCountries, preSelectedCountry);
+    }
+    
+    private GPCountry findCountryByCode(String countryCode) {
+        if (allCountries != null) {
+            for (GPCountry country : allCountries) {
+                if (country.getCountryCode().equals(countryCode)) {
+                    return country;
+                }
+            }
+        }
+        return new GPCountry("", countryCode);
     }
 
     private void loadBillingConfigForCountry(String countryCode) {
+        GPBillingConfig config = createBillingConfigForCountry(countryCode);
+        billInfoView.setBillingConfig(config);
+    }
+    
+    private GPBillingConfig createBillingConfigForCountry(String countryCode) {
         GPBillingConfig config = new GPBillingConfig();
         
         switch (countryCode) {
             case "US":
                 config.setCountryCode("US");
                 config.setTaxEnabled(true);
-                config.setCouponEnabled(true);
+                config.setCouponEnabled(false);
                 config.setTaxZipCodeEnabled(true);
                 config.setTaxRegionEnabled(false);
-                config.setTaxIdEnabled(false);
+                config.setTaxIdEnabled(true);
                 config.setSelectedZip("");
                 break;
                 
             case "CA":
                 config.setCountryCode("CA");
                 config.setTaxEnabled(true);
-                config.setCouponEnabled(true);
+                config.setCouponEnabled(false);
                 config.setTaxZipCodeEnabled(false);
                 config.setTaxRegionEnabled(true);
                 config.setTaxIdEnabled(false);
@@ -217,7 +246,7 @@ public class GPBillInfoViewFragment extends Fragment {
             case "DE":
                 config.setCountryCode("DE");
                 config.setTaxEnabled(true);
-                config.setCouponEnabled(true);
+                config.setCouponEnabled(false);
                 config.setTaxZipCodeEnabled(true);
                 config.setTaxRegionEnabled(false);
                 config.setTaxIdEnabled(true);
@@ -228,14 +257,14 @@ public class GPBillInfoViewFragment extends Fragment {
             default:
                 config.setCountryCode(countryCode);
                 config.setTaxEnabled(true);
-                config.setCouponEnabled(true);
+                config.setCouponEnabled(false);
                 config.setTaxZipCodeEnabled(false);
                 config.setTaxRegionEnabled(false);
                 config.setTaxIdEnabled(false);
                 break;
         }
         
-        billInfoView.setBillingConfig(config);
+        return config;
     }
 
     private List<GPRegion> getCanadianProvinces() {

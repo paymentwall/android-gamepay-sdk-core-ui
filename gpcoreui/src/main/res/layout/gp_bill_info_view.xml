@@ -88,7 +88,7 @@
 
     <!-- Shimmer Loading Container -->
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/gp_shimmer_container"
+        android:id="@+id/gp_calculation_shimmer_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone">
@@ -102,9 +102,6 @@
             <include layout="@layout/gp_shimmer_calculation_item" />
 
             <!-- Shimmer Tax -->
-            <include layout="@layout/gp_shimmer_calculation_item" />
-
-            <!-- Shimmer Discount -->
             <include layout="@layout/gp_shimmer_calculation_item" />
 
             <!-- Shimmer Divider -->

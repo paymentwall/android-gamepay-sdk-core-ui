@@ -1,7 +1,6 @@
 package com.terminal3.gpcoreui.components;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,7 @@ public class GPBillInfoView extends LinearLayout {
     private TextView taxLabel;
     private TextView taxValue;
     private TextView taxMessage;
+    private View discountItem;
     private TextView discountLabel;
     private TextView discountValue;
     private TextView totalLabel;
@@ -47,36 +47,25 @@ public class GPBillInfoView extends LinearLayout {
     private GPBillingConfig currentConfig;
     private GPBillingCalculation currentCalculation;
 
-    private OnCountrySelectedListener countrySelectedListener;
-    private OnZipCodeAppliedListener zipCodeAppliedListener;
-    private OnRegionSelectedListener regionSelectedListener;
-    private OnTaxIdAppliedListener taxIdAppliedListener;
-    private OnValidationStateChangeListener validationStateChangeListener;
+    private OnBillInfoListener billInfoListener;
     
     private GPCountry selectedCountry;
     private GPRegion selectedRegion;
+    private List<GPCountry> allCountries;
 
     // endregion
 
     // region Listeners
-    public interface OnCountrySelectedListener {
-        void onCountrySelected(GPCountry country);
+    public enum GPBillInfoEvent {
+        COUNTRY_SELECTED,
+        ZIP_CODE_APPLIED,
+        REGION_SELECTED,
+        TAX_ID_APPLIED,
+        VALIDATION_STATE_CHANGED
     }
 
-    public interface OnZipCodeAppliedListener {
-        void onZipCodeApplied(String zipCode);
-    }
-
-    public interface OnRegionSelectedListener {
-        void onRegionSelected(GPRegion region);
-    }
-
-    public interface OnTaxIdAppliedListener {
-        void onTaxIdApplied(String taxId);
-    }
-
-    public interface OnValidationStateChangeListener {
-        void onValidationStateChanged(boolean isValid);
+    public interface OnBillInfoListener {
+        void onBillInfoEvent(GPBillInfoEvent event, Object data);
     }
 
     // endregion
@@ -118,14 +107,15 @@ public class GPBillInfoView extends LinearLayout {
         taxLabel = findViewById(R.id.gp_tax_label);
         taxValue = findViewById(R.id.gp_tax_value);
         taxMessage = findViewById(R.id.gp_tax_message);
-        
+
+        discountItem = findViewById(R.id.gp_discount_item);
         discountLabel = findViewById(R.id.gp_discount_item).findViewById(R.id.gp_calculation_label);
         discountValue = findViewById(R.id.gp_discount_item).findViewById(R.id.gp_calculation_value);
         
         totalLabel = findViewById(R.id.gp_total_label);
         totalValue = findViewById(R.id.gp_total_value);
         calculationContainer = findViewById(R.id.gp_calculation_container);
-        shimmerContainer = findViewById(R.id.gp_shimmer_container);
+        shimmerContainer = findViewById(R.id.gp_calculation_shimmer_container);
         fieldsContainer = findViewById(R.id.gp_fields_container);
         fieldsShimmerContainer = findViewById(R.id.gp_fields_shimmer_container);
     }
@@ -135,12 +125,12 @@ public class GPBillInfoView extends LinearLayout {
         countryDropdown.setHintText(getContext().getString(R.string.gp_country));
         countryDropdown.setSearchEnabled(true);
         countryDropdown.setOnItemSelectedListener(item -> {
-            if (countrySelectedListener != null) {
+            if (billInfoListener != null) {
                 setFieldsLoading(true);
                 GPCountry country = findCountryByCode(item.getId());
                 if (country != null) {
                     selectedCountry = country;
-                    countrySelectedListener.onCountrySelected(country);
+                    billInfoListener.onBillInfoEvent(GPBillInfoEvent.COUNTRY_SELECTED, country);
                     checkValidationState();
                 }
             }
@@ -149,9 +139,9 @@ public class GPBillInfoView extends LinearLayout {
         zipCodeInput.setLabel("ZIP code");
         zipCodeInput.setHintText("Enter ZIP code");
         zipCodeInput.setOnApplyClickListener(zipCode -> {
-            if (zipCodeAppliedListener != null) {
+            if (billInfoListener != null) {
                 setCalculationLoading(true);
-                zipCodeAppliedListener.onZipCodeApplied(zipCode);
+                billInfoListener.onBillInfoEvent(GPBillInfoEvent.ZIP_CODE_APPLIED, zipCode);
 //                checkValidationState();
             }
         });
@@ -159,11 +149,11 @@ public class GPBillInfoView extends LinearLayout {
         regionDropdown.setLabel("State/Province");
         regionDropdown.setHintText("Select state/province");
         regionDropdown.setOnItemSelectedListener(item -> {
-            if (regionSelectedListener != null) {
+            if (billInfoListener != null) {
                 GPRegion region = findRegionByCode(item.getId());
                 if (region != null) {
                     selectedRegion = region;
-                    regionSelectedListener.onRegionSelected(region);
+                    billInfoListener.onBillInfoEvent(GPBillInfoEvent.REGION_SELECTED, region);
 //                    checkValidationState();
                 }
             }
@@ -172,9 +162,9 @@ public class GPBillInfoView extends LinearLayout {
         taxIdInput.setLabel("Tax ID");
         taxIdInput.setHintText("Enter Tax ID");
         taxIdInput.setOnApplyClickListener(taxId -> {
-            if (taxIdAppliedListener != null) {
+            if (billInfoListener != null) {
                 setCalculationLoading(true);
-                taxIdAppliedListener.onTaxIdApplied(taxId);
+                billInfoListener.onBillInfoEvent(GPBillInfoEvent.TAX_ID_APPLIED, taxId);
                 // Tax ID is optional, so doesn't affect validation
             }
         });
@@ -192,17 +182,31 @@ public class GPBillInfoView extends LinearLayout {
     // endregion
 
     // region Set Billing Config
+    public void setupBillingWithPreSelectedCountry(GPBillingConfig config, GPBillingCalculation calculation, List<GPCountry> countries, GPCountry preSelectedCountry) {
+        // Set countries first
+        setCountries(countries);
+
+        // Pre-select the country without triggering listener
+        if (preSelectedCountry != null) {
+            setPreSelectedCountry(preSelectedCountry);
+        }
+
+        // Set billing config which will configure fields based on the country
+        setBillingConfig(config);
+        setBillingCalculation(calculation);
+    }
+
     public void setBillingConfig(GPBillingConfig config) {
         this.currentConfig = config;
-        
+
         // Stop fields loading when config is received
         setFieldsLoading(false);
-        
+
         // Clear apply input states when changing billing config (e.g., country change)
         zipCodeInput.clear();
         taxIdInput.clear();
         selectedRegion = null;
-        
+
         updateFieldVisibility();
         populateRegionsDropdown();
         setSelectedValues();
@@ -219,11 +223,22 @@ public class GPBillInfoView extends LinearLayout {
         checkValidationState();
     }
 
+    private void setPreSelectedCountry(GPCountry country) {
+        if (country == null) return;
+
+        this.selectedCountry = country;
+
+        // Set the dropdown selection without triggering the listener
+        DropdownItem countryItem = new DropdownItem(country.getCountryCode(), country.getCountryName(), country.getFlagUrl());
+        countryDropdown.setSelectedItem(countryItem, null);
+    }
+
     private void updateFieldVisibility() {
         if (currentConfig == null) return;
         zipCodeInput.setVisibility(currentConfig.isTaxZipCodeEnabled() ? VISIBLE : GONE);
         regionDropdown.setVisibility(currentConfig.isTaxRegionEnabled() ? VISIBLE : GONE);
         taxIdInput.setVisibility(currentConfig.isTaxIdEnabled() ? VISIBLE : GONE);
+        discountItem.setVisibility(currentConfig.isDiscountEnable() ? VISIBLE : GONE);
     }
 
     private void populateRegionsDropdown() {
@@ -259,6 +274,7 @@ public class GPBillInfoView extends LinearLayout {
     // endregion
 
     public void setCountries(List<GPCountry> countries) {
+        this.allCountries = countries;
         List<DropdownItem> countryItems = new ArrayList<>();
         for (GPCountry country : countries) {
             countryItems.add(new DropdownItem(country.getCountryCode(), country.getCountryName(), country.getFlagUrl()));
@@ -346,29 +362,20 @@ public class GPBillInfoView extends LinearLayout {
     // endregion
 
     // region Setup Listener
-    public void setOnCountrySelectedListener(OnCountrySelectedListener listener) {
-        this.countrySelectedListener = listener;
-    }
-
-    public void setOnZipCodeAppliedListener(OnZipCodeAppliedListener listener) {
-        this.zipCodeAppliedListener = listener;
-    }
-
-    public void setOnRegionSelectedListener(OnRegionSelectedListener listener) {
-        this.regionSelectedListener = listener;
-    }
-
-    public void setOnTaxIdAppliedListener(OnTaxIdAppliedListener listener) {
-        this.taxIdAppliedListener = listener;
-    }
-
-    public void setOnValidationStateChangeListener(OnValidationStateChangeListener listener) {
-        this.validationStateChangeListener = listener;
+    public void setOnBillInfoListener(OnBillInfoListener listener) {
+        this.billInfoListener = listener;
     }
     // endregion
 
     // region Helper
     private GPCountry findCountryByCode(String countryCode) {
+        if (allCountries != null) {
+            for (GPCountry country : allCountries) {
+                if (country.getCountryCode().equals(countryCode)) {
+                    return country;
+                }
+            }
+        }
         return new GPCountry("", countryCode);
     }
 
@@ -385,8 +392,8 @@ public class GPBillInfoView extends LinearLayout {
     
     private void checkValidationState() {
         boolean isValid = isFormValid();
-        if (validationStateChangeListener != null) {
-            validationStateChangeListener.onValidationStateChanged(isValid);
+        if (billInfoListener != null) {
+            billInfoListener.onBillInfoEvent(GPBillInfoEvent.VALIDATION_STATE_CHANGED, isValid);
         }
     }
     

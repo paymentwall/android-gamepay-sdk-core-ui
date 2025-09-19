@@ -6,7 +6,7 @@ public class GPBillingConfig {
     private boolean show_mor_disclaimer;
     private String mor_disclaimer_extra_text;
     private boolean is_tax_enabled;
-    private boolean is_coupon_enabled;
+    private boolean is_coupon_enabled = false;
     private boolean is_tax_zip_code_enabled;
     private boolean is_tax_region_enabled;
     private boolean is_tax_id_enabled;
@@ -69,6 +69,10 @@ public class GPBillingConfig {
 
     public boolean isTaxIdEnabled() {
         return is_tax_id_enabled;
+    }
+
+    public boolean isDiscountEnable() {
+        return is_coupon_enabled;
     }
 
     public void setTaxIdEnabled(boolean taxIdEnabled) {
