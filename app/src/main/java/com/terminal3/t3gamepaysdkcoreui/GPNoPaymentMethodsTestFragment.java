@@ -53,6 +53,13 @@ public class GPNoPaymentMethodsTestFragment extends Fragment {
             Toast.makeText(requireContext(), 
                 "Selected: " + country.getCountryName(), 
                 Toast.LENGTH_SHORT).show();
+
+            if (country.getCountryCode().equals("VN")) {
+                noPaymentMethodsView.displaySecondView();
+            }
+            else {
+                noPaymentMethodsView.displayFirstView();
+            }
         });
         
         noPaymentMethodsView.setOnContinueClickListener(() -> {

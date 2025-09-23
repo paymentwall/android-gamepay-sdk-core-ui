@@ -14,6 +14,7 @@ import com.terminal3.gpcoreui.R;
 import com.terminal3.gpcoreui.components.GPCountryDropdown;
 import com.terminal3.gpcoreui.components.GPDropdown;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
+import com.terminal3.gpcoreui.enums.GPButtonState;
 import com.terminal3.gpcoreui.models.DropdownItem;
 import com.terminal3.gpcoreui.models.GPCountry;
 import com.terminal3.gpcoreui.utils.transformation.SvgLoaderWithBorder;
@@ -28,6 +29,9 @@ public class GPNoPaymentMethodsView extends LinearLayout {
     private TextView subtitleView;
     private GPCountryDropdown countryDropdown;
     private GPPrimaryButton continueButton;
+
+    private TextView tvNoPMSecondViewTitle;
+    private TextView tvNoPMSecondViewDesc;
     
     private List<GPCountry> supportedCountries;
     public List<DropdownItem> dropdownItems = new ArrayList<>();
@@ -59,9 +63,31 @@ public class GPNoPaymentMethodsView extends LinearLayout {
         subtitleView = findViewById(R.id.gp_no_payment_methods_subtitle);
         countryDropdown = findViewById(R.id.gp_country_dropdown);
         continueButton = findViewById(R.id.gp_continue_button);
+
+        tvNoPMSecondViewTitle = findViewById(R.id.tvNoPMSecondViewTitle);
+        tvNoPMSecondViewDesc = findViewById(R.id.tvNoPMSecondViewDesc);
         
         setupCountryDropdown();
         setupContinueButton();
+    }
+
+    public void displayFirstView() {
+        tvNoPMSecondViewTitle.setVisibility(GONE);
+        tvNoPMSecondViewDesc.setVisibility(GONE);
+        iconView.setVisibility(VISIBLE);
+        titleView.setVisibility(VISIBLE);
+        subtitleView.setVisibility(VISIBLE);
+        continueButton.setState(GPButtonState.DEFAULT);
+    }
+
+    // use to display second view in tax calculation screen
+    public void displaySecondView() {
+        tvNoPMSecondViewTitle.setVisibility(VISIBLE);
+        tvNoPMSecondViewDesc.setVisibility(VISIBLE);
+        iconView.setVisibility(GONE);
+        titleView.setVisibility(GONE);
+        subtitleView.setVisibility(GONE);
+        continueButton.setState(GPButtonState.INACTIVE);
     }
 
     private void setupCountryDropdown() {

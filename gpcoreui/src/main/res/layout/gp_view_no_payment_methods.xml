@@ -2,9 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
     android:paddingVertical="@dimen/gp_form_inset_left">
+
+    <TextView
+        android:id="@+id/tvNoPMSecondViewTitle"
+        style="@style/GP.Typography.Heading3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Billing information"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@color/gp_text_primary"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <!-- No Payment Methods Icon -->
     <ImageView
@@ -39,19 +52,22 @@
         android:text="@string/gp_no_payment_methods_subtitle" />
 
     <!-- Country Dropdown -->
-<!--    <com.terminal3.gpcoreui.components.GPDropdown-->
-<!--        android:id="@+id/gp_country_dropdown"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="@dimen/gp_form_inset_left"-->
-<!--        />-->
-
     <com.terminal3.gpcoreui.components.GPCountryDropdown
         android:id="@+id/gp_country_dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/gp_form_inset_left"
         />
+
+    <TextView
+        android:id="@+id/tvNoPMSecondViewDesc"
+        style="@style/GP.Typography.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/gp_no_supported_methods_text"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 
     <com.terminal3.gpcoreui.components.GPDivider
@@ -63,7 +79,7 @@
     <com.terminal3.gpcoreui.components.GPPrimaryButton
         android:id="@+id/gp_continue_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         android:layout_marginHorizontal="@dimen/gp_form_inset_left"
         android:text="@string/gp_continue" />
 
