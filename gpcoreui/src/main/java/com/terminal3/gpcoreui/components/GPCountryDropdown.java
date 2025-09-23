@@ -102,6 +102,17 @@ public class GPCountryDropdown extends LinearLayout implements GPOptionView, GPE
         countryContainer.setOnClickListener(v -> showBottomSheet());
     }
 
+    public void setEnable(boolean isEnable) {
+        if (isEnable) {
+            dropdownArrow.setVisibility(VISIBLE);
+            countryContainer.setOnClickListener(v -> showBottomSheet());
+        }
+        else {
+            dropdownArrow.setVisibility(GONE);
+            countryContainer.setOnClickListener(null);
+        }
+    }
+
     // region Helper Methods
 
     private int dpToPx(int dp) {

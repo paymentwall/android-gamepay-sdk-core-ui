@@ -59,6 +59,7 @@ public class GPApplyCodeInputView extends LinearLayout {
                 }
             }
         });
+        applyButton.setState(GPButtonState.INACTIVE);
         
         // Add TextWatcher to monitor input changes
         inputContainer.getEditText().addTextChangedListener(new TextWatcher() {
@@ -139,13 +140,16 @@ public class GPApplyCodeInputView extends LinearLayout {
     
     private void checkInputChange() {
         String currentInput = inputContainer.getInput();
-        if (!lastAppliedValue.isEmpty()) {
+        if (!lastAppliedValue.isEmpty() && !currentInput.isBlank()) {
             if (currentInput.equals(lastAppliedValue)) {
                 // User entered the same value that was previously applied
                 if (!isApplied) {
                     applyButton.setText(appliedButtonText);
                     applyButton.setState(GPButtonState.INACTIVE);
                     isApplied = true;
+                }
+                else {
+                    updateApplyButtonState();
                 }
             } else {
                 // User entered different value, allow re-apply
@@ -154,7 +158,25 @@ public class GPApplyCodeInputView extends LinearLayout {
                     applyButton.setState(GPButtonState.DEFAULT);
                     isApplied = false;
                 }
+                else {
+                    updateApplyButtonState();
+                }
             }
+        }
+        else {
+            updateApplyButtonState();
+        }
+    }
+
+    private void updateApplyButtonState() {
+        String inputText = inputContainer.getEditText().getText().toString();
+        boolean isInValidInput = inputText.trim().isEmpty();
+
+        if (isInValidInput) {
+            applyButton.setState(GPButtonState.INACTIVE);
+        }
+        else {
+            applyButton.setState(GPButtonState.DEFAULT);
         }
     }
     
@@ -170,7 +192,7 @@ public class GPApplyCodeInputView extends LinearLayout {
         lastAppliedValue = "";
         isApplied = false;
         applyButton.setText(originalButtonText);
-        applyButton.setState(GPButtonState.DEFAULT);
+        applyButton.setState(GPButtonState.INACTIVE);
         inputContainer.setText("");
         inputContainer.clearError();
     }

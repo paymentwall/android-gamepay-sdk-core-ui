@@ -34,6 +34,7 @@ public class GPBillInfoView extends LinearLayout {
 
     public TextView subtotalLabel;
     public TextView subtotalValue;
+    public View vTaxContainer;
     public TextView taxLabel;
     public TextView taxValue;
     public TextView taxMessage;
@@ -106,7 +107,8 @@ public class GPBillInfoView extends LinearLayout {
 
         subtotalLabel = findViewById(R.id.gp_subtotal_item).findViewById(R.id.gp_calculation_label);
         subtotalValue = findViewById(R.id.gp_subtotal_item).findViewById(R.id.gp_calculation_value);
-        
+
+        vTaxContainer = findViewById(R.id.gp_tax_container);
         taxLabel = findViewById(R.id.gp_tax_label);
         taxValue = findViewById(R.id.gp_tax_value);
         taxMessage = findViewById(R.id.gp_tax_message);
@@ -268,10 +270,12 @@ public class GPBillInfoView extends LinearLayout {
 
         if (currentConfig.getSelectedZip() != null && !currentConfig.getSelectedZip().isEmpty()) {
             zipCodeInput.setText(currentConfig.getSelectedZip());
+            zipCodeInput.setApplied(true);
         }
 
         if (currentConfig.getSelectedTaxId() != null && !currentConfig.getSelectedTaxId().isEmpty()) {
             taxIdInput.setText(currentConfig.getSelectedTaxId());
+            taxIdInput.setApplied(true);
         }
 
         if (currentConfig.getSelectedRegion() != null && !currentConfig.getSelectedRegion().isEmpty()) {

@@ -68,6 +68,14 @@ public class GPBillInfoViewFragment extends Fragment {
                     simulateDataLoading(() -> {
                         resetBillingCalculation();
                         loadBillingConfigForCountry(country.getCountryCode());
+                        if (country.getCountryCode().equals("VN")) {
+                            billInfoView.vTaxContainer.setVisibility(View.GONE);
+                            billInfoView.countryDropdown.setEnable(false);
+                        }
+                        else {
+                            billInfoView.vTaxContainer.setVisibility(View.VISIBLE);
+                            billInfoView.countryDropdown.setEnable(true);
+                        }
                     });
                     break;
                     
@@ -229,7 +237,8 @@ public class GPBillInfoViewFragment extends Fragment {
                 config.setTaxZipCodeEnabled(true);
                 config.setTaxRegionEnabled(false);
                 config.setTaxIdEnabled(true);
-                config.setSelectedZip("");
+                config.setSelectedZip("99823");
+                config.setSelectedTaxId("xxxxxx");
                 break;
                 
             case "CA":
@@ -239,7 +248,7 @@ public class GPBillInfoViewFragment extends Fragment {
                 config.setTaxZipCodeEnabled(false);
                 config.setTaxRegionEnabled(true);
                 config.setTaxIdEnabled(false);
-//                config.setSelectedRegion("BC");
+                config.setSelectedRegion("BC");
                 config.setRegions(getCanadianProvinces());
                 break;
                 
