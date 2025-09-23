@@ -122,7 +122,7 @@ public class GPNoPaymentMethodsView extends LinearLayout {
 
     private void updateCountryDropdown() {
         if (supportedCountries == null) return;
-
+        dropdownItems.clear();
         for (GPCountry country : supportedCountries) {
             DropdownItem item = new DropdownItem(
                 country.getCountryCode(),
