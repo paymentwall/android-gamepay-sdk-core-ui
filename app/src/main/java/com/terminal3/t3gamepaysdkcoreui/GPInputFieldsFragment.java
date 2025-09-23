@@ -18,6 +18,7 @@ import com.terminal3.gpcoreui.components.GPCardExpiryDateField;
 import com.terminal3.gpcoreui.components.GPCardNumberField;
 import com.terminal3.gpcoreui.components.GPDefaultInputContainer;
 import com.terminal3.gpcoreui.components.GPDropdown;
+import com.terminal3.gpcoreui.components.GPCountryDropdown;
 import com.terminal3.gpcoreui.components.GPErrorButton;
 import com.terminal3.gpcoreui.components.GPOutlinedButton;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
@@ -41,6 +42,7 @@ public class GPInputFieldsFragment extends Fragment {
     private GPCardNumberField ipCardNumber;
     private GPDefaultInputContainer ipExpiryDate, ipCVV;
     private GPDropdown dropdown;
+    private GPCountryDropdown countryDropdown;
     private GPOutlinedButton btnSwitch, btnOpenSavedCard;
     private GPPrimaryButton btnValidate, btnOpenForm;
     private GPSecondaryButton btnSecondary;
@@ -83,6 +85,7 @@ public class GPInputFieldsFragment extends Fragment {
         btnSecondary = rootView.findViewById(R.id.btnSecondary);
         btnError = rootView.findViewById(R.id.btnError);
         dropdown = rootView.findViewById(R.id.countryDropdown);
+        countryDropdown = rootView.findViewById(R.id.countryDropdownNew);
         agreementView = rootView.findViewById(R.id.agreementView);
         footerView = rootView.findViewById(R.id.footerView);
         agreementView.configure(
@@ -96,6 +99,7 @@ public class GPInputFieldsFragment extends Fragment {
         footerView.setOnTermsClickListener(v -> openUrl("https://www.paymentwall.com/terms"));
         footerView.setOnPrivacyClickListener(v -> openUrl("https://www.paymentwall.com/privacy"));
         setupDropdown();
+        setupCountryDropdown();
         setupRules();
         setupListener();
     }
@@ -123,6 +127,10 @@ public class GPInputFieldsFragment extends Fragment {
 
         validator.addRules(dropdown, List.of(
                 new GPRequiredRule("Please select an option")
+        ));
+
+        validator.addRules(countryDropdown, List.of(
+                new GPRequiredRule("Please select a country")
         ));
     }
 
@@ -196,6 +204,29 @@ public class GPInputFieldsFragment extends Fragment {
         dropdown.setOnItemSelectedListener(position -> {
             dropdown.setText(position.getText());
             Log.d("GPDropdown", "Selected: " + position.getText() + " (ID: " + position.getId() + ")");
+        });
+    }
+
+    private void setupCountryDropdown() {
+        List<DropdownItem> countries = new ArrayList<>();
+        // Adding sample countries with SVG flag URLs
+        countries.add(new DropdownItem("US", "United States", "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"));
+        countries.add(new DropdownItem("CA", "Canada", "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg"));
+        countries.add(new DropdownItem("GB", "United Kingdom", "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"));
+        countries.add(new DropdownItem("AU", "Australia", "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"));
+        countries.add(new DropdownItem("DE", "Germany", "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"));
+        countries.add(new DropdownItem("FR", "France", "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"));
+        countries.add(new DropdownItem("JP", "Japan", "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"));
+        countries.add(new DropdownItem("KR", "South Korea", "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg"));
+        countries.add(new DropdownItem("IN", "India", "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"));
+        countries.add(new DropdownItem("CN", "China", "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"));
+
+        countryDropdown.setLabel("Select Country");
+        countryDropdown.setHintText("Choose a country");
+        countryDropdown.setSearchEnabled(true);
+        countryDropdown.setItems(countries);
+        countryDropdown.setOnItemSelectedListener(item -> {
+            Log.d("GPCountryDropdown", "Selected: " + item.getText() + " (ID: " + item.getId() + ")");
         });
     }
 }

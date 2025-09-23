@@ -1,6 +1,7 @@
 package com.terminal3.gpcoreui.components;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import com.terminal3.gpcoreui.models.GPBillingCalculation;
 import com.terminal3.gpcoreui.models.GPBillingConfig;
 import com.terminal3.gpcoreui.models.GPCountry;
 import com.terminal3.gpcoreui.models.GPRegion;
+import com.terminal3.gpcoreui.utils.transformation.SvgLoaderWithBorder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +27,7 @@ import java.util.List;
 public class GPBillInfoView extends LinearLayout {
 
     // region Properties
-    public GPDropdown countryDropdown;
+    public GPCountryDropdown countryDropdown;
     public GPApplyCodeInputView zipCodeInput;
     public GPDropdown regionDropdown;
     public GPApplyCodeInputView taxIdInput;
@@ -210,15 +213,6 @@ public class GPBillInfoView extends LinearLayout {
         updateFieldVisibility();
         populateRegionsDropdown();
         setSelectedValues();
-        if (config.isTaxZipCodeEnabled()) {
-            currentCalculation.setTaxMessage(getResources().getString(R.string.gp_msg_enter_a_zip_code_to_calculate));
-        }
-        else if (config.isTaxRegionEnabled()) {
-            currentCalculation.setTaxMessage(getResources().getString(R.string.gp_msg_select_a_state_to_calculate));
-        }
-        else {
-            currentCalculation.setTaxMessage("");
-        }
         updateCalculationDisplay();
         checkValidationState();
     }
@@ -227,10 +221,28 @@ public class GPBillInfoView extends LinearLayout {
         if (country == null) return;
 
         this.selectedCountry = country;
-
         // Set the dropdown selection without triggering the listener
-        DropdownItem countryItem = new DropdownItem(country.getCountryCode(), country.getCountryName(), country.getFlagUrl());
-        countryDropdown.setSelectedItem(countryItem, null);
+        DropdownItem finalTargetItem = new DropdownItem(country.getCountryCode(), country.getCountryName(), country.getFlagUrl());
+        if (finalTargetItem.getPhotoUrl() != null && !finalTargetItem.getPhotoUrl().isEmpty()) {
+            if (finalTargetItem.getPhotoUrl().toLowerCase().endsWith(".svg")) {
+                SvgLoaderWithBorder.loadSvgWithBorder(
+                        getContext(),
+                        finalTargetItem.getPhotoUrl(),
+                        new SvgLoaderWithBorder.SvgLoadCallback() {
+                            @Override
+                            public void onSuccess(Drawable drawable) {
+                                countryDropdown.setSelectedItem(finalTargetItem, drawable);
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                // Set without flag on error
+                                countryDropdown.setSelectedItem(finalTargetItem, null);
+                            }
+                        }
+                );
+            }
+        }
     }
 
     private void updateFieldVisibility() {
@@ -285,6 +297,18 @@ public class GPBillInfoView extends LinearLayout {
     // region Set Billing Calculation
     public void setBillingCalculation(GPBillingCalculation calculation) {
         this.currentCalculation = calculation;
+        if (calculation.getTax().compareTo(BigDecimal.ZERO) > 0) {
+            currentCalculation.setTaxMessage("");
+        }
+        else if (currentConfig.isTaxZipCodeEnabled()) {
+            currentCalculation.setTaxMessage(getResources().getString(R.string.gp_msg_enter_a_zip_code_to_calculate));
+        }
+        else if (currentConfig.isTaxRegionEnabled()) {
+            currentCalculation.setTaxMessage(getResources().getString(R.string.gp_msg_select_a_state_to_calculate));
+        }
+        else {
+            currentCalculation.setTaxMessage("");
+        }
         setCalculationLoading(false);
         updateCalculationDisplay();
         checkValidationState();

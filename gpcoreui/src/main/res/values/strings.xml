@@ -29,4 +29,5 @@
     <string name="gp_alert_title_unexpected">Unexpected error</string>
     <string name="gp_msg_enter_a_zip_code_to_calculate">Enter a ZIP code to calculate</string>
     <string name="gp_msg_select_a_state_to_calculate">Select a state to calculate</string>
+    <string name="gp_search_hint">Search...</string>
 </resources>

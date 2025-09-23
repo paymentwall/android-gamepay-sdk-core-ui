@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.terminal3.gpcoreui.R;
+import com.terminal3.gpcoreui.components.GPCountryDropdown;
 import com.terminal3.gpcoreui.components.GPDropdown;
 import com.terminal3.gpcoreui.components.GPPrimaryButton;
 import com.terminal3.gpcoreui.models.DropdownItem;
@@ -25,7 +26,7 @@ public class GPNoPaymentMethodsView extends LinearLayout {
     private ImageView iconView;
     private TextView titleView;
     private TextView subtitleView;
-    private GPDropdown countryDropdown;
+    private GPCountryDropdown countryDropdown;
     private GPPrimaryButton continueButton;
     
     private List<GPCountry> supportedCountries;

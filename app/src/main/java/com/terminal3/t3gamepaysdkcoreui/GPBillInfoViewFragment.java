@@ -197,7 +197,6 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(new BigDecimal("8.86"));
         calculation.setTaxRate(10.0);
-        calculation.setTaxMessage("Enter a ZIP code to calculate");
 
         // Use the new combined setup method
         billInfoView.setupBillingWithPreSelectedCountry(config, calculation, allCountries, preSelectedCountry);
@@ -295,7 +294,6 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setTaxMessage("Enter a ZIP code to calculate");
         
         billInfoView.setBillingCalculation(calculation);
-        billInfoView.setTaxMessage("Enter a ZIP code to calculate");
     }
 
     private void resetBillingCalculation() {
@@ -338,7 +336,6 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setTaxRate(taxRate.doubleValue());
         
         billInfoView.setBillingCalculation(calculation);
-        billInfoView.setTaxMessage("");
     }
 
     private void calculateTaxForRegion(String regionCode) {

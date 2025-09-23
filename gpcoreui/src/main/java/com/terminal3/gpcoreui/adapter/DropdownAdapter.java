@@ -30,14 +30,27 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
 
     private List<DropdownItem> items;
     private final OnItemClickListener listener;
+    private DropdownItem selectedItem;
 
     public DropdownAdapter(List<DropdownItem> items, OnItemClickListener listener) {
         this.items = items;
         this.listener = listener;
+        this.selectedItem = null;
+    }
+
+    public DropdownAdapter(List<DropdownItem> items, OnItemClickListener listener, DropdownItem selectedItem) {
+        this.items = items;
+        this.listener = listener;
+        this.selectedItem = selectedItem;
     }
 
     public void updateItems(List<DropdownItem> newItems) {
         this.items = newItems;
+        notifyDataSetChanged();
+    }
+
+    public void setSelectedItem(DropdownItem selectedItem) {
+        this.selectedItem = selectedItem;
         notifyDataSetChanged();
     }
 
@@ -59,7 +72,8 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DropdownItem item = items.get(position);
-        holder.bind(item, listener);
+        boolean isSelected = selectedItem != null && selectedItem.getId().equals(item.getId());
+        holder.bind(item, listener, isSelected);
     }
 
     @Override
@@ -70,6 +84,7 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView icon;
         private final TextView text;
+        private final ImageView checkmark;
         
         // Store current loading URL to prevent flickering
         private String currentLoadingUrl = null;
@@ -92,6 +107,7 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
             super(itemView);
             icon = itemView.findViewById(R.id.item_icon);
             text = itemView.findViewById(R.id.item_text);
+            checkmark = itemView.findViewById(R.id.item_checkmark);
         }
 
         void clearPreviousRequests() {
@@ -102,7 +118,7 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
             currentLoadingUrl = null;
         }
 
-        void bind(DropdownItem item, OnItemClickListener listener) {
+        void bind(DropdownItem item, OnItemClickListener listener, boolean isSelected) {
             // Clear any previous loading requests to prevent flickering
             clearPreviousRequests();
             
@@ -163,6 +179,9 @@ public class DropdownAdapter extends RecyclerView.Adapter<DropdownAdapter.ViewHo
             }
 
             text.setText(item.getText());
+
+            // Handle checkmark visibility
+            checkmark.setVisibility(isSelected ? View.VISIBLE : View.GONE);
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

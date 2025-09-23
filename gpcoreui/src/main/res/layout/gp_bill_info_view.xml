@@ -17,7 +17,7 @@
         android:layout_marginBottom="16dp" />
 
     <!-- Country Dropdown -->
-    <com.terminal3.gpcoreui.components.GPDropdown
+    <com.terminal3.gpcoreui.components.GPCountryDropdown
         android:id="@+id/gp_country_dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

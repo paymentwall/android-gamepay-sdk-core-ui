@@ -1,23 +1,20 @@
 package com.terminal3.gpcoreui.components;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.InsetDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -33,26 +30,31 @@ import com.terminal3.gpcoreui.enums.GPInputState;
 import com.terminal3.gpcoreui.enums.GPOptionType;
 import com.terminal3.gpcoreui.models.DropdownItem;
 import com.terminal3.gpcoreui.models.GPOption;
+import com.terminal3.gpcoreui.utils.validator.GPErrorDisplayable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GPDropdown extends GPDefaultInputContainer {
-
-    // Constants
-    private static final int ICON_SIZE_DP = 24;
-    private static final int DRAWABLE_PADDING_DP = 4;
-    private static final int DRAWABLE_INSET_DP = 2;
+public class GPCountryDropdown extends LinearLayout implements GPOptionView, GPErrorDisplayable {
 
     // UI Components
+    private TextView labelView;
+    private LinearLayout countryContainer;
+    private ImageView countryFlag;
+    private TextView countryName;
+    private ImageView dropdownArrow;
+    private View errorView;
+    private TextView errorTextView;
+    private TextView helperView;
+
+    // Dropdown functionality
     private List<DropdownItem> items;
     private List<DropdownItem> originalItems;
     private List<DropdownItem> filteredItems;
     private BottomSheetDialog bottomSheetDialog;
     private DropdownItem selectedItem;
-    private Drawable leftDrawable;
-    private GPDefaultEditText searchEditText;
     private DropdownAdapter adapter;
+    private GPDefaultEditText searchEditText;
 
     // Listeners
     private OnItemSelectedListener itemSelectedListener;
@@ -60,62 +62,47 @@ public class GPDropdown extends GPDefaultInputContainer {
 
     // GPOption integration
     private GPOption option;
-    
+
     // Search functionality
     private boolean isSearchEnabled = false;
 
-    public GPDropdown(Context context) {
+    // State management
+    private GPInputState currentState = GPInputState.DEFAULT;
+
+    public GPCountryDropdown(Context context) {
         super(context);
         init();
     }
 
-    public GPDropdown(Context context, AttributeSet attrs) {
+    public GPCountryDropdown(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public GPDropdown(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GPCountryDropdown(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     private void init() {
-        // Disable text input
-        getEditText().setFocusable(false);
-        getEditText().setClickable(true);
-        getEditText().setLongClickable(false);
-        getEditText().setHint(R.string.gp_select_option);
+        setOrientation(VERTICAL);
+        LayoutInflater.from(getContext()).inflate(R.layout.gp_country_dropdown_display, this, true);
+        
+        // Initialize views
+        labelView = findViewById(R.id.gp_label);
+        countryContainer = findViewById(R.id.gp_country_container);
+        countryFlag = findViewById(R.id.gp_country_flag);
+        countryName = findViewById(R.id.gp_country_name);
+        dropdownArrow = findViewById(R.id.gp_dropdown_arrow);
+        errorView = findViewById(R.id.gp_error);
+        errorTextView = findViewById(R.id.gp_error_text);
+        helperView = findViewById(R.id.gp_helper);
 
-        setupDrawablePadding();
-
-        setDropdownArrow();
-        getEditText().setOnClickListener(v -> showBottomSheet());
+        // Setup click listener
+        countryContainer.setOnClickListener(v -> showBottomSheet());
     }
 
     // region Helper Methods
-
-    private void setupDrawablePadding() {
-        int padding = dpToPx(DRAWABLE_PADDING_DP);
-        getEditText().setCompoundDrawablePadding(padding);
-    }
-
-    private void setDropdownArrow() {
-        getEditText().setCompoundDrawablesWithIntrinsicBounds(
-                0, 0, R.drawable.gp_ic_arrow_drop_down, 0
-        );
-    }
-
-    private void rotateArrow(boolean show) {
-        int arrowResource = show ? R.drawable.gp_ic_arrow_drop_down_up : R.drawable.gp_ic_arrow_drop_down;
-        Drawable rightDrawable = ContextCompat.getDrawable(getContext(), arrowResource);
-        
-        getEditText().setCompoundDrawablesWithIntrinsicBounds(
-                leftDrawable,
-                null,
-                rightDrawable,
-                null
-        );
-    }
 
     private int dpToPx(int dp) {
         return (int) TypedValue.applyDimension(
@@ -139,8 +126,44 @@ public class GPDropdown extends GPDefaultInputContainer {
         }
     }
 
-    // endregion
+    private void rotateArrow(boolean show) {
+        int arrowResource = show ? R.drawable.gp_ic_arrow_drop_down_up : R.drawable.gp_ic_arrow_drop_down;
+        dropdownArrow.setImageResource(arrowResource);
+    }
 
+    private void setState(GPInputState state) {
+        this.currentState = state;
+        updateContainerBackground();
+    }
+
+    private void updateContainerBackground() {
+        int backgroundRes;
+        switch (currentState) {
+            case ACTIVE:
+                backgroundRes = R.drawable.gp_input_bg_active;
+                break;
+            case ERROR:
+                backgroundRes = R.drawable.gp_input_bg_error;
+                break;
+//            case FILLED_INACTIVE:
+//                backgroundRes = R.drawable.gp_input_bg_filled_inactive;
+//                break;
+            default:
+                backgroundRes = R.drawable.gp_input_bg_default;
+                break;
+        }
+        countryContainer.setBackground(ContextCompat.getDrawable(getContext(), backgroundRes));
+    }
+
+    private void animateVisibility(View view, boolean show) {
+        AlphaAnimation anim = new AlphaAnimation(show ? 0f : 1f, show ? 1f : 0f);
+        anim.setDuration(200);
+        anim.setFillAfter(true);
+        view.startAnimation(anim);
+        view.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    // endregion
 
     // region Public API
 
@@ -187,6 +210,35 @@ public class GPDropdown extends GPDefaultInputContainer {
     }
 
     /**
+     * Set the label text
+     * @param text Label text
+     */
+    public void setLabel(CharSequence text) {
+        labelView.setText(text);
+    }
+
+    /**
+     * Set the hint text
+     * @param text Hint text
+     */
+    public void setHintText(CharSequence text) {
+        countryName.setHint(text);
+    }
+
+    /**
+     * Set helper text
+     * @param text Helper text
+     */
+    public void setHelperText(CharSequence text) {
+        helperView.setText(text);
+    }
+
+    @Override
+    public String getInput() {
+        return selectedItem.getText();
+    }
+
+    /**
      * Interface for dropdown item selection callbacks
      */
     public interface OnItemSelectedListener {
@@ -225,20 +277,20 @@ public class GPDropdown extends GPDefaultInputContainer {
     }
 
     private void updateSelectedItemUI(DropdownItem item, @Nullable Drawable drawable) {
-        getEditText().setText(item.getText());
+        countryName.setText(item.getText());
         setState(GPInputState.FILLED_INACTIVE);
         
         if (drawable != null) {
-            leftDrawable = scaleDrawableToIconSize(drawable.mutate());
+            countryFlag.setImageDrawable(drawable);
         } else {
-            leftDrawable = null;
+            countryFlag.setImageResource(R.drawable.gp_flag_placeholder);
         }
     }
 
     private void clearSelectedItem() {
-        getEditText().setText("");
+        countryName.setText("");
         setState(GPInputState.DEFAULT);
-        leftDrawable = null;
+        countryFlag.setImageResource(R.drawable.gp_flag_placeholder);
     }
 
     private void notifyValueChange(String value) {
@@ -262,7 +314,7 @@ public class GPDropdown extends GPDefaultInputContainer {
         );
 
         TextView title = view.findViewById(R.id.gp_bottom_sheet_title);
-        String hint = getEditText().getHint().toString();
+        String hint = countryName.getHint().toString();
         if (!hint.isBlank()) {
             title.setText(hint);
         }
@@ -396,13 +448,9 @@ public class GPDropdown extends GPDefaultInputContainer {
         }
     }
 
-    @Override
-    public void setState(GPInputState state) {
-        super.setState(state);
-        // Additional state handling if needed
-    }
+    // endregion
 
-    // region GPOptionView overrides
+    // region GPOptionView implementation
 
     @Override
     public void bindOption(GPOption option) {
@@ -441,74 +489,22 @@ public class GPDropdown extends GPDefaultInputContainer {
 
     // endregion
 
-    // region Drawable Scaling Methods
+    // region GPErrorDisplayable implementation
 
-    /**
-     * Scales a drawable to the desired icon size while maintaining aspect ratio
-     * @param originalDrawable The original drawable to scale
-     * @return Scaled drawable with proper bounds set
-     */
-    private Drawable scaleDrawableToIconSize(Drawable originalDrawable) {
-        int targetIconSize = dpToPx(ICON_SIZE_DP);
-
-        ScaleInfo scaleInfo = calculateScaling(originalDrawable, targetIconSize);
-
-        if (originalDrawable instanceof VectorDrawable) {
-            return createScaledVectorDrawable(originalDrawable, scaleInfo);
-        } else if (originalDrawable instanceof BitmapDrawable) {
-            return createScaledBitmapDrawable((BitmapDrawable) originalDrawable, scaleInfo);
-        }
-
-        return originalDrawable;
+    @Override
+    public void setErrorMessage(CharSequence errorMessage) {
+        errorTextView.setText(errorMessage);
+        animateVisibility(errorView, true);
+        setState(GPInputState.ERROR);
     }
 
-    private ScaleInfo calculateScaling(Drawable drawable, int targetSize) {
-        int originalWidth = drawable.getIntrinsicWidth();
-        int originalHeight = drawable.getIntrinsicHeight();
-        
-        float widthRatio = (float) targetSize / originalWidth;
-        float heightRatio = (float) targetSize / originalHeight;
-        float scaleFactor = Math.min(widthRatio, heightRatio);
-        
-        int scaledWidth = (int) (originalWidth * scaleFactor);
-        int scaledHeight = (int) (originalHeight * scaleFactor);
-        
-        return new ScaleInfo(scaledWidth, scaledHeight);
-    }
-
-    private Drawable createScaledVectorDrawable(Drawable vectorDrawable, ScaleInfo scaleInfo) {
-        Bitmap bitmap = Bitmap.createBitmap(scaleInfo.width, scaleInfo.height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        
-        vectorDrawable.setBounds(0, 0, scaleInfo.width, scaleInfo.height);
-        vectorDrawable.draw(canvas);
-        
-        BitmapDrawable scaledDrawable = new BitmapDrawable(getResources(), bitmap);
-        return createInsetDrawable(scaledDrawable, scaleInfo);
-    }
-
-    private Drawable createScaledBitmapDrawable(BitmapDrawable bitmapDrawable, ScaleInfo scaleInfo) {
-        Bitmap originalBitmap = bitmapDrawable.getBitmap();
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, scaleInfo.width, scaleInfo.height, true);
-        
-        BitmapDrawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
-        return createInsetDrawable(scaledDrawable, scaleInfo);
-    }
-
-    private Drawable createInsetDrawable(Drawable drawable, ScaleInfo scaleInfo) {
-        int inset = dpToPx(DRAWABLE_INSET_DP);
-        Drawable insetDrawable = new InsetDrawable(drawable, 0, inset, 0, 0);
-        insetDrawable.setBounds(0, 0, scaleInfo.width, scaleInfo.height);
-        return insetDrawable;
-    }
-
-    private static class ScaleInfo {
-        final int width;
-        final int height;
-        
-        ScaleInfo(int width, int height) {
-            this.width = width;
-            this.height = height;
+    @Override
+    public void clearError() {
+        animateVisibility(errorView, false);
+        if (selectedItem != null) {
+            setState(GPInputState.FILLED_INACTIVE);
+        } else {
+            setState(GPInputState.DEFAULT);
         }
     }
 

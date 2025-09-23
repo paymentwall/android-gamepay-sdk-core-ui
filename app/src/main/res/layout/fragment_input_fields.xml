@@ -91,6 +91,12 @@
         app:hintText="Choose country"
         />
 
+    <com.terminal3.gpcoreui.components.GPCountryDropdown
+        android:id="@+id/countryDropdownNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
     <com.terminal3.gpcoreui.components.GPPrimaryButton
         android:id="@+id/btnOpenForm"
         android:layout_width="match_parent"

@@ -22,14 +22,15 @@
 
     <com.terminal3.gpcoreui.components.GPDefaultEditText
         android:id="@+id/gp_search_edit_text"
+        style="@style/GP.Typography.Body1"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="4dp"
-        android:hint="Search..."
+        android:layout_marginHorizontal="16dp"
+        android:hint="@string/gp_search_hint"
         android:drawableStart="@drawable/gp_ic_search"
         android:drawablePadding="8dp"
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="8dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 

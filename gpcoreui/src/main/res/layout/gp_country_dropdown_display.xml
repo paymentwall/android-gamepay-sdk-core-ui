@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/gp_label"
+        style="@style/GP.Typography.Label1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/gp_text_primary"
+        android:layout_marginBottom="@dimen/gp_input_field_title_margin_bottom"
+        tools:text="Country" />
+
+    <LinearLayout
+        android:id="@+id/gp_country_container"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:background="@drawable/gp_input_bg_default"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/gp_country_flag"
+            style="@style/GPIconBackground.Default"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/gp_flag_placeholder"
+            android:background="@color/gp_transparent"/>
+
+        <TextView
+            android:id="@+id/gp_country_name"
+            style="@style/GP.Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColorHint="@color/gp_text_secondary"
+            android:hint="@string/gp_select_option"
+            tools:text="United States" />
+
+        <ImageView
+            android:id="@+id/gp_dropdown_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/gp_ic_arrow_drop_down"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gp_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/gp_ic_warning_fill" />
+
+        <TextView
+            android:id="@+id/gp_error_text"
+            style="@style/GP.Typography.Label2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textColor="@color/gp_ic_color_error" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/gp_helper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/gp_text_secondary" />
+
+</LinearLayout>
