@@ -196,6 +196,7 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setTax(new BigDecimal("0.00"));
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(new BigDecimal("8.86"));
+        calculation.setTaxRate(10.0);
         calculation.setTaxMessage("Enter a ZIP code to calculate");
 
         // Use the new combined setup method
@@ -316,13 +317,13 @@ public class GPBillInfoViewFragment extends Fragment {
         // Simulate different tax rates based on ZIP code
         BigDecimal taxRate;
         if (zipCode.startsWith("90")) { // California ZIP codes
-            taxRate = new BigDecimal("0.0875"); // 8.75%
+            taxRate = new BigDecimal("8.75"); // 8.75%
         } else if (zipCode.startsWith("10")) { // New York ZIP codes
-            taxRate = new BigDecimal("0.08"); // 8%
+            taxRate = new BigDecimal("8"); // 8%
         } else if (zipCode.startsWith("75")) { // Texas ZIP codes
-            taxRate = new BigDecimal("0.0625"); // 6.25%
+            taxRate = new BigDecimal("6.25"); // 6.25%
         } else {
-            taxRate = new BigDecimal("0.07"); // Default 7%
+            taxRate = new BigDecimal("7"); // Default 7%
         }
         
         BigDecimal subtotal = new BigDecimal("8.86");
@@ -334,6 +335,7 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setTax(tax);
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(total);
+        calculation.setTaxRate(taxRate.doubleValue());
         
         billInfoView.setBillingCalculation(calculation);
         billInfoView.setTaxMessage("");

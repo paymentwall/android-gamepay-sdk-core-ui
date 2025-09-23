@@ -24,34 +24,34 @@ import java.util.List;
 public class GPBillInfoView extends LinearLayout {
 
     // region Properties
-    private GPDropdown countryDropdown;
-    private GPApplyCodeInputView zipCodeInput;
-    private GPDropdown regionDropdown;
-    private GPApplyCodeInputView taxIdInput;
+    public GPDropdown countryDropdown;
+    public GPApplyCodeInputView zipCodeInput;
+    public GPDropdown regionDropdown;
+    public GPApplyCodeInputView taxIdInput;
 
-    private TextView subtotalLabel;
-    private TextView subtotalValue;
-    private TextView taxLabel;
-    private TextView taxValue;
-    private TextView taxMessage;
-    private View discountItem;
-    private TextView discountLabel;
-    private TextView discountValue;
-    private TextView totalLabel;
-    private TextView totalValue;
-    private LinearLayout calculationContainer;
-    private ShimmerFrameLayout shimmerContainer;
-    private LinearLayout fieldsContainer;
-    private ShimmerFrameLayout fieldsShimmerContainer;
+    public TextView subtotalLabel;
+    public TextView subtotalValue;
+    public TextView taxLabel;
+    public TextView taxValue;
+    public TextView taxMessage;
+    public View discountItem;
+    public TextView discountLabel;
+    public TextView discountValue;
+    public TextView totalLabel;
+    public TextView totalValue;
+    public LinearLayout calculationContainer;
+    public ShimmerFrameLayout shimmerContainer;
+    public LinearLayout fieldsContainer;
+    public ShimmerFrameLayout fieldsShimmerContainer;
 
-    private GPBillingConfig currentConfig;
-    private GPBillingCalculation currentCalculation;
+    public GPBillingConfig currentConfig;
+    public GPBillingCalculation currentCalculation;
 
-    private OnBillInfoListener billInfoListener;
-    
-    private GPCountry selectedCountry;
-    private GPRegion selectedRegion;
-    private List<GPCountry> allCountries;
+    public OnBillInfoListener billInfoListener;
+
+    public GPCountry selectedCountry;
+    public GPRegion selectedRegion;
+    public List<GPCountry> allCountries;
 
     // endregion
 
@@ -223,7 +223,7 @@ public class GPBillInfoView extends LinearLayout {
         checkValidationState();
     }
 
-    private void setPreSelectedCountry(GPCountry country) {
+    public void setPreSelectedCountry(GPCountry country) {
         if (country == null) return;
 
         this.selectedCountry = country;
@@ -294,6 +294,7 @@ public class GPBillInfoView extends LinearLayout {
         if (currentCalculation == null) return;
 
         subtotalValue.setText(currentCalculation.getFormattedSubtotal());
+        taxLabel.setText(currentCalculation.getDisplayTaxLabel());
         taxValue.setText(currentCalculation.getFormattedTax());
         discountValue.setText(currentCalculation.getFormattedDiscount());
         totalValue.setText(currentCalculation.getFormattedTotal());
