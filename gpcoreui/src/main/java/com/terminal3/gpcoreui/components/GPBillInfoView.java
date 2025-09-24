@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.terminal3.gpcoreui.R;
@@ -211,6 +212,7 @@ public class GPBillInfoView extends LinearLayout {
         zipCodeInput.clear();
         taxIdInput.clear();
         selectedRegion = null;
+        regionDropdown.setSelectedItem(null, null);
 
         updateFieldVisibility();
         populateRegionsDropdown();
@@ -225,6 +227,9 @@ public class GPBillInfoView extends LinearLayout {
         this.selectedCountry = country;
         // Set the dropdown selection without triggering the listener
         DropdownItem finalTargetItem = new DropdownItem(country.getCountryCode(), country.getCountryName(), country.getFlagUrl());
+        countryDropdown.setSelectedItem(finalTargetItem,
+                ContextCompat.getDrawable(getContext(), R.drawable.gp_flag_placeholder));
+
         if (finalTargetItem.getPhotoUrl() != null && !finalTargetItem.getPhotoUrl().isEmpty()) {
             if (finalTargetItem.getPhotoUrl().toLowerCase().endsWith(".svg")) {
                 SvgLoaderWithBorder.loadSvgWithBorder(

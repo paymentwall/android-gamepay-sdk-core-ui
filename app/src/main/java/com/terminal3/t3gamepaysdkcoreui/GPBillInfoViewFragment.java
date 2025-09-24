@@ -248,7 +248,7 @@ public class GPBillInfoViewFragment extends Fragment {
                 config.setTaxZipCodeEnabled(false);
                 config.setTaxRegionEnabled(true);
                 config.setTaxIdEnabled(false);
-                config.setSelectedRegion("BC");
+                config.setSelectedRegion("");
                 config.setRegions(getCanadianProvinces());
                 break;
                 
