@@ -10,7 +10,6 @@ import android.graphics.drawable.VectorDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -53,6 +53,7 @@ public class GPDropdown extends GPDefaultInputContainer {
     private DropdownItem selectedItem;
     private Drawable leftDrawable;
     private GPDefaultEditText searchEditText;
+    private ImageView ivClose;
     private DropdownAdapter adapter;
 
     // Listeners
@@ -270,6 +271,13 @@ public class GPDropdown extends GPDefaultInputContainer {
 
         // Setup search functionality
         searchEditText = view.findViewById(R.id.gp_search_edit_text);
+        ivClose = view.findViewById(R.id.ivDropdownClose);
+
+        ivClose.setOnClickListener( v -> {
+            hideKeyboard();
+            bottomSheetDialog.dismiss();
+        });
+
         if (isSearchEnabled) {
             searchEditText.setVisibility(View.VISIBLE);
             setupSearchFunctionality();

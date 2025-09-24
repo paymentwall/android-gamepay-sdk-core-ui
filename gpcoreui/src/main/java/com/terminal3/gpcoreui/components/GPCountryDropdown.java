@@ -56,6 +56,7 @@ public class GPCountryDropdown extends LinearLayout implements GPOptionView, GPE
     private DropdownItem selectedItem;
     private DropdownAdapter adapter;
     private GPDefaultEditText searchEditText;
+    private ImageView ivClose;
 
     // Listeners
     private OnItemSelectedListener itemSelectedListener;
@@ -333,6 +334,12 @@ public class GPCountryDropdown extends LinearLayout implements GPOptionView, GPE
 
         // Setup search functionality
         searchEditText = view.findViewById(R.id.gp_search_edit_text);
+        ivClose = view.findViewById(R.id.ivDropdownClose);
+        ivClose.setOnClickListener( v -> {
+            hideKeyboard();
+            bottomSheetDialog.dismiss();
+        });
+
         if (isSearchEnabled) {
             searchEditText.setVisibility(View.VISIBLE);
             setupSearchFunctionality();
