@@ -10,6 +10,7 @@ public class GPBillingConfig {
     private boolean is_tax_zip_code_enabled;
     private boolean is_tax_region_enabled;
     private boolean is_tax_id_enabled;
+    private boolean is_allow_country_switcher;
     private String selected_region;
     private String selected_zip;
     private String selected_tax_id;
@@ -77,6 +78,14 @@ public class GPBillingConfig {
 
     public void setTaxIdEnabled(boolean taxIdEnabled) {
         this.is_tax_id_enabled = taxIdEnabled;
+    }
+
+    public boolean isAllowCountrySwitcher() {
+        return is_allow_country_switcher;
+    }
+
+    public void setIsAllowCountrySwitcher(boolean is_allow_country_switcher) {
+        this.is_allow_country_switcher = is_allow_country_switcher;
     }
 
     public String getSelectedRegion() {

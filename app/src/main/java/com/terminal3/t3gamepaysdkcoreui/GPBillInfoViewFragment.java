@@ -239,6 +239,7 @@ public class GPBillInfoViewFragment extends Fragment {
                 config.setTaxIdEnabled(true);
                 config.setSelectedZip("99823");
                 config.setSelectedTaxId("xxxxxx");
+                config.setIsAllowCountrySwitcher(true);
                 break;
                 
             case "CA":
@@ -250,6 +251,7 @@ public class GPBillInfoViewFragment extends Fragment {
                 config.setTaxIdEnabled(false);
                 config.setSelectedRegion("");
                 config.setRegions(getCanadianProvinces());
+                config.setIsAllowCountrySwitcher(true);
                 break;
                 
             case "DE":
@@ -261,6 +263,19 @@ public class GPBillInfoViewFragment extends Fragment {
                 config.setTaxIdEnabled(true);
                 config.setSelectedZip("");
                 config.setSelectedTaxId("");
+                config.setIsAllowCountrySwitcher(true);
+                break;
+
+            case "VN":
+                config.setCountryCode("VN");
+                config.setTaxEnabled(true);
+                config.setCouponEnabled(false);
+                config.setTaxZipCodeEnabled(true);
+                config.setTaxRegionEnabled(false);
+                config.setTaxIdEnabled(true);
+                config.setSelectedZip("");
+                config.setSelectedTaxId("");
+                config.setIsAllowCountrySwitcher(false);
                 break;
                 
             default:

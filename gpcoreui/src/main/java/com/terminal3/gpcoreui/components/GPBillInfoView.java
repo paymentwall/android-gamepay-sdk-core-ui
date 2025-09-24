@@ -213,6 +213,7 @@ public class GPBillInfoView extends LinearLayout {
         taxIdInput.clear();
         selectedRegion = null;
         regionDropdown.setSelectedItem(null, null);
+        countryDropdown.setEnable(config.isAllowCountrySwitcher());
 
         updateFieldVisibility();
         populateRegionsDropdown();
