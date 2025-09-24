@@ -47,18 +47,19 @@ public class GPAgreementTextView extends AppCompatTextView {
             @NonNull String tosUrl,
             @NonNull String privacyLabel,
             @NonNull String privacyUrl,
-            @NonNull String merchantName
+            @NonNull String merchantName,
+            @NonNull String extraDisclaimerText
     ) {
         this.tosLabel = tosLabel;
         this.tosUrl = tosUrl;
         this.privacyLabel = privacyLabel;
         this.privacyUrl = privacyUrl;
         this.merchantName = merchantName;
-        updateText();
+        updateText(extraDisclaimerText);
     }
 
-    private void updateText() {
-        String fullText = getContext().getString(R.string.gp_agreement_text, merchantName, tosLabel, privacyLabel);
+    public void updateText(String extraText) {
+        String fullText = getContext().getString(R.string.gp_agreement_text, merchantName, tosLabel, privacyLabel, extraText);
         SpannableStringBuilder builder = new SpannableStringBuilder(fullText);
 
         addLink(builder, fullText.indexOf(tosLabel), tosLabel.length(), () -> openUrl(tosUrl));

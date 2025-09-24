@@ -128,7 +128,7 @@ public class GPBillInfoView extends LinearLayout {
 
     private void setupListeners() {
         countryDropdown.setLabel(getContext().getString(R.string.gp_country));
-        countryDropdown.setHintText(getContext().getString(R.string.gp_country));
+        countryDropdown.setHintText(getContext().getString(R.string.gp_country_select_title));
         countryDropdown.setSearchEnabled(true);
         countryDropdown.setOnItemSelectedListener(item -> {
             if (billInfoListener != null) {
@@ -152,8 +152,8 @@ public class GPBillInfoView extends LinearLayout {
             }
         });
 
-        regionDropdown.setLabel("State/Province");
-        regionDropdown.setHintText("Select state/province");
+        regionDropdown.setLabel("State");
+        regionDropdown.setHintText("Select a state");
         regionDropdown.setOnItemSelectedListener(item -> {
             if (billInfoListener != null) {
                 GPRegion region = findRegionByCode(item.getId());

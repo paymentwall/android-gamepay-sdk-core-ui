@@ -29,7 +29,8 @@ public class GPAgreementTextViewFragment extends Fragment {
                 "https://www.fasterpay.com/terms-of-service",
                 "Privacy Policy", 
                 "https://www.fasterpay.com/privacy-policy",
-                "FasterPay"
+                "FasterPay",
+                "\nThank you for choosing FasterPay."
         );
     }
 }

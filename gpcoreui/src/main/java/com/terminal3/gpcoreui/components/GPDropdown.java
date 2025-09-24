@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -292,6 +293,10 @@ public class GPDropdown extends GPDefaultInputContainer {
             bottomSheetDialog.dismiss();
         }, selectedItem);
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.gp_divider_default));
+        recyclerView.addItemDecoration(divider);
 
         bottomSheetDialog.setContentView(view);
 
