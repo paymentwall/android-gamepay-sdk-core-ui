@@ -58,6 +58,14 @@ public class GPAgreementTextView extends AppCompatTextView {
         updateText(extraDisclaimerText);
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        // Force the text color to stay the same regardless of enabled state
+        setTextColor(getContext().getColor(R.color.gp_text_primary)); // Your normal text color
+        invalidate();
+    }
+
     public void updateText(String extraText) {
         String fullText = getContext().getString(R.string.gp_agreement_text, merchantName, tosLabel, privacyLabel, extraText);
         SpannableStringBuilder builder = new SpannableStringBuilder(fullText);

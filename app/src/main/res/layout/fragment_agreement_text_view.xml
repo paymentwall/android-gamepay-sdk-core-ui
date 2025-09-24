@@ -29,4 +29,10 @@
         android:layout_marginTop="16dp"
         />
 
+    <com.terminal3.gpcoreui.components.GPPrimaryButton
+        android:id="@+id/btnDisableView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Disable View"/>
+
 </LinearLayout>
