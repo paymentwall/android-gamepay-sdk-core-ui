@@ -310,10 +310,10 @@ public class GPBillInfoView extends LinearLayout {
         if (calculation.getTax().compareTo(BigDecimal.ZERO) > 0) {
             currentCalculation.setTaxMessage("");
         }
-        else if (currentConfig.isTaxZipCodeEnabled()) {
+        else if (currentConfig.isTaxZipCodeEnabled() && currentConfig.getSelectedZip().isEmpty()) {
             currentCalculation.setTaxMessage(getResources().getString(R.string.gp_msg_enter_a_zip_code_to_calculate));
         }
-        else if (currentConfig.isTaxRegionEnabled()) {
+        else if (currentConfig.isTaxRegionEnabled() && currentConfig.getSelectedRegion().isEmpty()) {
             currentCalculation.setTaxMessage(getResources().getString(R.string.gp_msg_select_a_state_to_calculate));
         }
         else {
