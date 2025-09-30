@@ -12,6 +12,7 @@ public class GPBillingCalculation {
     private BigDecimal discount;
     private BigDecimal total;
     private String taxMessage;
+    private String currencySign;
 
     public GPBillingCalculation() {
         this.subtotal = BigDecimal.ZERO;
@@ -20,6 +21,7 @@ public class GPBillingCalculation {
         this.discount = BigDecimal.ZERO;
         this.total = BigDecimal.ZERO;
         this.taxMessage = "";
+        this.currencySign = "$";
     }
 
     public GPBillingCalculation(BigDecimal subtotal, BigDecimal tax, BigDecimal discount, BigDecimal total, double taxRate) {
@@ -94,6 +96,13 @@ public class GPBillingCalculation {
     public String getFormattedTotal() {
         return formatAmount(total);
     }
+    public String getCurrencySign() {
+        return currencySign;
+    }
+
+    public void setCurrencySign(String currencySign) {
+        this.currencySign = currencySign;
+    }
 
     public String getDisplayTaxLabel() {
         if (taxRate > 0) {
@@ -116,8 +125,8 @@ public class GPBillingCalculation {
 
     private String formatAmount(BigDecimal amount) {
         if (amount == null) {
-            return "$0.00";
+            return currencySign + "0.00";
         }
-        return String.format("$%.2f", amount);
+        return String.format("%s%.2f",currencySign, amount);
     }
 }

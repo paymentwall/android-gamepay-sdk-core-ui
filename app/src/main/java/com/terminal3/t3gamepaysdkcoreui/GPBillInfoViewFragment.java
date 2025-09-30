@@ -33,6 +33,8 @@ public class GPBillInfoViewFragment extends Fragment {
     private Handler handler = new Handler(Looper.getMainLooper());
     private List<GPCountry> allCountries;
 
+    private String selectedCurrencySign = "₫";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,10 +71,12 @@ public class GPBillInfoViewFragment extends Fragment {
                         resetBillingCalculation();
                         loadBillingConfigForCountry(country.getCountryCode());
                         if (country.getCountryCode().equals("VN")) {
+//                            selectedCurrencySign = "₫";
                             billInfoView.vTaxContainer.setVisibility(View.GONE);
                             billInfoView.countryDropdown.setEnable(false);
                         }
                         else {
+//                            selectedCurrencySign = "$";
                             billInfoView.vTaxContainer.setVisibility(View.VISIBLE);
                             billInfoView.countryDropdown.setEnable(true);
                         }
@@ -205,6 +209,7 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(new BigDecimal("8.86"));
         calculation.setTaxRate(10.0);
+        calculation.setCurrencySign(selectedCurrencySign);
 
         // Use the new combined setup method
         billInfoView.setupBillingWithPreSelectedCountry(config, calculation, allCountries, preSelectedCountry);
@@ -326,7 +331,8 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setTax(new BigDecimal("0.00"));
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(new BigDecimal("8.86"));
-        
+        calculation.setCurrencySign(selectedCurrencySign);
+
         billInfoView.setBillingCalculation(calculation);
         billInfoView.setTaxMessage("");
         
@@ -358,6 +364,7 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(total);
         calculation.setTaxRate(taxRate.doubleValue());
+        calculation.setCurrencySign(selectedCurrencySign);
         
         billInfoView.setBillingCalculation(calculation);
     }
@@ -392,6 +399,7 @@ public class GPBillInfoViewFragment extends Fragment {
         calculation.setTax(tax);
         calculation.setDiscount(new BigDecimal("0.00"));
         calculation.setTotal(total);
+        calculation.setCurrencySign(selectedCurrencySign);
         
         billInfoView.setBillingCalculation(calculation);
     }
@@ -408,6 +416,7 @@ public class GPBillInfoViewFragment extends Fragment {
             calculation.setTax(new BigDecimal("0.00"));
             calculation.setDiscount(discount);
             calculation.setTotal(total);
+            calculation.setCurrencySign(selectedCurrencySign);
             
             billInfoView.setBillingCalculation(calculation);
         }
